@@ -87,6 +87,14 @@ body {
     background-color: #282828;
 }
 
+.portadas img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    display: block;
+}
 
 .reproductor {
     grid-area: area-reproductor;
