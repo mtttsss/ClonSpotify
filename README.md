@@ -14,3 +14,4 @@ Lo unico necesario para poder visualizar el proyecto, es tener un buscador, ya s
    https://github.com/mtttsss/ClonSpotify
 2. Navegar a la carpeta del proyecto.
 3. Abrir el archivo "index.html" directamente en el navegador.
+4. hola 
