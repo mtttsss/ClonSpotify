@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Biblioteca - TENJI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor"> 
+    <aside class="barra">
+     <a href="index.html">
+             <img src="tenji.png" alt="logo" class="logosuperior">
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#input-buscador">Buscar</a></li>
+                    <li><a href="biblioteca.html">Tu Biblioteca</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="principal">
+            
+            <div class="barra-superior">
+                <div class="buscador">
+                    <span>🔍</span>
+                    <input type="text" id="input-buscador" placeholder="Buscar en biblioteca">
+                </div>
+
+                <a href="login.html" class="botonlogin">INICIAR SESION</a>
+            </div>
+
+            <h1>Tu biblioteca</h1>
+            <p>Guarda tus canciones y crea tus propias playlists</p>
+
+            <section class="albumes" style="margin-top: 40px;">
+                <h2>Mis Playlist</h2>
+                <div class="orden-portadas">
+                    
+                    <article class="portadas">
+                        <img src="https://i.scdn.co/image/ab67616d0000b273b17e8d2b2d2d768ef40aa348" alt="Playlist 1">
+                        <h4>Playlist 1</h4>
+                        <p>De USUARIO</p>
+                    </article>
+
+                    <article class="portadas">
+                        <img src="https://i.scdn.co/image/ab67616d0000b27343bb1b887f63c961473ff573" alt="Playlist 2">
+                        <h4>Playlist 2</h4>
+                        <p>De USUARIO</p>
+                    </article>
+
+                    <article class="portadas">
+                        <img src="https://images.portaldisc.com/l/discos/430/136.jpg" alt="Playlist 3">
+                        <h4>Playlist 3</h4>
+                        <p>De USUARIO</p>
+                    </article>
+                    
+                    <article class="portadas">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/011/912/003/small_2x/plus-sign-icon-free-png.png" alt="Crear Playlist">
+                        <h4>Crear playlist</h4>
+                        <p>Nueva lista</p>
+                    </article>
+
+                </div>
+            </section>
+
+            <section class="albumes" style="margin-top: 40px;">
+                <h2>Mis likes</h2>
+                <div class="orden-portadas">
+                    
+                    <article class="portadas">
+                        <img src="https://dojiw2m9tvv09.cloudfront.net/36300/product/r-2663769-1296664419-jpeg3642.jpg" alt="Canción likeada 1">
+                        <h4>Sextape</h4>
+                        <p>Deftones</p>
+                    </article>
+
+                    <article class="portadas">
+                        <img src="https://i.scdn.co/image/ab67616d0000b273a6e8e8f13522b98388681662" alt="Canción likeada 2">
+                        <h4>CUANTO MAS QUIERES</h4>
+                        <p>Ober</p>
+                    </article>
+                    
+                    <article class="portadas">
+                        <img src="https://cdn-images.dzcdn.net/images/artist/4043a9cb2bdc555fa70ded87e7c80b2e/1900x1900-000000-80-0-0.jpg" alt="Canción likeada 3">
+                        <h4>Bahia Catalina</h4>
+                        <p>Baby J & Young Weapon</p>
+                    </article>
+
+                    <article class="portadas">
+                        <img src="https://i.scdn.co/image/ab67616d0000b273571b81393b9b40ca2b153c55" alt="Canción likeada 4">
+                        <h4>Simplemente</h4>
+                        <p>Leo Rey</p>
+                    </article>
+
+                </div>
+            </section>
+
+         </main>
+                
+         <footer class="reproductor">
+            <div class="info-cancion">
+                <img src="https://via.placeholder.com/50" alt="Portada de la canción">
+                <div class="detalles-cancion">
+                    <h4>Nombre de la Canción</h4>
+                    <p>Artista</p>
+                </div>
+                <button class="like" style="color: #7b2cbf;">♥</button>
+            </div>
+
+            <div class="controles-centrales">
+                <div class="botones">
+                    <button class="anterior">⏮</button>
+                    <button class="play">▶</button>
+                    <button class="siguiente">⏭</button>
+                </div>
+                <div class="duracion">
+                    <span class="tiempo-actual">0:00</span>
+                    <input type="range" class="barra-progreso" min="0" max="100" value="0">
+                    <span class="tiempo-total">3:30</span>
+                </div>
+            </div>
+
+            <div class="volumen">
+                <span>🔊</span>
+                <input type="range" class="barra-volumen" min="0" max="100" value="50">
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
