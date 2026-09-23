@@ -28,3 +28,15 @@ botonLike.addEventListener('click', (e) => {
 });
 
 // que se rellene el boton del like al hacer click
+
+const botonPlay = document.querySelector('.play');
+
+botonPlay.addEventListener('click', (e) => {
+    if (botonPlay.textContent === '▶') {
+        botonPlay.textContent = '⏸';
+    } else {
+        botonPlay.textContent = '▶';
+    }
+});
+
+// que se cambie el boton de play a pause al hacer click
