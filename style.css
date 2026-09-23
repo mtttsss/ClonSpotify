@@ -379,7 +379,7 @@ body {
     transition: border-color 0.3s ease;
     box-sizing: border-box;
 }
-
+add
 .g1 input::placeholder {
     color: #444444;
 }
@@ -513,4 +513,54 @@ body {
 
 .registro a {
     color: white;
+}
+/* todoperfil */
+
+.cabeceraperfil {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+
+.foto-perfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.tipoperfil {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #a7a7a7;
+    margin-bottom: 0;
+}
+
+.nombreperfil {
+    font-size: 48px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.estadisticasperfil {
+    color: #a7a7a7;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.seccion-espaciada {
+    margin-top: 40px;
+}
+
+.portadas-centradas {
+    text-align: center;
+}
+
+.portadas img.foto-redonda {
+    border-radius: 50%;
 }
