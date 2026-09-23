@@ -440,3 +440,77 @@ body {
 .registro a:hover {
     color: #7b2cbf;
 }
+
+.bodyregistro {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.headerregistro {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.logoregistro {
+    width: 200px;
+}
+
+.cajaRegister {
+    width: 420px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.cajaRegister h1 {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+.g1 {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.g1 label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.g1 input {
+    width: 100%;
+    padding: 10px;
+    background-color: #121212;
+    border: 1px solid #727272;
+    border-radius: 4px;
+    color: white;
+    box-sizing: border-box;
+}
+
+.botonregistro {
+    width: 100%;
+    padding: 12px;
+    background-color: #7b2cbf;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.botonregistro:hover {
+    background-color: #9d4edd;
+}
+
+.separador {
+    margin: 20px 0;
+    border: 0.5px solid #333;
+}
+
+.registro a {
+    color: white;
+}
