@@ -24,12 +24,13 @@ body {
 .barra {
     grid-area: area-lateral;
     background-color: #121212;
-    padding: 24px;
+    padding: 0px 24px 24px 24px;
 }
 
-.barra h2{
-    font-size: 24px;
-    margin-bottom: 30px;
+.logosuperior {
+    max-width: 200px;
+    margin-bottom: 1px;
+    display: block;
 }
 
 .barra ul{
@@ -227,29 +228,48 @@ body {
 
 
 .botonlogin{
-    background-color : #ffffff;
+    background-color: #3c3cc5;
     padding: 12px 24px;
     border-radius: 20px;
     text-decoration: none;
-    position: relative;
-  grid-area: area-lateral;
     cursor: pointer;
-    color: #000;
+    color: #FFF;
     font-size: 16px;
     transition: background-color 0.3s;
 }
 
 .botonlogin:hover{
-    background-color: #1db954;
+    background-color: #ffffff;
     outline: none;
     appearance: none;
-    color: #fff;
+    color: #3c3cc5;
 }
 
+
 .barra-superior{
-  display: flex;
+    display: flex;
     width: 100%;
-    justify-content: flex-end;
-    align-items: flex-start;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px;
 }
+
+.buscador{
+    display: flex;
+    align-items: center;
+    background-color: #242424;
+    padding: 10px 15px;
+    border-radius: 20px;
+    width: 300px;
+}
+
+.buscador input{
+    background: transparent;
+    border: none;
+    color: #fff;
+    width: 100%;
+    outline: none;
+    margin-left: 10px;
+}
+
 
