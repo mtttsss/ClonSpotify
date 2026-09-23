@@ -98,6 +98,13 @@ body {
     display: block;
 }
 
+.info-cancion img {
+    border-radius: 4px;
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+}
+
 .reproductor {
     grid-area: area-reproductor;
     background-color: #000;

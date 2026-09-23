@@ -40,3 +40,22 @@ botonPlay.addEventListener('click', (e) => {
 });
 
 // que se cambie el boton de play a pause al hacer click
+
+
+const selectorImagen = document.querySelector('.info-cancion img');
+const selectorNombre = document.querySelector('.reproductorTitulo');
+const selectorArtista = document.querySelector('.reproductorArtista');
+
+const albumes = document.querySelectorAll('.portadas');
+
+albumes.forEach((album) => {
+    album.addEventListener('click', (e) => {
+        const imagen = album.querySelector('img').src;
+        const nombre = album.querySelector('.albumTitulo').textContent;
+        const artista = album.querySelector('.albumArtista').textContent;
+
+        selectorImagen.src = imagen;
+        selectorNombre.textContent = nombre;
+        selectorArtista.textContent = artista;
+    });
+}); 
