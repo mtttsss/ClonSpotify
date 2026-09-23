@@ -87,6 +87,14 @@ body {
     background-color: #282828;
 }
 
+.portadas img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    display: block;
+}
 
 .reproductor {
     grid-area: area-reproductor;
@@ -215,3 +223,33 @@ body {
 .barra-volumen:hover {
     background: #1db954;
 }
+
+
+
+.botonlogin{
+    background-color : #ffffff;
+    padding: 12px 24px;
+    border-radius: 20px;
+    text-decoration: none;
+    position: relative;
+  grid-area: area-lateral;
+    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.botonlogin:hover{
+    background-color: #1db954;
+    outline: none;
+    appearance: none;
+    color: #fff;
+}
+
+.barra-superior{
+  display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
