@@ -382,7 +382,7 @@ body {
     transition: border-color 0.3s ease;
     box-sizing: border-box;
 }
-add
+
 .g1 input::placeholder {
     color: #444444;
 }
@@ -565,4 +565,9 @@ add
 
 .portadas img.foto-redonda {
     border-radius: 50%;
+}
+
+.barra a.activo {
+    color: #5e17eb;
+    font-weight: 800;
 }
