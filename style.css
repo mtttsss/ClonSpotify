@@ -179,6 +179,19 @@ body {
     font-size: 26px; 
 }
 
+.reproductor button {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    cursor: pointer;
+}
+.reproductor button:hover {
+    transform: scale(1.15);
+    opacity: 0.85;
+}
+.reproductor button:active {
+    transform: scale(0.95);
+}
+
+
 .duracion {
     display: flex;
     align-items: center;
