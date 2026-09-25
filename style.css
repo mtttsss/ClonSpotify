@@ -49,8 +49,12 @@ body {
     transition: color 0.3s ease;
 }
 
-.barra a:hover{
-    color: #fff;
+.barra a:hover {
+    background-color: #5e17eb; 
+    color: #ffffff;           
+    border-radius: 6px;                   
+    box-shadow: 0px 4px 12px rgba(94, 23, 235, 0.5); 
+    transform: translateX(3px);          
 }
 
 .principal {
@@ -571,3 +575,4 @@ body {
     color: #5e17eb;
     font-weight: 800;
 }
+
