@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TENJI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor">
+        
+        <aside class="barra">
+            <a href="index.html">
+                <img src="tenji.png" alt="logo" class="logosuperior">
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#input-buscador">Buscar</a></li>
+                    <li><a href="biblioteca.html">Tu Biblioteca</a></li>
+                    <li><a href="perfil.html">Mi perfil</a></li>
+                    <li><a class="activo" href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        
+        <main class="principal">
+            
+            <div class="barra-superior">
+                <div class="buscador">
+                    <span>🔍</span>
+                    <input type="text" id="input-buscador" placeholder="Buscar en estadísticas...">
+                </div>
+
+                <a href="login.html" class="botonlogin">INICIAR SESION</a>
+            </div>
+
+            <h1 class="dash-titulo">Panel de Control</h1>
+            <p class="dash-subtitulo">Métricas y estadísticas personalizadas de tu actividad en TENJI</p>
+
+            
+            <section class="dash-seccion">
+                <h2 class="dash-seccion-titulo">Resumen Mensual</h2>
+                <div class="dash-grid-stats">
+                    
+                    <article class="dash-card-stat">
+                        <span class="dash-stat-icon">🎧</span>
+                        <h3 class="dash-stat-valor">124 hrs</h3>
+                        <p class="dash-stat-label">Tiempo Escuchado</p>
+                        <span class="dash-badge positivo">+15% este mes</span>
+                    </article>
+
+                    <article class="dash-card-stat">
+                        <span class="dash-stat-icon">🎵</span>
+                        <h3 class="dash-stat-valor">348</h3>
+                        <p class="dash-stat-label">Canciones Tocadas</p>
+                        <span class="dash-badge positivo">+12% este mes</span>
+                    </article>
+
+                    <article class="dash-card-stat">
+                        <span class="dash-stat-icon">🌟</span>
+                        <h3 class="dash-stat-valor">18</h3>
+                        <p class="dash-stat-label">Artistas Nuevos</p>
+                        <span class="dash-badge neutro">Exploración alta</span>
+                    </article>
+
+                    <article class="dash-card-stat">
+                        <span class="dash-stat-icon">👑</span>
+                        <h3 class="dash-stat-valor">Top 1%</h3>
+                        <p class="dash-stat-label">Oyente de Easykid</p>
+                        <span class="dash-badge especial">Fan Destacado</span>
+                    </article>
+
+                </div>
+            </section>
+
+            
+            <section class="dash-seccion">
+                <h2 class="dash-seccion-titulo">Artistas Más Escuchados</h2>
+                <div class="dash-lista-artistas">
+                    
+                    <div class="dash-artista-item">
+                        <span class="dash-rank">1</span>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXKVjFxgdHlu9AiJ5U4aRRIN1n46Lo-kv7HeWnFXwZFI3ksMEsDOskPe4&s=10" alt="Easykid" class="dash-artista-foto">
+                        <div class="dash-artista-info">
+                            <h4 class="albumTitulo">Easykid</h4>
+                            <p class="albumArtista">Urbano / Reggaeton</p>
+                        </div>
+                        <span class="dash-horas">42 hrs escuchadas</span>
+                    </div>
+
+                    <div class="dash-artista-item">
+                        <span class="dash-rank">2</span>
+                        <img src="https://i.scdn.co/image/ab67616100005174e3ac5eb948e78d9285d1dbdb" alt="Deftones" class="dash-artista-foto">
+                        <div class="dash-artista-info">
+                            <h4 class="albumTitulo">Deftones</h4>
+                            <p class="albumArtista">Alternative Metal</p>
+                        </div>
+                        <span class="dash-horas">28 hrs escuchadas</span>
+                    </div>
+
+                    <div class="dash-artista-item">
+                        <span class="dash-rank">3</span>
+                        <img src="https://i.scdn.co/image/ab6761610000e5eb4293385d324db8558179afd9" alt="Drake" class="dash-artista-foto">
+                        <div class="dash-artista-info">
+                            <h4 class="albumTitulo">Drake</h4>
+                            <p class="albumArtista">Hip-Hop / Rap</p>
+                        </div>
+                        <span class="dash-horas">19 hrs escuchadas</span>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+                
+        
+        <footer class="reproductor">
+            <div class="info-cancion">
+                <img src="https://via.placeholder.com/50" alt="Portada de la canción">
+                <div class="detalles-cancion">
+                    <h4 class="reproductorTitulo">Nombre de la Canción</h4>
+                    <p class="reproductorArtista">Artista</p>
+                </div>
+                <button class="like">♡</button>
+            </div>
+
+            <div class="controles-centrales">
+                <div class="botones">
+                    <button class="anterior">⏮</button>
+                    <button class="play">▶</button>
+                    <button class="siguiente">⏭</button>
+                </div>
+                <div class="duracion">
+                    <span class="tiempo-actual">0:00</span>
+                    <input type="range" class="barra-progreso" min="0" max="100" value="0">
+                    <span class="tiempo-total">3:30</span>
+                </div>
+            </div>
+
+            <div class="volumen">
+                <span>🔊</span>
+                <input type="range" class="barra-volumen" min="0" max="100" value="50">
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
