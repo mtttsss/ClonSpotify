@@ -589,3 +589,124 @@ body {
     font-weight: 800;
 }
 
+/* dashboard */
+
+.dash-titulo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.dash-subtitulo {
+    font-size: 13px;
+    color: #a7a7a7;
+    margin-bottom: 28px;
+}
+
+.dash-seccion-titulo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 28px 0 16px;
+}
+
+.dash-grid-stats,
+.dash-lista-artistas,
+.dash-grid-canciones {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.dash-card-stat {
+    background: #141022;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-stat-valor {
+    color: #6c42f5;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.dash-stat-label {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.dash-badge {
+    color: #a7a7a7;
+    font-size: 12px;
+}
+
+.dash-artista-item {
+    background: #141022;
+    padding: 20px 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.dash-artista-foto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.albumTitulo {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.dash-horas {
+    color: #a7a7a7;
+    font-size: 12px;
+}
+
+.dash-cancion-item {
+    background: #141022;
+    padding: 20px 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.dash-cancion-foto {
+    width: 120px;
+    height: 120px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.dash-cancion-titulo {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.dash-cancion-sub {
+    color: #a7a7a7;
+    font-size: 12px;
+    margin: 0;
+}
+
+.dash-rank {
+    display: none;
+}
