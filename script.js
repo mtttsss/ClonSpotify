@@ -17,27 +17,35 @@ document.addEventListener('keyup', (e) => {
 
 const botonLike = document.querySelector('.like');
 
-botonLike.addEventListener('click', (e) => {
-    if (botonLike.textContent === '♡') {
-        botonLike.textContent = '♥';
-        botonLike.style.color = '#5e17eb';
-    } else {
-        botonLike.textContent = '♡';
-        botonLike.style.color = '#fff';
-    }
-});
+if (botonLike) {
+    botonLike.addEventListener('click', (e) => {
+        if (botonLike.textContent === '♡') {
+            botonLike.textContent = '♥';
+            botonLike.style.color = '#5e17eb';
+        } else {
+            botonLike.textContent = '♡';
+            botonLike.style.color = '#fff';
+        }
+    });
+}
 
 // que se rellene el boton del like al hacer click
 
 const botonPlay = document.querySelector('.play');
 
-botonPlay.addEventListener('click', (e) => {
-    if (botonPlay.textContent === '▶') {
-        botonPlay.textContent = '⏸';
-    } else {
-        botonPlay.textContent = '▶';
-    }
-});
+if (botonPlay) {
+
+    botonPlay.addEventListener('click', (e) => {
+
+        if (botonPlay.textContent === '▶') {
+            botonPlay.textContent = '⏸';
+        } else {
+            botonPlay.textContent = '▶';
+        }
+
+    });
+
+}
 
 // que se cambie el boton de play a pause al hacer click
 
@@ -68,3 +76,105 @@ albumes.forEach((album) => {
     });
 
 });
+
+// para que se visualice en la barra inferior
+
+
+const formLogin = document.getElementById('formLogin');
+
+if (formLogin) {
+
+
+    formLogin.addEventListener('submit', (event) => {
+
+        event.preventDefault();
+    
+        const correo = document.getElementById('correo');
+        const password = document.getElementById('password');
+   
+        const errorCorreo = document.getElementById('errorCorreo');
+        const errorPassword = document.getElementById('errorPassword');
+        
+        errorCorreo.textContent = '';
+        errorPassword.textContent = '';
+
+        let formularioValido = true;
+
+        if (correo.value.trim() === '') {
+            errorCorreo.textContent =
+                'Debes ingresar tu correo o nombre de usuario';
+
+            formularioValido = false;
+        }
+
+        if (password.value.trim() === '') {
+            errorPassword.textContent =
+                'Debes ingresar tu contraseña';
+
+            formularioValido = false;
+        }
+
+        if (formularioValido) {
+            window.location.href = 'index.html';
+        }
+
+    });
+
+}
+
+// Validacion del login con el JavaScript
+
+
+const formRegister = document.getElementById('formRegister');
+
+if (formRegister) {
+
+    formRegister.addEventListener('submit', (event) => {
+
+        event.preventDefault();
+
+        const correo = document.getElementById('correo');
+        const password = document.getElementById('password');
+        const nombre = document.getElementById('nombre');
+
+        const errorCorreo = document.getElementById('errorCorreo');
+        const errorPassword = document.getElementById('errorPassword');
+        const errorNombre = document.getElementById('errorNombre');
+
+        errorCorreo.textContent = '';
+        errorPassword.textContent = '';
+        errorNombre.textContent = '';
+
+        let formularioValido = true;
+
+        if (correo.value.trim() === '') {
+            errorCorreo.textContent = 'Debes ingresar un correo';
+            formularioValido = false;
+        } else if (correo.validity.typeMismatch) {
+            errorCorreo.textContent = 'Ingresa un correo válido';
+            formularioValido = false;
+        }
+
+        if (password.value.trim() === '') {
+            errorPassword.textContent = 'Debes ingresar una contraseña';
+            formularioValido = false;
+        } else if (password.value.length < 8) {
+            errorPassword.textContent = 'Mínimo 8 caracteres';
+            formularioValido = false;
+        }
+
+        if (nombre.value.trim() === '') {
+            errorNombre.textContent = 'Debes ingresar un usuario';
+            formularioValido = false;
+        }
+
+        if (formularioValido) {
+            window.location.href = 'index.html';
+        }
+
+    });
+
+}
+
+
+

@@ -17,15 +17,18 @@
         <section class="caja">
             <h1>Inicia Sesión</h1>
 
-            <form action="index.html">
+            <form id="formLogin" action="index.html" novalidate>
                 <div class="g1">
                     <label for="correo">Dirección de correo electrónico o nombre de usuario</label>
                     <input type="text" id="correo" placeholder="Correo electrónico o nombre de usuario" required>
+                    <small id="errorCorreo" class="mensaje-error"></small>
                 </div>
 
                 <div class="g1">
                     <label for="password">Contraseña</label>
                     <input type="password" id="password" placeholder="Contraseña" required>
+                    <small id="errorPassword" class="mensaje-error"></small>
+
                 </div>
 
                 <a href="#" class="olvidolink">¿Olvidaste tu contraseña?</a>
@@ -41,6 +44,6 @@
         </section>
         
     </main>
-    
+    <script src="script.js"></script>
 </body>
 </html>

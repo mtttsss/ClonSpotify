@@ -710,3 +710,9 @@ body {
 .dash-rank {
     display: none;
 }
+
+.mensaje-error {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 6px;
+}
