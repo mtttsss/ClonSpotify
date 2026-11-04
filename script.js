@@ -46,16 +46,25 @@ const selectorImagen = document.querySelector('.info-cancion img');
 const selectorNombre = document.querySelector('.reproductorTitulo');
 const selectorArtista = document.querySelector('.reproductorArtista');
 
+
 const albumes = document.querySelectorAll('.portadas');
 
 albumes.forEach((album) => {
-    album.addEventListener('click', (e) => {
-        const imagen = album.querySelector('img').src;
-        const nombre = album.querySelector('.albumTitulo').textContent;
-        const artista = album.querySelector('.albumArtista').textContent;
 
-        selectorImagen.src = imagen;
-        selectorNombre.textContent = nombre;
-        selectorArtista.textContent = artista;
+    album.addEventListener('click', () => {
+
+        const imagen = album.querySelector('img');
+        const nombre = album.querySelector('.albumTitulo');
+        const artista = album.querySelector('.albumArtista');
+
+        if (imagen && nombre && artista) {
+
+            selectorImagen.src = imagen.src;
+            selectorNombre.textContent = nombre.textContent;
+            selectorArtista.textContent = artista.textContent;
+
+        }
+
     });
-}); 
+
+});
