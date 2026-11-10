@@ -1,3 +1,27 @@
+// [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
+const usuarioActivo = JSON.parse(localStorage.getItem('sesion_tenji'));
+const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html'];
+const paginaActual = window.location.pathname.split('/').pop();
+
+if (paginasProtegidas.includes(paginaActual) && !usuarioActivo) {
+    window.location.href = 'login.html';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const botonHeader = document.querySelector('.barra-superior .botonlogin');
+    
+    if (botonHeader && usuarioActivo) {
+        botonHeader.textContent = 'CERRAR SESIÓN';
+        botonHeader.href = '#';
+        
+        botonHeader.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('sesion_tenji');
+            window.location.href = 'index.html';
+        });
+    }
+});
+ // [IA] fin 
 
 document.addEventListener('keyup', (e) => {
     if (e.target.matches('.buscador input')) {
@@ -122,8 +146,29 @@ if (formLogin) {
             botonLogin.style.opacity = '0.7';
             botonLogin.style.cursor = 'not-allowed';
 
+            // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
+
             setTimeout(() => {
-                window.location.href = 'dashboard.html'; 
+                const usuarios = JSON.parse(localStorage.getItem('usuarios_tenji')) || [];
+                
+                const usuarioValido = usuarios.find(u => u.correo === correo.value && u.password === password.value);
+
+                if (usuarioValido) {
+                    localStorage.setItem('sesion_tenji', JSON.stringify({
+                        nombre: usuarioValido.nombre,
+                        correo: usuarioValido.correo
+                    }));
+                    
+                    window.location.href = 'dashboard.html'; 
+                } else {
+                    errorPassword.textContent = 'Correo o contraseña incorrectos.';
+                    botonLogin.disabled = false;
+                    botonLogin.textContent = 'Iniciar Sesión';
+                    botonLogin.style.opacity = '1';
+                    botonLogin.style.cursor = 'pointer';
+                }
+                // [IA] fin
+
             }, 1000);
         }
 
@@ -177,21 +222,45 @@ if (formRegister) {
         const botonRegistro = formRegister.querySelector('.botonregistro');
 
         if (formularioValido) {
+            // 1. Deshabilitar el botón y cambiar su estado visual
             botonRegistro.disabled = true;
             botonRegistro.textContent = 'Procesando...';
             botonRegistro.style.opacity = '0.7';
             botonRegistro.style.cursor = 'not-allowed';
-        
-            setTimeout(() => {
-            
-                botonRegistro.style.backgroundColor = '#28a745';
-                botonRegistro.textContent = 'Redirigiendo...';
+
+            // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
+
+            let usuarios = JSON.parse(localStorage.getItem('usuarios_tenji')) || [];
+
+            const usuarioExiste = usuarios.find(u => u.correo === correo.value);
+
+            if (usuarioExiste) {
+                setTimeout(() => {
+                    errorCorreo.textContent = 'Este correo ya está registrado.';
+                    botonRegistro.disabled = false;
+                    botonRegistro.textContent = 'Registrarse';
+                    botonRegistro.style.opacity = '1';
+                    botonRegistro.style.cursor = 'pointer';
+                }, 500);
+            } else {
+                usuarios.push({
+                    nombre: nombre.value,
+                    correo: correo.value,
+                    password: password.value
+                });
+                localStorage.setItem('usuarios_tenji', JSON.stringify(usuarios));
+
+                // [IA] fin
                 
                 setTimeout(() => {
-                    window.location.href = 'login.html'; 
-                }, 1000);
-                
-            }, 2000);
+                    botonRegistro.style.backgroundColor = '#28a745'; 
+                    botonRegistro.textContent = '¡Registro exitoso! Redirigiendo...';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'login.html'; 
+                    }, 1000);
+                }, 1500);
+            }
         }
 
     });
