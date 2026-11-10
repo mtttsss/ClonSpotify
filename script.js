@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'index.html'; 
         });
     }
+    
 });
  // [IA] fin 
 
@@ -303,5 +304,51 @@ if (btnMostrarClave && inputPassword) {
         }
     });
 }
+
+// modal para crear playlist 
+
+document.addEventListener('DOMContentLoaded', () => {
+    const btnCrearPlaylist = document.getElementById('btnCrearPlaylist');
+    const modalPlaylist = document.getElementById('modalPlaylist');
+    const btnCancelarModal = document.getElementById('btnCancelarModal');
+    const btnGuardarModal = document.getElementById('btnGuardarModal');
+    const inputNombrePlaylist = document.getElementById('nombrePlaylist');
+
+    if (btnCrearPlaylist && modalPlaylist) {
+        btnCrearPlaylist.addEventListener('click', () => {
+            modalPlaylist.classList.remove('oculto');
+            if (inputNombrePlaylist) inputNombrePlaylist.focus();
+        });
+
+        const cerrarModal = () => {
+            modalPlaylist.classList.add('oculto');
+            if (inputNombrePlaylist) inputNombrePlaylist.value = '';
+            if (btnGuardarModal) btnGuardarModal.textContent = 'Crear';
+        };
+
+        if (btnCancelarModal) {
+            btnCancelarModal.addEventListener('click', cerrarModal);
+        }
+
+        modalPlaylist.addEventListener('click', (event) => {
+            if (event.target === modalPlaylist) {
+                cerrarModal();
+            }
+        });
+
+        if (btnGuardarModal && inputNombrePlaylist) {
+            btnGuardarModal.addEventListener('click', () => {
+                if (inputNombrePlaylist.value.trim() !== '') {
+                    btnGuardarModal.textContent = 'Creando...';
+                    
+                    setTimeout(() => {
+                        cerrarModal();
+                    }, 1000);
+                }
+            });
+        }
+    }
+});
+
 
 

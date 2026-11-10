@@ -803,3 +803,82 @@ body {
 .oculto {
     display: none !important;
 }
+
+/* modal */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(3px);
+}
+
+.modal-contenido {
+    background-color: #170c2e;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.modal-contenido h3 {
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.modal-contenido p {
+    color: #a7a7a7;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.modal-contenido input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    background-color: #0b0a10;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+}
+
+.modal-botones {
+    display: flex;
+    gap: 15px;
+}
+
+.modal-botones button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.modal-botones button:hover {
+    transform: scale(1.05);
+}
+
+.btn-secundario {
+    background: transparent;
+    color: white;
+    border: 1px solid #a7a7a7;
+}
+
+.btn-primario {
+    background-color: #7b2cbf;
+    color: white;
+    border: none;
+}
