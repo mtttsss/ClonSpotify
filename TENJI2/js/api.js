@@ -11,8 +11,8 @@ function esperar(ms) {
     });
 }
 
-// Obtiene las canciones desde el archivo JSON
-export async function obtenerCanciones() {
+
+export async function obtenerCanciones({ busqueda = "", genero = "" } = {}) {
     await esperar(LATENCIA);
 
     try {
@@ -27,7 +27,26 @@ export async function obtenerCanciones() {
             };
         }
 
-        const canciones = await respuesta.json();
+        // [IA] fin
+
+        let canciones = await respuesta.json();
+
+        if (busqueda) {
+    canciones = canciones.filter((cancion) => {
+        return (
+            cancion.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
+            cancion.artista.toLowerCase().includes(busqueda.toLowerCase())
+                );
+            });
+        }
+
+        if (genero) {
+            canciones = canciones.filter((cancion) => {
+                return cancion.genero.toLowerCase() === genero.toLowerCase();
+            });
+        }
+
+        // [IA] inicio
 
         return {
             ok: true,
