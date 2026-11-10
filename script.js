@@ -77,7 +77,7 @@ albumes.forEach((album) => {
 
 });
 
-// para que se visualice en la barra inferior
+
 
 
 const formLogin = document.getElementById('formLogin');
@@ -114,16 +114,22 @@ if (formLogin) {
             formularioValido = false;
         }
 
+        const botonLogin = formLogin.querySelector('.botonlogin');
+
         if (formularioValido) {
-            window.location.href = 'index.html';
+            botonLogin.disabled = true;
+            botonLogin.textContent = 'Iniciando sesión...';
+            botonLogin.style.opacity = '0.7';
+            botonLogin.style.cursor = 'not-allowed';
+
+            setTimeout(() => {
+                window.location.href = 'dashboard.html'; 
+            }, 1000);
         }
 
     });
 
 }
-
-// Validacion del login con el JavaScript
-
 
 const formRegister = document.getElementById('formRegister');
 
@@ -168,8 +174,24 @@ if (formRegister) {
             formularioValido = false;
         }
 
+        const botonRegistro = formRegister.querySelector('.botonregistro');
+
         if (formularioValido) {
-            window.location.href = 'index.html';
+            botonRegistro.disabled = true;
+            botonRegistro.textContent = 'Procesando...';
+            botonRegistro.style.opacity = '0.7';
+            botonRegistro.style.cursor = 'not-allowed';
+        
+            setTimeout(() => {
+            
+                botonRegistro.style.backgroundColor = '#28a745';
+                botonRegistro.textContent = 'Redirigiendo...';
+                
+                setTimeout(() => {
+                    window.location.href = 'login.html'; 
+                }, 1000);
+                
+            }, 2000);
         }
 
     });
