@@ -1,79 +1,95 @@
-# Login con localStorage, rutas protegidas y cierre de sesión
-**Fecha:** 2026-11-09
-**Integrante:** David Cornejo (@daviidcjcj)
-**Herramienta y modelo:** Gemini
-**Archivos afectados:** script.js
+Implementación de Login, Rutas Protegidas y Sesión
 
-## Objetivo
-Implementar la lectura de credenciales desde localStorage para el login, proteger las vistas privadas (dashboard, biblioteca, perfil) redirigiendo al login si no hay sesión, y cambiar el estado del botón de la barra superior para permitir el cierre de sesión, cumpliendo con los requerimientos A1 y A5 sin usar la capa api.js todavía.
+Fecha: 2026-11-09
+Integrante: David Cornejo (@daviidcjcj)
+Herramienta y modelo: Gemini
+Archivos afectados: script.js
 
-## Conversación
-*contexto previo de lo que implementaremos*
+Objetivo
 
-### Prompt 1
-hagamos el paso 2, para comenzar con la validacion del login
+Implementar la validación de credenciales mediante localStorage para el login, proteger las vistas privadas redirigiendo al login en ausencia de sesión activa, y gestionar dinámicamente el botón de cierre de sesión en la barra superior.
 
-### Respuesta 1
-Vamos con el Paso 2: Hacer que el Login valide los datos y cree la sesión. Con esto cubriremos la exigencia de tener un login funcional que compruebe credenciales reales simuladas.   Busca en tu script.js la sección del Login (formLogin). Vamos a actualizar el bloque if (formularioValido) que pusimos antes para que lea la base de datos que creaste en el registro.Busca y borra este bloque en el login:JavaScript        if (formularioValido) {
-            // Deshabilitar el botón mientras "carga"
-            botonLogin.disabled = true;
-            botonLogin.textContent = 'Iniciando sesión...';
-            // ... (y lo que sigue del setTimeout)
-        }
-Reemplázalo por este código:JavaScript        if (formularioValido) {
-            // 1. Deshabilitar el botón mientras "carga"
+Prompt 1
+
+En la validación del login. modifica donde dice formLogin para que lea 'usuarios_tenji' del localStorage. si el correo y la clave coinciden, que se cree 'sesion_tenji' y redirige al dashboard, si no que muestre error.
+
+Respuesta 1
+
+        if (formularioValido) {
             botonLogin.disabled = true;
             botonLogin.textContent = 'Iniciando sesión...';
             botonLogin.style.opacity = '0.7';
             botonLogin.style.cursor = 'not-allowed';
 
-            // --- NUEVA LÓGICA DE LOGIN CON LOCALSTORAGE ---
             setTimeout(() => {
-                // Traer la lista de usuarios guardados
                 const usuarios = JSON.parse(localStorage.getItem('usuarios_tenji')) || [];
                 
-                // Buscar si existe un usuario que coincida exactamente con el correo y contraseña
                 const usuarioValido = usuarios.find(u => u.correo === correo.value && u.password === password.value);
 
                 if (usuarioValido) {
-                    // Si los datos son correctos, CREAR LA SESIÓN
                     localStorage.setItem('sesion_tenji', JSON.stringify({
                         nombre: usuarioValido.nombre,
                         correo: usuarioValido.correo
                     }));
                     
-                    // Redirigir al dashboard
                     window.location.href = 'dashboard.html'; 
                 } else {
-                    // Si son incorrectos, mostrar error y restaurar el botón
                     errorPassword.textContent = 'Correo o contraseña incorrectos.';
                     botonLogin.disabled = false;
                     botonLogin.textContent = 'Iniciar Sesión';
                     botonLogin.style.opacity = '1';
                     botonLogin.style.cursor = 'pointer';
                 }
-            }, 1000); // Simulamos 1 segundo de latencia del servidor
+            }, 1000);
         }
-¿Qué hace esto y cómo lo pruebas?Compara los datos: El código va al localStorage, lee los usuarios que registraste en el Paso 1 y comprueba si hay un "match" perfecto de correo y contraseña.   Crea la sesión: Si el usuario es válido, crea una nueva llave en el navegador llamada sesion_tenji indicando que esa persona está conectada actualmente.   Rechaza errores: Si pones mal la contraseña o un correo que no existe, frena la redirección y te muestra el mensaje de error correspondiente.Para probarlo:
-Ve a login.html, intenta entrar con un correo inventado y mira cómo te rechaza. Luego, entra con el correo y contraseña que creaste en el paso anterior y verás que te deja pasar a dashboard.html. Además, si abres la pestaña de "Aplicación" (F12) como hicimos antes, verás que ahora existe un nuevo archivo llamado sesion_tenji.Haz la prueba y avísame para pasar al Paso 3 y 4 (Los finales): proteger el dashboard para que nadie entre sin loguearse y habilitar el botón para cerrar la sesión.
 
-### Prompt 2
-antes de seguir, cuantos pasos son para dejar lista esta seccion y hacer el git push
 
-### Respuesta 2
-Solo nos faltan 2 pasos muy cortos para dejar toda la sección de sesiones y autenticación lista para el git push y ganar los puntos completos del criterio A5.   Aquí tienes lo que falta:Paso 3 (Proteger las páginas): Agregar unas líneas al principio de tu script.js que revisen si el usuario está conectado. Si alguien intenta entrar a dashboard.html, biblioteca.html o perfil.html sin estar logueado, lo mandaremos de vuelta al login.html.   Paso 4 (Cerrar sesión): Hacer que el botón de "INICIAR SESION" en la barra superior cambie a "CERRAR SESIÓN" si el usuario ya entró, y que al hacerle clic borre la sesión y lo devuelva al inicio.   Ambos pasos se hacen agregando un solo bloque de código al principio de tu archivo script.js.¿Te envío el código para liquidar estos dos últimos pasos de una vez?
+Prompt 2
 
-### Prompt 3
-hagamos el paso 3
+bien, ahora hagamos la protección de las rutas y del cierre de sesión. haz que se verifique si existe la sesión en localStorage, si un usuario intenta entrar al dashboard, perfil o biblioteca sin haber iniciado sesión para que lo rediriga. tambien ajusta el botón de la barra superior para permitir cerrar la sesión.
 
-### Respuesta 3
-*(Copia y pega aquí EXACTAMENTE mi respuesta anterior donde te di el código de las rutas protegidas y el botón de cerrar sesión)*
+Respuesta 2
 
-## Qué se incorporó al proyecto
-Se incorporó la lógica completa generada por la IA en `script.js`:
-1. En el event listener de `formLogin`, se agregó la validación que busca coincidencias en `usuarios_tenji` y crea la llave `sesion_tenji` en localStorage.
-2. Al inicio del archivo, se agregó el arreglo `paginasProtegidas` y la validación de `window.location.pathname` para redirigir al login si `usuarioActivo` es null.
-3. Se agregó un `DOMContentLoaded` que modifica el botón `.botonlogin` de la barra superior para borrar la sesión y redirigir al index.
+const usuarioActivo = JSON.parse(localStorage.getItem('sesion_tenji'));
+const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html'];
+const paginaActual = window.location.pathname.split('/').pop();
 
-## Verificación
-Se probó ingresar con credenciales inválidas (mostró error) y válidas (permitió el paso al dashboard). Se intentó acceder a `dashboard.html` mediante la URL directa en modo incógnito y el sistema redirigió exitosamente a `login.html`. Finalmente, al hacer clic en "CERRAR SESIÓN", se borró el dato del localStorage y devolvió al inicio.
+if (paginasProtegidas.includes(paginaActual) && !usuarioActivo) {
+    window.location.href = 'login.html';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const botonHeader = document.querySelector('.barra-superior .botonlogin');
+    
+    if (botonHeader && usuarioActivo) {
+        botonHeader.textContent = 'CERRAR SESIÓN';
+        botonHeader.href = '#'; 
+        
+        botonHeader.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('sesion_tenji'); 
+            window.location.href = 'index.html'; 
+        });
+    }
+});
+
+
+Qué se incorporó al proyecto
+
+Se incorporó la lógica estructurada en script.js:
+
+Validación de Login: Consulta de credenciales en el arreglo usuarios_tenji de localStorage y generación de la variable sesion_tenji.
+
+Protección de rutas: Validación de window.location.pathname para expulsar usuarios no autenticados de páginas privadas.
+
+Cierre de sesión: Modificación del botón en el header para cerrar la sesión al hacer clic.
+
+Verificación
+
+Rechazo de credenciales inválidas con mensaje de error visual.
+
+Éxito en el login generando la persistencia  y redirección al dashboard.
+
+Interceptación y redirección obligatoria al intentar entrar a rutas protegidas sin sesión.
+
+Eliminación de la sesión y retorno al inicio al usar el botón de cierre de sesión.
