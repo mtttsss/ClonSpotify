@@ -16,9 +16,11 @@ function esperar(ms) {
 
 export async function obtenerCanciones({
     busqueda = "",
-    genero = ""
-} = {}) {
-    await esperar(LATENCIA);
+    genero = "",
+    ordenarPor = ""
+    } = {}){
+    
+        await esperar(LATENCIA);
 
     try {
         const respuesta = await fetch("./mocks/canciones.json");
@@ -58,6 +60,28 @@ export async function obtenerCanciones({
         }
 
         // [IA] fin
+        
+        if (ordenarPor === "duracion") {
+            canciones.sort((a, b) => a.duracion - b.duracion);
+        }
+
+        // sirve para ordenar por que cancion dura mas
+
+         if (ordenarPor === "titulo") {
+            canciones.sort((a, b) =>
+                a.titulo.localeCompare(b.titulo, "es")
+            );
+        }
+        
+        // sirve para ordenar por titulo de la cancion
+
+        if (ordenarPor === "artista") {
+            canciones.sort((a, b) =>
+                a.artista.localeCompare(b.artista, "es")
+            );
+        }
+
+        // sirve para ordenar por artista de la cancion
 
         // [IA] inicio · ia/2026-11-09_mtttsss_api-obtener-canciones.md
 

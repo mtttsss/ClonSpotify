@@ -1338,7 +1338,195 @@ Porque `.filter()` solamente puede utilizarse una vez.
 
 Por ahora, agrega únicamente el bloque de filtrado por género y realiza las pruebas.
 
-Cuando me confirmes que funciona, avanzaremos al ordenamiento de canciones, donde aprenderás a utilizar `.sort()` para ordenar por título, artista o duración.
+### Prompt 7
 
+Asi va mi codigo de api.js, dime si esta todo correcto y si podemos proseguir con las siguientes etapas, agregue ordenamientos por duracion, titulo y  artista: (codigo adjunto)
 
+### Respuesta 7
 
+¡Muy bien! Revisé tu `api.js` completo y, en términos generales, la lógica está correcta y podemos avanzar a la siguiente etapa.
+
+Has conseguido integrar búsqueda, filtrado y tres tipos de ordenamiento dentro de una misma función, sin duplicar innecesariamente el código.
+
+Te explicaré qué está bien, qué mejoraría y si existe algún problema que debamos corregir.
+
+## 1. Evaluación general
+
+## 9/10
+
+Listo para avanzar
+
+Evaluación orientativa de la implementación actual de `obtenerCanciones()`, no del archivo `api.js` completo ni de toda la Entrega 2.
+
+| Funcionalidad                       | Evaluación                   |
+| ----------------------------------- | ---------------------------- |
+| Función asíncrona con `async/await` | &#x20;Correcta               |
+| Latencia simulada de 500 ms         | &#x20;Correcta               |
+| Lectura del JSON mediante `fetch()` | &#x20;Correcta               |
+| Manejo de errores con `try/catch`   | &#x20;Básico, pero funcional |
+| Búsqueda por título y artista       | &#x20;Correcta               |
+| Filtro por género                   | &#x20;Correcto               |
+| Ordenamiento por duración           | &#x20;Correcto               |
+| Ordenamiento por título             | &#x20;Correcto               |
+| Ordenamiento por artista            | &#x20;Correcto               |
+| Respuesta uniforme                  | &#x20;Correcta               |
+
+## 2. Aspectos que implementaste correctamente
+
+### A. Parámetros opcionales
+
+```
+export async function obtenerCanciones({
+    busqueda = "",
+    genero = "",
+    ordenarPor = ""
+} = {}) {
+```
+
+La declaración es válida.
+
+Permite llamar a la función sin parámetros o combinar distintos criterios.
+
+Por ejemplo:
+
+```
+obtenerCanciones({
+    busqueda: "Easykid",
+    genero: "Urbano",
+    ordenarPor: "duracion"
+});
+```
+
+La función primero buscará coincidencias, después filtrará por género y finalmente ordenará los resultados.
+
+### B. Filtrado mediante `.filter()`
+
+Tus dos filtros funcionan de manera independiente.
+
+Además, como utilizas `let canciones`, puedes reasignar el arreglo después de cada filtro.
+
+El resultado es que ambos criterios pueden combinarse correctamente.
+
+### C. Ordenamiento mediante `.sort()`
+
+Tus tres condiciones están bien implementadas:
+
+```
+if (ordenarPor === "duracion") {
+    canciones.sort((a, b) => a.duracion - b.duracion);
+}
+```
+
+Ordena de menor a mayor duración.
+
+```
+if (ordenarPor === "titulo") {
+    canciones.sort((a, b) =>
+        a.titulo.localeCompare(b.titulo, "es")
+    );
+}
+```
+
+Ordena alfabéticamente por título.
+
+```
+if (ordenarPor === "artista") {
+    canciones.sort((a, b) =>
+        a.artista.localeCompare(b.artista, "es")
+    );
+}
+```
+
+Ordena alfabéticamente por artista.
+
+Utilizar `"es"` en `.localeCompare()` es una buena decisión, porque proporciona reglas de comparación apropiadas para el español.
+
+## 3. ¿Qué mejoraría?
+
+Encontré tres mejoras, pero ninguna exige reestructurar tu función.
+
+### Mejora 1. Evitar repetir `.toLowerCase()`
+
+Actualmente escribes:
+
+```
+busqueda.toLowerCase()
+```
+
+Dos veces dentro de cada comparación.
+
+Podrías convertir el texto una sola vez y reutilizarlo.
+
+No es un error de funcionamiento. Es simplemente una pequeña optimización y mejora de legibilidad.
+
+### Mejora 2. Ignorar espacios accidentales
+
+Si alguien escribe:
+
+```
+obtenerCanciones({ busqueda: " Easykid " });
+```
+
+Tu búsqueda podría no encontrar resultados por los espacios al principio y al final.
+
+Esto se puede resolver utilizando `.trim()`.
+
+No es indispensable para continuar, pero mejoraría la experiencia del usuario.
+
+### Mejora 3. Mostrar información sobre errores durante el desarrollo
+
+Actualmente tienes:
+
+```
+catch (error) {
+    return {
+        ok: false,
+        status: 500,
+        data: null,
+        error: "Ocurrió un error al cargar las canciones"
+    };
+}
+```
+
+El manejo es correcto, pero oculta la causa técnica del error.
+
+Durante el desarrollo, podrías incluir:
+
+```
+console.error("Error en obtenerCanciones:", error);
+```
+
+Así, si aparece un `ReferenceError` o un problema con el JSON, podrás identificarlo rápidamente.
+
+## 4. ¿Hay errores importantes?
+
+No encontré errores de sintaxis ni de lógica evidentes en el código que compartiste.
+
+Solo haría dos observaciones:
+
+- Si alguien entrega `ordenarPor: "desconocido"`, la función simplemente devolverá las canciones sin ordenarlas. Es un comportamiento aceptable para esta etapa, aunque posteriormente podemos validar las opciones.
+- La función todavía no incorpora una manera de forzar errores de prueba, requisito que aparece en la pauta. Eso lo implementaremos cuando trabajemos el manejo de errores de toda la API.
+
+También conviene probar los tres ordenamientos en Live Server antes de considerar esta función completamente verificada.
+
+## 5. ¿Podemos avanzar?
+
+Sí. La implementación actual está suficientemente bien estructurada para continuar.
+
+Ya completaste la parte principal de consulta, búsqueda, filtro y ordenamiento de canciones.
+
+El siguiente paso será desarrollar:
+
+`obtenerCancion(id)` — Consultar una canción específica.
+
+Esta función deberá recibir el identificador de una canción, buscarla entre los datos y devolverla. Si no existe, deberá responder con un error `404`.
+
+Con ella aprenderás a utilizar `.find()`, que es parecido a `.filter()`, pero sirve para obtener un único elemento.
+
+Mi recomendación es avanzar con esa función antes de comenzar las operaciones CRUD de playlists, porque es más sencilla y te ayudará a consolidar cómo trabajar con identificadores y respuestas de la API.
+
+Conclusión: tu código está bien planteado para tu nivel académico y podemos continuar.
+
+### Prompt 8
+
+### Respuesta 8
