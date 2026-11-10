@@ -27,13 +27,25 @@
         <main class="principal">
             
             <div class="barra-superior">
-                <div class = "buscador">
+                <div class="buscador">
                     <span>🔍</span>
-                    <input type="text" id = "input-buscador" placeholder="Buscar">
+                    <input type="text" id="input-buscador" placeholder="Buscar">
                 </div>
 
-                <a href="login.html" class="botonlogin">INICIAR SESION</a>
-
+                <div class="contenedor-dropdown">
+                    <button id="btnPerfil" class="btn-perfil" style="display: none;">
+                        Mi Cuenta ▼
+                    </button>
+                    
+                    <div id="menuPerfil" class="menu-desplegable oculto">
+                        <a href="perfil.html">Mi Perfil</a>
+                        <a href="configuracion.html">Configuración</a>
+                        <hr>
+                        <a href="#" id="btnCerrarSesion" class="texto-rojo">Cerrar Sesión</a>
+                    </div>
+                </div>
+                
+                <a href="login.html" class="botonlogin" id="btnIrLogin">INICIAR SESION</a>
             </div>
 
             

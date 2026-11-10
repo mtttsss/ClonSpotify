@@ -8,16 +8,36 @@ if (paginasProtegidas.includes(paginaActual) && !usuarioActivo) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const botonHeader = document.querySelector('.barra-superior .botonlogin');
+    const btnIrLogin = document.getElementById('btnIrLogin');
+    const btnPerfil = document.getElementById('btnPerfil');
+    const menuPerfil = document.getElementById('menuPerfil');
+    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
     
-    if (botonHeader && usuarioActivo) {
-        botonHeader.textContent = 'CERRAR SESIÓN';
-        botonHeader.href = '#';
-        
-        botonHeader.addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('sesion_tenji');
-            window.location.href = 'index.html';
+    console.log("Estado de la sesión:", usuarioActivo);
+    
+    if (usuarioActivo) {
+        if (btnIrLogin) btnIrLogin.style.display = 'none';
+        if (btnPerfil) btnPerfil.style.display = 'block';
+    }
+
+    if (btnPerfil && menuPerfil) {
+        btnPerfil.addEventListener('click', (event) => {
+            event.stopPropagation();
+            menuPerfil.classList.toggle('oculto');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!menuPerfil.contains(event.target) && event.target !== btnPerfil) {
+                menuPerfil.classList.add('oculto');
+            }
+        });
+    }
+
+    if (btnCerrarSesion) {
+        btnCerrarSesion.addEventListener('click', (event) => {
+            event.preventDefault();
+            localStorage.removeItem('sesion_tenji'); 
+            window.location.href = 'index.html'; 
         });
     }
 });
@@ -267,5 +287,21 @@ if (formRegister) {
 
 }
 
+// toggle de contraseña 
+
+const btnMostrarClave = document.getElementById('btnMostrarClave');
+const inputPassword = document.getElementById('password');
+
+if (btnMostrarClave && inputPassword) {
+    btnMostrarClave.addEventListener('click', () => {
+        if (inputPassword.type === 'password') {
+            inputPassword.type = 'text';
+            btnMostrarClave.textContent = '🔒';
+        } else {
+            inputPassword.type = 'password';
+            btnMostrarClave.textContent = '🔓';
+        }
+    });
+}
 
 

@@ -11,7 +11,7 @@ Implementar la validación de credenciales mediante localStorage para el login, 
 
 Prompt 1
 
-En la validación del login. modifica donde dice formLogin para que lea 'usuarios_tenji' del localStorage. si el correo y la clave coinciden, que se cree 'sesion_tenji' y redirige al dashboard, si no que muestre error.
+en la validación del login. modifica donde dice formLogin para que lea 'usuarios_tenji' del localStorage. si el correo y la clave coinciden, que se cree 'sesion_tenji' y redirige al dashboard, si no que muestre error.
 
 Respuesta 1
 
@@ -72,24 +72,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-
-Qué se incorporó al proyecto
-
-Se incorporó la lógica estructurada en script.js:
-
-Validación de Login: Consulta de credenciales en el arreglo usuarios_tenji de localStorage y generación de la variable sesion_tenji.
-
-Protección de rutas: Validación de window.location.pathname para expulsar usuarios no autenticados de páginas privadas.
-
-Cierre de sesión: Modificación del botón en el header para cerrar la sesión al hacer clic.
-
-Verificación
-
-Rechazo de credenciales inválidas con mensaje de error visual.
-
-Éxito en el login generando la persistencia  y redirección al dashboard.
-
-Interceptación y redirección obligatoria al intentar entrar a rutas protegidas sin sesión.
-
-Eliminación de la sesión y retorno al inicio al usar el botón de cierre de sesión.
