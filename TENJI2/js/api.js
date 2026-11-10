@@ -1,9 +1,7 @@
-
 // [IA] inicio · ia/2026-11-09_mtttsss_api-obtener-canciones.md
 
 // Tiempo de espera simulado: 500 milisegundos
 const LATENCIA = 500;
-
 
 function esperar(ms) {
     return new Promise((resolve) => {
@@ -11,8 +9,15 @@ function esperar(ms) {
     });
 }
 
+// [IA] fin
 
-export async function obtenerCanciones({ busqueda = "", genero = "" } = {}) {
+
+// [IA] inicio · ia/2026-11-09_mtttsss_api-obtener-canciones.md
+
+export async function obtenerCanciones({
+    busqueda = "",
+    genero = ""
+} = {}) {
     await esperar(LATENCIA);
 
     try {
@@ -27,18 +32,24 @@ export async function obtenerCanciones({ busqueda = "", genero = "" } = {}) {
             };
         }
 
-        // [IA] fin
-
         let canciones = await respuesta.json();
 
+        // [IA] fin
+
+        // [IA] inicio · ia/2026-11-10_mtttsss_api-busqueda-canciones.md
+
         if (busqueda) {
-    canciones = canciones.filter((cancion) => {
-        return (
-            cancion.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
-            cancion.artista.toLowerCase().includes(busqueda.toLowerCase())
+            canciones = canciones.filter((cancion) => {
+                return (
+                    cancion.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
+                    cancion.artista.toLowerCase().includes(busqueda.toLowerCase())
                 );
             });
         }
+
+        // [IA] fin
+
+        // [IA] inicio · ia/2026-11-10_mtttsss_api-filtro-genero.md
 
         if (genero) {
             canciones = canciones.filter((cancion) => {
@@ -46,7 +57,9 @@ export async function obtenerCanciones({ busqueda = "", genero = "" } = {}) {
             });
         }
 
-        // [IA] inicio
+        // [IA] fin
+
+        // [IA] inicio · ia/2026-11-09_mtttsss_api-obtener-canciones.md
 
         return {
             ok: true,
