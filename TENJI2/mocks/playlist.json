@@ -1,0 +1,73 @@
+
+[
+  {
+    "id": 1,
+    "nombre": "Mis favoritas",
+    "descripcion": "Tus canciones favoritas en un solo lugar",
+    "usuarioId": 1,
+    "cancionIds": [1, 3, 7]
+  },
+  {
+    "id": 2,
+    "nombre": "Cumbia y más",
+    "descripcion": "Cumbia, reggaeton y más",
+    "usuarioId": 2,
+    "cancionIds": [2, 4, 5]
+  },
+  {
+    "id": 3,
+    "nombre": "Trap y Urbano",
+    "descripcion": "Trap y música urbana",
+    "usuarioId": 3,
+    "cancionIds": [6, 7]
+  },
+  {
+    "id": 4,
+    "nombre": "Pop y Rock",
+    "descripcion": "Pop y rock de todos los tiempos",
+    "usuarioId": 4,
+    "cancionIds": [1, 2, 3, 4, 5, 6, 7]
+  },
+  {
+    "id": 5,
+    "nombre": "Relajación",
+    "descripcion": "Música para relajarse y concentrarse",
+    "usuarioId": 5,
+    "cancionIds": [2, 3, 5]
+  },
+  {
+    "id": 6,
+    "nombre": "Fiesta",
+    "descripcion": "Canciones para animar la fiesta",
+    "usuarioId": 6,
+    "cancionIds": [4, 5, 6]
+  },
+  {
+    "id": 7,
+    "nombre": "Clásicos del Rock",
+    "descripcion": "Los mejores clásicos del rock",
+    "usuarioId": 7,
+    "cancionIds": [1, 3, 4]
+  },
+  {
+    "id": 8,
+    "nombre": "Música para estudiar",
+    "descripcion": "Canciones suaves y relajantes para estudiar",
+    "usuarioId": 8,
+    "cancionIds": [2, 5, 6]
+  },
+  {
+    "id": 9,
+    "nombre": "Éxitos del momento",
+    "descripcion": "Las canciones más populares del momento",
+    "usuarioId": 9,
+    "cancionIds": [3, 4, 7]
+  },
+  {
+    "id": 10,
+    "nombre": "Música para hacer ejercicio",
+    "descripcion": "Canciones enérgicas para motivarte durante el ejercicio",
+    "usuarioId": 10,
+    "cancionIds": [1, 2, 6]
+  }
+]
