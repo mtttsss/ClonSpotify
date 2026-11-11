@@ -141,8 +141,17 @@ export async function obtenerCancion(id) {
 
 // [IA] inicio · ia/2026-11-09_mtttsss_crud.md
 
-export async function obtenerPlaylists() {
+export async function obtenerPlaylists({ forzarError = false } = {}) {
     await esperar(LATENCIA);
+
+    if (forzarError) {
+    return {
+        ok: false,
+        status: 500,
+        data: null,
+        error: "Error simulado del servidor"
+    };
+}
 
     try {
         const guardadas = localStorage.getItem("tenji_playlists");
