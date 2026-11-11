@@ -383,7 +383,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // [IA] fin
 
-// creacion playlist
+
+// [IA] inicio - 2026-11-11_mtttsss_edicion-crud.md
 
  // creacion y edicion de playlists
 document.addEventListener('DOMContentLoaded', () => {
@@ -561,87 +562,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 });
-
-//creacion playlist
-document.addEventListener('DOMContentLoaded', () => {
-    const btnCrearPlaylist = document.getElementById('btnCrearPlaylist');
-    const modalPlaylist = document.getElementById('modalPlaylist');
-    const btnCancelarModal = document.getElementById('btnCancelarModal');
-    const btnGuardarModal = document.getElementById('btnGuardarModal');
-    const inputNombrePlaylist = document.getElementById('nombrePlaylist');
-
-    if (btnCrearPlaylist && modalPlaylist) {
-        btnCrearPlaylist.addEventListener('click', () => {
-            modalPlaylist.classList.remove('oculto');
-            if (inputNombrePlaylist) inputNombrePlaylist.focus();
-        });
-
-        const cerrarModal = () => {
-            modalPlaylist.classList.add('oculto');
-            if (inputNombrePlaylist) inputNombrePlaylist.value = '';
-            
-            const errorPlaylist = document.getElementById('errorPlaylist');
-            if (errorPlaylist) errorPlaylist.textContent = '';
-        
-
-        if(btnGuardarModal){
-            btnGuardarModal.disabled = false;
-            btnGuardarModal.textContent = 'Crear';
-            btnGuardarModal.style.backgroundColor = '';
-        }
-    };
-
-        if (btnCancelarModal) {
-            btnCancelarModal.addEventListener('click', cerrarModal);
-        }
-
-        modalPlaylist.addEventListener('click', (event) => {
-            if (event.target === modalPlaylist) {
-                cerrarModal();
-            }
-        });
-
-        if (btnGuardarModal && inputNombrePlaylist) {
-            btnGuardarModal.addEventListener('click', async () => {
-                const nombre = inputNombrePlaylist.value.trim();
-                const errorPlaylist = document.getElementById('errorPlaylist');
-                if (errorPlaylist) errorPlaylist.textContent = '';
-
-                if  (nombre === '') {
-                    if (errorPlaylist) errorPlaylist.textContent = 'Debes ingresar un nombre para la playlist.';
-                    return;
-                }
-                
-                if (nombre !== '') {
-                    btnGuardarModal.textContent = 'Creando...';
-                    btnGuardarModal.disabled = true;
-
-                    const nuevaPlaylistDatos = {
-                        nombre: nombre,
-                        descripcion: "Creado desde la web",
-                        cancionIds: []
-                    };
-
-                    const respuesta = await crearPlaylist(nuevaPlaylistDatos);
-
-                    if (respuesta.ok) {
-                        btnGuardarModal.textContent = '¡Creada!';
-                        setTimeout(() => {
-                            cerrarModal();
-                            window.location.reload(); 
-                        }, 500);
-                    } else {
-                        console.error("Error al crear:", respuesta.error);
-                        alert("No se pudo crear: " + respuesta.error);
-                        btnGuardarModal.textContent = 'Crear';
-                        btnGuardarModal.disabled = false;
-                    }
-                }
-            });
-        }
-    }
-});
-
 
 // eliminar playlist
 document.addEventListener('click', async (event) => {
