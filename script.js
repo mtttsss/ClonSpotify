@@ -36,42 +36,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPerfil = document.getElementById('btnPerfil');
     const menuPerfil = document.getElementById('menuPerfil');
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
-    
+
     console.log("Estado de la sesión:", usuarioActivo);
-    
+
     //nuevo
     if (usuarioActivo) {
         if (btnIrLogin) btnIrLogin.style.display = 'none';
         if (btnPerfil) {
             btnPerfil.style.display = 'block';
-            btnPerfil.innerHTML = `${usuarioActivo.nombre} ▼`; 
+            btnPerfil.innerHTML = `${usuarioActivo.nombre} ▼`;
         }
 
-  const nombrePerfil = document.querySelector('.nombreperfil');
-  const fotoPerfil = document.querySelector('.foto-perfil');
-  const estadisticas = document.querySelector('.estadisticasperfil');
+        const nombrePerfil = document.querySelector('.nombreperfil');
+        const fotoPerfil = document.querySelector('.foto-perfil');
+        const estadisticas = document.querySelector('.estadisticasperfil');
 
         if (nombrePerfil) nombrePerfil.textContent = usuarioActivo.nombre;
         if (estadisticas) estadisticas.textContent = `${usuarioActivo.correo} • Oyente frecuente`;
 
         if (fotoPerfil && usuarioActivo.avatar) {
             fotoPerfil.src = usuarioActivo.avatar;
-            
+
             fotoPerfil.style.cursor = 'pointer';
             fotoPerfil.title = 'Haz clic para cambiar tu foto';
 
             fotoPerfil.addEventListener('click', () => {
                 const nuevaUrl = prompt("Ingresa el enlace (URL) de tu nueva foto de perfil:");
-                
+
                 if (nuevaUrl && nuevaUrl.trim() !== "") {
                     fotoPerfil.src = nuevaUrl.trim();
-                    
+
                     usuarioActivo.avatar = nuevaUrl.trim();
                     localStorage.setItem('sesion_tenji', JSON.stringify(usuarioActivo));
-                    
+
                     let usuarios = JSON.parse(localStorage.getItem('usuarios_tenji')) || [];
                     const index = usuarios.findIndex(u => u.correo === usuarioActivo.correo);
-                    
+
                     if (index !== -1) {
                         usuarios[index].avatar = nuevaUrl.trim();
                         localStorage.setItem('usuarios_tenji', JSON.stringify(usuarios));
@@ -80,12 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-        
+
         if (estadisticas) {
             estadisticas.textContent = `${usuarioActivo.correo} • Oyente frecuente`;
         }
     }
-// [IA] fin
+    // [IA] fin
 
     if (btnPerfil && menuPerfil) {
         btnPerfil.addEventListener('click', (event) => {
@@ -103,13 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCerrarSesion) {
         btnCerrarSesion.addEventListener('click', (event) => {
             event.preventDefault();
-            localStorage.removeItem('sesion_tenji'); 
-            window.location.href = 'index.html'; 
+            localStorage.removeItem('sesion_tenji');
+            window.location.href = 'index.html';
         });
     }
-    
+
 });
- // [IA] fin 
+// [IA] fin 
 
 document.addEventListener('keyup', (e) => {
     if (e.target.matches('.buscador input')) {
@@ -200,13 +200,13 @@ if (formLogin) {
     formLogin.addEventListener('submit', (event) => {
 
         event.preventDefault();
-    
+
         const correo = document.getElementById('correo');
         const password = document.getElementById('password');
-   
+
         const errorCorreo = document.getElementById('errorCorreo');
         const errorPassword = document.getElementById('errorPassword');
-        
+
         errorCorreo.textContent = '';
         errorPassword.textContent = '';
 
@@ -215,9 +215,9 @@ if (formLogin) {
         if (correo.value.trim() === '') {
             errorCorreo.textContent =
                 'Debes ingresar tu correo o nombre de usuario';
-         formularioValido = false;
+            formularioValido = false;
         }
-        else if(correo.validity && correo.validity.typeMismatch) {
+        else if (correo.validity && correo.validity.typeMismatch) {
             errorCorreo.textContent = 'Ingresa un formato de correo válido';
             formularioValido = false;
         }
@@ -239,7 +239,7 @@ if (formLogin) {
 
             setTimeout(() => {
                 const usuarios = JSON.parse(localStorage.getItem('usuarios_tenji')) || [];
-                
+
                 const usuarioValido = usuarios.find(u => u.correo === correo.value && u.password === password.value);
 
                 if (usuarioValido) {
@@ -248,8 +248,8 @@ if (formLogin) {
                         correo: usuarioValido.correo,
                         avatar: usuarioValido.avatar
                     }));
-                    
-                    window.location.href = 'dashboard.html'; 
+
+                    window.location.href = 'dashboard.html';
                 } else {
                     errorPassword.textContent = 'Correo o contraseña incorrectos.';
                     botonLogin.disabled = false;
@@ -341,13 +341,13 @@ if (formRegister) {
                 localStorage.setItem('usuarios_tenji', JSON.stringify(usuarios));
 
                 // [IA] fin
-                
+
                 setTimeout(() => {
-                    botonRegistro.style.backgroundColor = '#28a745'; 
+                    botonRegistro.style.backgroundColor = '#28a745';
                     botonRegistro.textContent = '¡Registro exitoso! Redirigiendo...';
-                    
+
                     setTimeout(() => {
-                        window.location.href = 'login.html'; 
+                        window.location.href = 'login.html';
                     }, 1000);
                 }, 1500);
             }
@@ -379,27 +379,27 @@ if (btnMostrarClave && inputPassword) {
 document.addEventListener('DOMContentLoaded', () => {
     const toggleClaro = document.getElementById('toggle-modo-claro');
     const esPaginaAuth = document.body.classList.contains('bodylogin') || document.body.classList.contains('bodyregistro');
-    
+
     if (esPaginaAuth) {
         document.body.classList.remove('modo-claro');
         return;
     }
-    
+
     if (localStorage.getItem('tema') === 'claro') {
         document.body.classList.add('modo-claro');
         if (toggleClaro) {
             toggleClaro.checked = true;
         }
     }
-    
+
     if (toggleClaro) {
         toggleClaro.addEventListener('change', (e) => {
             if (e.target.checked) {
                 document.body.classList.add('modo-claro');
-                localStorage.setItem('tema', 'claro'); 
+                localStorage.setItem('tema', 'claro');
             } else {
                 document.body.classList.remove('modo-claro');
-                localStorage.setItem('tema', 'oscuro'); 
+                localStorage.setItem('tema', 'oscuro');
             }
         });
     }
@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // [IA] inicio - 2026-11-11_mtttsss_edicion-crud.md
 
- // creacion y edicion de playlists
+// creacion y edicion de playlists
 document.addEventListener('DOMContentLoaded', () => {
     const btnCrearPlaylist = document.getElementById('btnCrearPlaylist');
     const modalPlaylist = document.getElementById('modalPlaylist');
@@ -480,11 +480,25 @@ document.addEventListener('DOMContentLoaded', () => {
         inputNombrePlaylist.focus();
     });
 
-    // Cerrar modal
+    // Cerrar modal con el botón Cancelar
     btnCancelarModal?.addEventListener('click', cerrarModal);
 
+    // Cerrar modal al hacer clic fuera de él
     modalPlaylist.addEventListener('click', (event) => {
-        if (event.target === modalPlaylist) cerrarModal();
+        if (event.target === modalPlaylist && !btnGuardarModal.disabled) {
+            cerrarModal();
+        }
+    });
+
+    // Cerrar modal presionando Escape
+    document.addEventListener('keydown', (event) => {
+        if (
+            event.key === 'Escape' &&
+            !modalPlaylist.classList.contains('oculto') &&
+            !btnGuardarModal.disabled
+        ) {
+            cerrarModal();
+        }
     });
 
     // Crear o actualizar playlist
@@ -577,7 +591,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             </button>
             <button class="btn-eliminar" data-id="${playlist.id}" title="Eliminar playlist" style="background:transparent; border:none; color:#ff4d4d; cursor:pointer; font-size:14px; margin-top:5px;">Eliminar</button>
         `;
-        
+
         if (btnCrear) {
             contenedorPlaylists.insertBefore(article, btnCrear);
         } else {
@@ -586,95 +600,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-//creacion playlist
-document.addEventListener('DOMContentLoaded', () => {
-    const btnCrearPlaylist = document.getElementById('btnCrearPlaylist');
-    const modalPlaylist = document.getElementById('modalPlaylist');
-    const btnCancelarModal = document.getElementById('btnCancelarModal');
-    const btnGuardarModal = document.getElementById('btnGuardarModal');
-    const inputNombrePlaylist = document.getElementById('nombrePlaylist');
 
-    if (btnCrearPlaylist && modalPlaylist) {
-        btnCrearPlaylist.addEventListener('click', () => {
-            modalPlaylist.classList.remove('oculto');
-            if (inputNombrePlaylist) inputNombrePlaylist.focus();
-        });
+// [IA] fin - 2026-11-11_mtttsss_edicion-crud.md
 
-        const cerrarModal = () => {
-            modalPlaylist.classList.add('oculto');
-            if (inputNombrePlaylist) inputNombrePlaylist.value = '';
-            
-            const errorPlaylist = document.getElementById('errorPlaylist');
-            if (errorPlaylist) errorPlaylist.textContent = '';
-        
-
-        if(btnGuardarModal){
-            btnGuardarModal.disabled = false;
-            btnGuardarModal.textContent = 'Crear';
-            btnGuardarModal.style.backgroundColor = '';
-        }
-    };
-
-        if (btnCancelarModal) {
-            btnCancelarModal.addEventListener('click', cerrarModal);
-        }
-
-        modalPlaylist.addEventListener('click', (event) => {
-            if (event.target === modalPlaylist) {
-                cerrarModal();
-            }
-        });
-
-        //CERRAR MODAL CON ESC
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && !modalPlaylist.classList.contains('oculto')) {
-                cerrarModal();
-            }
-        });
-
-        if (btnGuardarModal && inputNombrePlaylist) {
-            btnGuardarModal.addEventListener('click', async () => {
-                const nombre = inputNombrePlaylist.value.trim();
-                const errorPlaylist = document.getElementById('errorPlaylist');
-                if (errorPlaylist) errorPlaylist.textContent = '';
-
-                if  (nombre === '') {
-                    if (errorPlaylist) errorPlaylist.textContent = 'Debes ingresar un nombre para la playlist.';
-                    return;
-                }
-                
-                if (nombre !== '') {
-                    btnGuardarModal.textContent = 'Creando...';
-                    btnGuardarModal.disabled = true;
-
-                    const nuevaPlaylistDatos = {
-                        nombre: nombre,
-                        descripcion: "Creado desde la web",
-                        cancionIds: []
-                    };
-
-                    const respuesta = await crearPlaylist(nuevaPlaylistDatos);
-
-                    if (respuesta.ok) {
-                        btnGuardarModal.textContent = '¡Creada!';
-                        mostrarToast('¡Playlist creada con éxito!', 'exito');
-                        setTimeout(() => {
-                            cerrarModal();
-                            window.location.reload(); 
-                        }, 1000);
-
-                    } else {
-                        console.error("Error al crear:", respuesta.error);
-                        alert("No se pudo crear: " + respuesta.error);
-                        btnGuardarModal.textContent = 'Crear';
-                        btnGuardarModal.disabled = false;
-                    }
-                }
-            });
-        }
-    }
-});
 
 
 // eliminar playlist
@@ -690,8 +618,8 @@ document.addEventListener('click', async (event) => {
         if (respuesta.ok) {
             mostrarToast('Playlist eliminada correctamente', 'exito');
             setTimeout(() => {
-        window.location.reload(); 
-    }, 1000);
+                window.location.reload();
+            }, 1000);
 
         } else {
             console.error("Error al eliminar la playlist:", respuesta.error);
