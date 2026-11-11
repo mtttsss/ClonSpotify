@@ -23,7 +23,7 @@ export async function obtenerCanciones({
     await esperar(LATENCIA);
 
     try {
-        const respuesta = await fetch("./mocks/canciones.json");
+        const respuesta = await fetch(new URL("../mocks/canciones.json", import.meta.url));
 
         if (!respuesta.ok) {
             return {
@@ -161,7 +161,7 @@ export async function obtenerPlaylists({ forzarError = false } = {}) {
         if (guardadas !== null) {
             playlists = JSON.parse(guardadas);
         } else {
-            const respuesta = await fetch("./mocks/playlists.json");
+            const respuesta = await fetch(new URL("../mocks/playlists.json", import.meta.url));
 
             if (!respuesta.ok) {
                 return {
