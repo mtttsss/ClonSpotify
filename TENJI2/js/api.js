@@ -198,171 +198,30 @@ function guardarPlaylists(playlists) {
     );
 }
 
+function validarId(id) {
+    return Number.isInteger(id) && id > 0;
+}
+
 // Este seria el READ
 
 export async function obtenerPlaylist(id) {
 
-    const respuesta = await obtenerPlaylists();
-
-    if (!respuesta.ok) {
-        return respuesta;
-    }
-
-    const playlist = respuesta.data.find((p) => {
-        return p.id === id;
-    });
-
-    if (!playlist) {
-        return {
-            ok: false,
-            status: 404,
-            data: null,
-            error: "Playlist no encontrada"
-        };
-    }
-
-    return {
-        ok: true,
-        status: 200,
-        data: playlist,
-        error: null
-    };
-}
-
-// Este seria el CREATE
-
-
-export async function crearPlaylist(datos) {
-
-    const respuesta = await obtenerPlaylists();
-
-    if (!respuesta.ok) {
-        return respuesta;
-    }
-
-    try {
-        const playlists = respuesta.data;
-
-
-        if (!datos || typeof datos !== "object" ||
-            Array.isArray(datos)) {
+        if (!validarId(id)) {
             return {
                 ok: false,
                 status: 400,
                 data: null,
-                error: "Debes proporcionar datos válidos"
+                error: "El ID de la playlist debe ser un número entero positivo"
             };
         }
 
-        if (typeof datos.nombre !== "string" ||
-            datos.nombre.trim() === "") {
-            return {
-                ok: false,
-                status: 400,
-                data: null,
-                error: "Debes ingresar un nombre para la playlist"
-            };
+        const respuesta = await obtenerPlaylists();
+
+        if (!respuesta.ok) {
+            return respuesta;
         }
 
-        if (datos.descripcion !== undefined &&
-            typeof datos.descripcion !== "string") {
-            return {
-                ok: false,
-                status: 400,
-                data: null,
-                error: "La descripción debe ser un texto"
-            };
-        }
-
-        if (datos.usuarioId !== undefined &&
-            datos.usuarioId !== null &&
-            (!Number.isInteger(datos.usuarioId) || datos.usuarioId <= 0)) {
-            return {
-                ok: false,
-                status: 400,
-                data: null,
-                error: "El ID del usuario debe ser un número entero positivo"
-            };
-        }
-
-
-        if (datos.cancionIds !== undefined) {
-
-            if (!Array.isArray(datos.cancionIds)) {
-                return {
-                    ok: false,
-                    status: 400,
-                    data: null,
-                    error: "Las canciones deben estar en un arreglo"
-                };
-            }
-
-            const idsValidos = datos.cancionIds.every((id) => {
-                return Number.isInteger(id) && id > 0;
-            });
-
-            if (!idsValidos) {
-                return {
-                    ok: false,
-                    status: 400,
-                    data: null,
-                    error: "Los IDs de las canciones deben ser enteros positivos"
-                };
-            }
-        }
-
-
-        const nuevoId = playlists.reduce((maximo, playlist) => {
-            return Math.max(maximo, playlist.id);
-        }, 0) + 1;
-
-
-        const nuevaPlaylist = {
-            id: nuevoId,
-            nombre: datos.nombre.trim(),
-            descripcion: datos.descripcion ?? "",
-            usuarioId: datos.usuarioId ?? null,
-            cancionIds: datos.cancionIds ?? []
-        };
-
-        playlists.push(nuevaPlaylist);
-
-        guardarPlaylists(playlists);
-
-        return {
-            ok: true,
-            status: 201,
-            data: nuevaPlaylist,
-            error: null
-        };
-
-    } catch (error) {
-        console.error("Error en crearPlaylist:", error);
-
-        return {
-            ok: false,
-            status: 500,
-            data: null,
-            error: "No se pudo crear la playlist"
-        };
-    }
-}
-
-// Este seria el UPDATE
-
-
-export async function editarPlaylist(id, datos) {
-
-    const respuesta = await obtenerPlaylists();
-
-    if (!respuesta.ok) {
-        return respuesta;
-    }
-
-    try {
-        const playlists = respuesta.data;
-
-        const playlist = playlists.find((p) => {
+        const playlist = respuesta.data.find((p) => {
             return p.id === id;
         });
 
@@ -375,146 +234,319 @@ export async function editarPlaylist(id, datos) {
             };
         }
 
-        if (!datos || typeof datos !== "object" ||
-            Array.isArray(datos)) {
-            return {
-                ok: false,
-                status: 400,
-                data: null,
-                error: "Debes proporcionar datos válidos"
-            };
+        return {
+            ok: true,
+            status: 200,
+            data: playlist,
+            error: null
+        };
+    }
+
+    // Este seria el CREATE
+
+
+    export async function crearPlaylist(datos) {
+
+        const respuesta = await obtenerPlaylists();
+
+        if (!respuesta.ok) {
+            return respuesta;
         }
 
-        if (datos.descripcion !== undefined &&
-            typeof datos.descripcion !== "string") {
-            return {
-                ok: false,
-                status: 400,
-                data: null,
-                error: "La descripción debe ser un texto"
-            };
-        }
+        try {
+            const playlists = respuesta.data;
 
-        if (datos.cancionIds !== undefined) {
 
-            if (!Array.isArray(datos.cancionIds)) {
+            if (!datos || typeof datos !== "object" ||
+                Array.isArray(datos)) {
                 return {
                     ok: false,
                     status: 400,
                     data: null,
-                    error: "Las canciones deben estar en un arreglo"
+                    error: "Debes proporcionar datos válidos"
                 };
             }
 
-            const idsValidos = datos.cancionIds.every((id) => {
-                return Number.isInteger(id) && id > 0;
-            });
-
-            if (!idsValidos) {
-                return {
-                    ok: false,
-                    status: 400,
-                    data: null,
-                    error: "Los IDs de las canciones deben ser enteros positivos"
-                };
-            }
-        }
-
-        if (datos.nombre !== undefined) {
             if (typeof datos.nombre !== "string" ||
                 datos.nombre.trim() === "") {
                 return {
                     ok: false,
                     status: 400,
                     data: null,
-                    error: "El nombre de la playlist no puede estar vacío"
+                    error: "Debes ingresar un nombre para la playlist"
                 };
             }
 
-            playlist.nombre = datos.nombre.trim();
-        }
+            if (datos.descripcion !== undefined &&
+                typeof datos.descripcion !== "string") {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "La descripción debe ser un texto"
+                };
+            }
 
-        if (datos.descripcion !== undefined) {
-            playlist.descripcion = datos.descripcion;
-        }
-
-        if (datos.cancionIds !== undefined) {
-            playlist.cancionIds = datos.cancionIds;
-        }
-
-        guardarPlaylists(playlists);
-
-        return {
-            ok: true,
-            status: 200,
-            data: playlist,
-            error: null
-        };
-
-    } catch (error) {
-        console.error("Error en editarPlaylist:", error);
-
-        return {
-            ok: false,
-            status: 500,
-            data: null,
-            error: "No se pudo editar la playlist"
-        };
-    }
-}
+            if (datos.usuarioId !== undefined &&
+                datos.usuarioId !== null &&
+                (!Number.isInteger(datos.usuarioId) || datos.usuarioId <= 0)) {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "El ID del usuario debe ser un número entero positivo"
+                };
+            }
 
 
+            if (datos.cancionIds !== undefined) {
 
-// Este seria el DELETE
+                if (!Array.isArray(datos.cancionIds)) {
+                    return {
+                        ok: false,
+                        status: 400,
+                        data: null,
+                        error: "Las canciones deben estar en un arreglo"
+                    };
+                }
+
+                const idsValidos = datos.cancionIds.every((id) => {
+                    return Number.isInteger(id) && id > 0;
+                });
+
+                if (!idsValidos) {
+                    return {
+                        ok: false,
+                        status: 400,
+                        data: null,
+                        error: "Los IDs de las canciones deben ser enteros positivos"
+                    };
+                }
+            }
 
 
-export async function eliminarPlaylist(id) {
+            const nuevoId = playlists.reduce((maximo, playlist) => {
+                return Math.max(maximo, playlist.id);
+            }, 0) + 1;
 
-    const respuesta = await obtenerPlaylists();
 
-    if (!respuesta.ok) {
-        return respuesta;
-    }
+            const nuevaPlaylist = {
+                id: nuevoId,
+                nombre: datos.nombre.trim(),
+                descripcion: datos.descripcion ?? "",
+                usuarioId: datos.usuarioId ?? null,
+                cancionIds: datos.cancionIds ?? []
+            };
 
-    try {
-        const playlists = respuesta.data;
+            playlists.push(nuevaPlaylist);
 
-        const playlist = playlists.find((p) => {
-            return p.id === id;
-        });
+            guardarPlaylists(playlists);
 
-        if (!playlist) {
+            return {
+                ok: true,
+                status: 201,
+                data: nuevaPlaylist,
+                error: null
+            };
+
+        } catch (error) {
+            console.error("Error en crearPlaylist:", error);
+
             return {
                 ok: false,
-                status: 404,
+                status: 500,
                 data: null,
-                error: "Playlist no encontrada"
+                error: "No se pudo crear la playlist"
+            };
+        }
+    }
+
+    // Este seria el UPDATE
+
+
+    export async function editarPlaylist(id, datos) {
+
+        if (!validarId(id)) {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "El ID de la playlist debe ser un número entero positivo"
             };
         }
 
 
-        const playlistsActualizadas = playlists.filter((p) => {
-            return p.id !== id;
-        });
+        const respuesta = await obtenerPlaylists();
 
-        guardarPlaylists(playlistsActualizadas);
+        if (!respuesta.ok) {
+            return respuesta;
+        }
 
-        return {
-            ok: true,
-            status: 200,
-            data: playlist,
-            error: null
-        };
+        try {
+            const playlists = respuesta.data;
 
-    } catch (error) {
-        console.error("Error en eliminarPlaylist:", error);
+            const playlist = playlists.find((p) => {
+                return p.id === id;
+            });
 
-        return {
-            ok: false,
-            status: 500,
-            data: null,
-            error: "No se pudo eliminar la playlist"
-        };
+            if (!playlist) {
+                return {
+                    ok: false,
+                    status: 404,
+                    data: null,
+                    error: "Playlist no encontrada"
+                };
+            }
+
+            if (!datos || typeof datos !== "object" ||
+                Array.isArray(datos)) {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "Debes proporcionar datos válidos"
+                };
+            }
+
+            if (datos.descripcion !== undefined &&
+                typeof datos.descripcion !== "string") {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "La descripción debe ser un texto"
+                };
+            }
+
+            if (datos.cancionIds !== undefined) {
+
+                if (!Array.isArray(datos.cancionIds)) {
+                    return {
+                        ok: false,
+                        status: 400,
+                        data: null,
+                        error: "Las canciones deben estar en un arreglo"
+                    };
+                }
+
+                const idsValidos = datos.cancionIds.every((id) => {
+                    return Number.isInteger(id) && id > 0;
+                });
+
+                if (!idsValidos) {
+                    return {
+                        ok: false,
+                        status: 400,
+                        data: null,
+                        error: "Los IDs de las canciones deben ser enteros positivos"
+                    };
+                }
+            }
+
+            if (datos.nombre !== undefined) {
+                if (typeof datos.nombre !== "string" ||
+                    datos.nombre.trim() === "") {
+                    return {
+                        ok: false,
+                        status: 400,
+                        data: null,
+                        error: "El nombre de la playlist no puede estar vacío"
+                    };
+                }
+
+                playlist.nombre = datos.nombre.trim();
+            }
+
+            if (datos.descripcion !== undefined) {
+                playlist.descripcion = datos.descripcion;
+            }
+
+            if (datos.cancionIds !== undefined) {
+                playlist.cancionIds = datos.cancionIds;
+            }
+
+            guardarPlaylists(playlists);
+
+            return {
+                ok: true,
+                status: 200,
+                data: playlist,
+                error: null
+            };
+
+        } catch (error) {
+            console.error("Error en editarPlaylist:", error);
+
+            return {
+                ok: false,
+                status: 500,
+                data: null,
+                error: "No se pudo editar la playlist"
+            };
+        }
     }
-}
+
+
+
+    // Este seria el DELETE
+
+
+    export async function eliminarPlaylist(id) {
+
+        if (!validarId(id)) {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "El ID de la playlist debe ser un número entero positivo"
+            };
+        }
+
+        const respuesta = await obtenerPlaylists();
+
+        if (!respuesta.ok) {
+            return respuesta;
+        }
+
+        try {
+            const playlists = respuesta.data;
+
+            const playlist = playlists.find((p) => {
+                return p.id === id;
+            });
+
+            if (!playlist) {
+                return {
+                    ok: false,
+                    status: 404,
+                    data: null,
+                    error: "Playlist no encontrada"
+                };
+            }
+
+
+            const playlistsActualizadas = playlists.filter((p) => {
+                return p.id !== id;
+            });
+
+            guardarPlaylists(playlistsActualizadas);
+
+            return {
+                ok: true,
+                status: 200,
+                data: playlist,
+                error: null
+            };
+
+        } catch (error) {
+            console.error("Error en eliminarPlaylist:", error);
+
+            return {
+                ok: false,
+                status: 500,
+                data: null,
+                error: "No se pudo eliminar la playlist"
+            };
+        }
+    }
 
