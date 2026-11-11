@@ -1,7 +1,7 @@
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementacion_usuarioguardado_cambiarfoto.md
 const usuarioActivo = JSON.parse(localStorage.getItem('sesion_tenji'));
-const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html'];
+const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html', 'configuracion.html'];
 const paginaActual = window.location.pathname.split('/').pop();
 
 if (paginasProtegidas.includes(paginaActual) && !usuarioActivo) {
@@ -107,18 +107,18 @@ document.addEventListener('keyup', (e) => {
 const botonLike = document.querySelector('.like');
 
 if (botonLike) {
-    botonLike.addEventListener('click', (e) => {
-        if (botonLike.textContent === '♡') {
-            botonLike.textContent = '♥';
-            botonLike.style.color = '#5e17eb';
-        } else {
-            botonLike.textContent = '♡';
-            botonLike.style.color = '#fff';
-        }
+    if (localStorage.getItem('like') === 'true') {
+        botonLike.textContent = '♥';
+        botonLike.style.color = '#5e17eb';
+    }
+
+    botonLike.addEventListener('click', () => {
+        const activo = botonLike.textContent === '♡';
+        botonLike.textContent = activo ? '♥' : '♡';
+        botonLike.style.color = activo ? '#5e17eb' : '#fff';
+        localStorage.setItem('like', activo);
     });
 }
-
-// que se rellene el boton del like al hacer click
 
 const botonPlay = document.querySelector('.play');
 
@@ -488,6 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btnGuardarModal.style.backgroundColor = '';
         }
     };
+
         if (btnCancelarModal) {
             btnCancelarModal.addEventListener('click', cerrarModal);
         }
