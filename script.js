@@ -1,4 +1,5 @@
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
+// [IA] inicio · ia/2026-11-09_daviidcjcj_implementacion_usuarioguardado_cambiarfoto.md
 const usuarioActivo = JSON.parse(localStorage.getItem('sesion_tenji'));
 const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html'];
 const paginaActual = window.location.pathname.split('/').pop();
@@ -15,10 +16,53 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log("Estado de la sesión:", usuarioActivo);
     
+    //nuevo
     if (usuarioActivo) {
         if (btnIrLogin) btnIrLogin.style.display = 'none';
-        if (btnPerfil) btnPerfil.style.display = 'block';
+        if (btnPerfil) {
+            btnPerfil.style.display = 'block';
+            btnPerfil.innerHTML = `${usuarioActivo.nombre} ▼`; 
+        }
+
+  const nombrePerfil = document.querySelector('.nombreperfil');
+  const fotoPerfil = document.querySelector('.foto-perfil');
+  const estadisticas = document.querySelector('.estadisticasperfil');
+
+        if (nombrePerfil) nombrePerfil.textContent = usuarioActivo.nombre;
+        if (estadisticas) estadisticas.textContent = `${usuarioActivo.correo} • Oyente frecuente`;
+
+        if (fotoPerfil && usuarioActivo.avatar) {
+            fotoPerfil.src = usuarioActivo.avatar;
+            
+            fotoPerfil.style.cursor = 'pointer';
+            fotoPerfil.title = 'Haz clic para cambiar tu foto';
+
+            fotoPerfil.addEventListener('click', () => {
+                const nuevaUrl = prompt("Ingresa el enlace (URL) de tu nueva foto de perfil:");
+                
+                if (nuevaUrl && nuevaUrl.trim() !== "") {
+                    fotoPerfil.src = nuevaUrl.trim();
+                    
+                    usuarioActivo.avatar = nuevaUrl.trim();
+                    localStorage.setItem('sesion_tenji', JSON.stringify(usuarioActivo));
+                    
+                    let usuarios = JSON.parse(localStorage.getItem('usuarios_tenji')) || [];
+                    const index = usuarios.findIndex(u => u.correo === usuarioActivo.correo);
+                    
+                    if (index !== -1) {
+                        usuarios[index].avatar = nuevaUrl.trim();
+                        localStorage.setItem('usuarios_tenji', JSON.stringify(usuarios));
+                        alert("¡Foto de perfil actualizada con éxito!");
+                    }
+                }
+            });
+        }
+        
+        if (estadisticas) {
+            estadisticas.textContent = `${usuarioActivo.correo} • Oyente frecuente`;
+        }
     }
+// [IA] fin
 
     if (btnPerfil && menuPerfil) {
         btnPerfil.addEventListener('click', (event) => {
@@ -177,7 +221,8 @@ if (formLogin) {
                 if (usuarioValido) {
                     localStorage.setItem('sesion_tenji', JSON.stringify({
                         nombre: usuarioValido.nombre,
-                        correo: usuarioValido.correo
+                        correo: usuarioValido.correo,
+                        avatar: usuarioValido.avatar
                     }));
                     
                     window.location.href = 'dashboard.html'; 
@@ -243,7 +288,6 @@ if (formRegister) {
         const botonRegistro = formRegister.querySelector('.botonregistro');
 
         if (formularioValido) {
-            // 1. Deshabilitar el botón y cambiar su estado visual
             botonRegistro.disabled = true;
             botonRegistro.textContent = 'Procesando...';
             botonRegistro.style.opacity = '0.7';
@@ -267,7 +311,8 @@ if (formRegister) {
                 usuarios.push({
                     nombre: nombre.value,
                     correo: correo.value,
-                    password: password.value
+                    password: password.value,
+                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3a_6yzKLNCC5EkBpF5ZtwtX6xBva21gWqWXXDQAQKMdu7LkqFjfPQkd4&s=10"
                 });
                 localStorage.setItem('usuarios_tenji', JSON.stringify(usuarios));
 
