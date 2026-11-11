@@ -17,7 +17,7 @@ const mostrarToast = (mensaje, tipo = 'exito') => {
     setTimeout(() => {
         toast.classList.add('oculto');
         setTimeout(() => toast.remove(), 400);
-    }, 4000);
+    }, 2500);
 };
 
 
@@ -535,8 +535,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (respuesta.ok) {
-                cerrarModal();
-                window.location.reload();
+                mostrarToast(playlistEnEdicion !== null ? '¡Playlist actualizada con éxito!' : '¡Playlist creada con éxito!', 'exito');
+                setTimeout(() => {
+                    cerrarModal();
+                    window.location.reload();
+                }, 1200);
             } else {
                 if (errorPlaylist) errorPlaylist.textContent = respuesta.error;
                 btnGuardarModal.disabled = false;
