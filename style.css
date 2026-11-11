@@ -1211,6 +1211,7 @@ input:checked + .slider:before {
     background-color: rgba(30, 215, 96, 0.15);
     color: #1ed760;
 }
+
 /* modo claro */
 body.modo-claro {
     --bg-principal: #f4f4f7;
@@ -1274,3 +1275,13 @@ body.modo-claro .barra-volumen::-webkit-slider-thumb {
 body.modo-claro button.like {
     color: var(--color-acento, #5e17eb) !important;
 }
+body.modo-claro .botonlogin {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+body.modo-claro .botonlogin:hover {
+    background-color: #5e17eb;
+    color:
+}
+    
