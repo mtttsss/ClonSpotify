@@ -354,7 +354,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const toggleClaro = document.getElementById('toggle-modo-claro');
-
+    const esPaginaAuth = document.body.classList.contains('bodylogin') || document.body.classList.contains('bodyregistro');
+    
+    if (esPaginaAuth) {
+        document.body.classList.remove('modo-claro');
+        return;
+    }
+    
     if (localStorage.getItem('tema') === 'claro') {
         document.body.classList.add('modo-claro');
         if (toggleClaro) {
