@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - TENJI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor">
+        <aside class="barra">
+            <a href="index.html">
+                <img src="tenji.png" alt="TENJI Logo" class="logosuperior">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#input-buscador">Buscar</a></li>
+                    <li><a href="biblioteca.html">Tu Biblioteca</a></li>
+                    <li><a href="perfil.html">Mi perfil</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a class="activo" href="configuracion.html">Configuracion</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="principal">
+            <header class="barra-superior">
+                <div class="buscador">
+                    <input type="text" id="input-buscador" placeholder="¿Qué quieres escuchar hoy?">
+                </div>
+                <div class="contenedor-dropdown">
+                    <button class="btn-perfil" id="btnPerfil">Mi Usuario ▼</button>
+                    <div class="menu-desplegable oculto" id="menuPerfil">
+                        <a href="perfil.html">Ver Perfil</a>
+                        <a href="configuracion.html">Configuración</a>
+                        <hr>
+                        <a href="login.html" class="texto-rojo">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="contenedor-configuracion">
+                <h1 class="dash-titulo">Configuración</h1>
+                <p class="dash-subtitulo">Personaliza tu experiencia visual y de reproducción en TENJI.</p>
+
+                <section class="seccion-config">
+                    <h2 class="dash-seccion-titulo">🎨 Apariencia y Tema</h2>
+                    
+                    <div class="opcion-item">
+                        <div class="opcion-info">
+                            <span class="opcion-titulo">Modo Claro</span>
+                            <span class="opcion-desc">Cambia la interfaz a tonos claros para entornos iluminados.</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-modo-claro">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="opcion-item">
+                        <div class="opcion-info">
+                            <span class="opcion-titulo">Idioma de la interfaz</span>
+                            <span class="opcion-desc">Selecciona tu idioma preferido.</span>
+                        </div>
+                        <select class="select-config">
+                            <option value="es" selected>Español</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="seccion-config">
+                    <h2 class="dash-seccion-titulo">🎵 Reproducción</h2>
+                    
+                    <div class="opcion-item">
+                        <div class="opcion-info">
+                            <span class="opcion-titulo">Calidad de Audio</span>
+                            <span class="opcion-desc">Ajusta el streaming según tu conexión.</span>
+                        </div>
+                        <select class="select-config">
+                            <option value="baja">Baja (96 kbps)</option>
+                            <option value="normal" selected>Normal (160 kbps)</option>
+                            <option value="alta">Alta (320 kbps)</option>
+                        </select>
+                    </div>
+
+                    <div class="opcion-item">
+                        <div class="opcion-info">
+                            <span class="opcion-titulo">Reproducción Automática</span>
+                            <span class="opcion-desc">Continuar con música similar al finalizar.</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </section>
+
+                <div class="contenedor-guardar">
+                    <button class="btn-guardar-config" id="btnGuardar">Guardar Cambios</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="reproductor">
+            <div class="info-cancion">
+                <img src="https://via.placeholder.com/50" alt="Portada de la canción">
+                <div class="detalles-cancion">
+                    <h4>Nombre de la Canción</h4>
+                    <p>Artista</p>
+                </div>
+                <button class="like" style="color: #7b2cbf;">♥</button>
+            </div>
+
+            <div class="controles-centrales">
+                <div class="botones">
+                    <button class="anterior">⏮</button>
+                    <button class="play">▶</button>
+                    <button class="siguiente">⏭</button>
+                </div>
+                <div class="duracion">
+                    <span class="tiempo-actual">0:00</span>
+                    <input type="range" class="barra-progreso" min="0" max="100" value="0">
+                    <span class="tiempo-total">3:30</span>
+                </div>
+            </div>
+
+            <div class="volumen">
+                <span>🔊</span>
+                <input type="range" class="barra-volumen" min="0" max="100" value="50">
+            </div>
+        </footer>
+
+    </div>
+    <script src="script.js"></script>
+    </body>
+</html>
