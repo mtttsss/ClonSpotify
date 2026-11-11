@@ -380,11 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         cerrarModal();
                         
-<<<<<<< HEAD
-//resetear modal            
-=======
             //resetear modal
->>>>>>> f4ff70fc189a100a785b10e32f9ec6d1eec36e0d
                         btnGuardarModal.disabled = false;
                         btnGuardarModal.textContent = 'Crear';
                         btnGuardarModal.style.backgroundColor = ''; 
@@ -426,14 +422,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // [IA] fin
 
-<<<<<<< HEAD
-// [IA] fin
-
-
-
-
-
-=======
 // creacion playlist
 
 
@@ -555,4 +543,3 @@ document.addEventListener('click', async (event) => {
         }
     }
 });
->>>>>>> f4ff70fc189a100a785b10e32f9ec6d1eec36e0d
