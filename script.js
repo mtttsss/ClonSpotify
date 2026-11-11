@@ -309,7 +309,7 @@ if (formRegister) {
             formularioValido = false;
         }
 
-        const botonRegistro = formRegister.querySelector('.botonregistro');
+        const botonRegistro = formRegister.querySelector('.botonlogin');
 
         if (formularioValido) {
             botonRegistro.disabled = true;
