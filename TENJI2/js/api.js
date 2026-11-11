@@ -102,4 +102,328 @@ export async function obtenerCanciones({
     }
 }
 
+
+
+export async function obtenerCancion(id) {
+
+    const respuesta = await obtenerCanciones();
+
+    if (!respuesta.ok) {
+        return respuesta;
+    }
+
+    const cancion = respuesta.data.find((c) => {
+        return c.id === id;
+    });
+
+    if (!cancion) {
+        return {
+            ok: false,
+            status: 404,
+            data: null,
+            error: "Canción no encontrada"
+        };
+    }
+
+    return {
+        ok: true,
+        status: 200,
+        data: cancion,
+        error: null
+    };
+}
+
 // [IA] fin
+
+
+// CRUD, esta parte es para crear, actualizar y eliminar canciones, esta parte igual que la anterior fue una combinacion de IA con aprendizaje propio
+// Al poner los comentarios de [IA] inicio y [IA] fin no quiere decir solo que fue un copy paste, si no que me guiee con la IA, ademas de videos de youtube
+
+
+
+export async function obtenerPlaylists() {
+    await esperar(LATENCIA);
+
+    try {
+        const guardadas = localStorage.getItem("tenji_playlists");
+
+        let playlists;
+
+        if (guardadas !== null) {
+            playlists = JSON.parse(guardadas);
+        } else {
+            const respuesta = await fetch("./mocks/playlists.json");
+
+            if (!respuesta.ok) {
+                return {
+                    ok: false,
+                    status: respuesta.status,
+                    data: null,
+                    error: "No se pudieron cargar las playlists"
+                };
+            }
+
+            playlists = await respuesta.json();
+
+            localStorage.setItem(
+                "tenji_playlists",
+                JSON.stringify(playlists)
+            );
+        }
+
+        return {
+            ok: true,
+            status: 200,
+            data: playlists,
+            error: null
+        };
+
+    } catch (error) {
+        console.error("Error en obtenerPlaylists:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "Ocurrió un error al cargar las playlists"
+        };
+    }
+}
+
+
+function guardarPlaylists(playlists) {
+    localStorage.setItem(
+        "tenji_playlists",
+        JSON.stringify(playlists)
+    );
+}
+
+// Este seria el READ
+
+export async function obtenerPlaylist(id) {
+
+    const respuesta = await obtenerPlaylists();
+
+    if (!respuesta.ok) {
+        return respuesta;
+    }
+
+    const playlist = respuesta.data.find((p) => {
+        return p.id === id;
+    });
+
+    if (!playlist) {
+        return {
+            ok: false,
+            status: 404,
+            data: null,
+            error: "Playlist no encontrada"
+        };
+    }
+
+    return {
+        ok: true,
+        status: 200,
+        data: playlist,
+        error: null
+    };
+}
+
+// Este seria el CREATE
+
+
+export async function crearPlaylist(datos) {
+
+    const respuesta = await obtenerPlaylists();
+
+    if (!respuesta.ok) {
+        return respuesta;
+    }
+
+    try {
+        const playlists = respuesta.data;
+
+        // Comprobamos que el nombre sea válido
+        if (!datos || typeof datos.nombre !== "string" ||
+            datos.nombre.trim() === "") {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "Debes ingresar un nombre para la playlist"
+            };
+        }
+
+
+        const nuevoId = playlists.reduce((maximo, playlist) => {
+            return Math.max(maximo, playlist.id);
+        }, 0) + 1;
+
+
+        const nuevaPlaylist = {
+            id: nuevoId,
+            nombre: datos.nombre.trim(),
+            descripcion: datos.descripcion ?? "",
+            usuarioId: datos.usuarioId ?? null,
+            cancionIds: datos.cancionIds ?? []
+        };
+
+        // Incorporamos la playlist al arreglo
+        playlists.push(nuevaPlaylist);
+
+        // Guardamos los cambios
+        guardarPlaylists(playlists);
+
+        return {
+            ok: true,
+            status: 201,
+            data: nuevaPlaylist,
+            error: null
+        };
+
+    } catch (error) {
+        console.error("Error en crearPlaylist:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "No se pudo crear la playlist"
+        };
+    }
+}
+
+// Este seria el UPDATE
+
+
+export async function editarPlaylist(id, datos) {
+
+    const respuesta = await obtenerPlaylists();
+
+    if (!respuesta.ok) {
+        return respuesta;
+    }
+
+    try {
+        const playlists = respuesta.data;
+
+        const playlist = playlists.find((p) => {
+            return p.id === id;
+        });
+
+        if (!playlist) {
+            return {
+                ok: false,
+                status: 404,
+                data: null,
+                error: "Playlist no encontrada"
+            };
+        }
+
+        if (!datos || typeof datos !== "object" ||
+            Array.isArray(datos)) {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "Debes proporcionar datos válidos"
+            };
+        }
+
+        if (datos.nombre !== undefined) {
+            if (typeof datos.nombre !== "string" ||
+                datos.nombre.trim() === "") {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "El nombre de la playlist no puede estar vacío"
+                };
+            }
+
+            playlist.nombre = datos.nombre.trim();
+        }
+
+        if (datos.descripcion !== undefined) {
+            playlist.descripcion = datos.descripcion;
+        }
+
+        if (datos.cancionIds !== undefined) {
+            playlist.cancionIds = datos.cancionIds;
+        }
+
+        guardarPlaylists(playlists);
+
+        return {
+            ok: true,
+            status: 200,
+            data: playlist,
+            error: null
+        };
+
+    } catch (error) {
+        console.error("Error en editarPlaylist:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "No se pudo editar la playlist"
+        };
+    }
+}
+
+
+// Este seria el DELETE
+
+
+export async function eliminarPlaylist(id) {
+
+    const respuesta = await obtenerPlaylists();
+
+    if (!respuesta.ok) {
+        return respuesta;
+    }
+
+    try {
+        const playlists = respuesta.data;
+
+        const playlist = playlists.find((p) => {
+            return p.id === id;
+        });
+
+        if (!playlist) {
+            return {
+                ok: false,
+                status: 404,
+                data: null,
+                error: "Playlist no encontrada"
+            };
+        }
+
+        // Conservamos todas las playlists excepto la eliminada
+        const playlistsActualizadas = playlists.filter((p) => {
+            return p.id !== id;
+        });
+
+        guardarPlaylists(playlistsActualizadas);
+
+        return {
+            ok: true,
+            status: 200,
+            data: playlist,
+            error: null
+        };
+
+    } catch (error) {
+        console.error("Error en eliminarPlaylist:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "No se pudo eliminar la playlist"
+        };
+    }
+}
+
