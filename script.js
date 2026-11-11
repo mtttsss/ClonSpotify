@@ -192,14 +192,15 @@ if (formLogin) {
         if (correo.value.trim() === '') {
             errorCorreo.textContent =
                 'Debes ingresar tu correo o nombre de usuario';
-
+         formularioValido = false;
+        }
+        else if(correo.validity && correo.validity.typeMismatch) {
+            errorCorreo.textContent = 'Ingresa un formato de correo válido';
             formularioValido = false;
         }
-
         if (password.value.trim() === '') {
             errorPassword.textContent =
                 'Debes ingresar tu contraseña';
-
             formularioValido = false;
         }
 
@@ -383,13 +384,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (btnGuardarModal && inputNombrePlaylist) {
             btnGuardarModal.addEventListener('click', () => {
-                if (inputNombrePlaylist.value.trim() !== '') {
-                    btnGuardarModal.textContent = 'Creando...';
-                    
+                const errorPlaylist = document.getElementById('errorPlaylist');
+                if (errorPlaylist) errorPlaylist.textContent = '';
+
+                if (inputNombrePlaylist.value.trim() === '') {
+                    if (errorPlaylist) errorPlaylist.textContent = 'Debes ingresar un nombre para la playlist';
+                    return;
+                }
+
+                btnGuardarModal.disabled = true;
+                btnGuardarModal.textContent = 'Creando...';
+
+                setTimeout(() => {
+                    btnGuardarModal.textContent = 'Playlist creada con exito';
+                    btnGuardarModal.style.backgroundColor = '#28a745'; // Verde
+
                     setTimeout(() => {
                         cerrarModal();
+                        
+//resetear modal            
+                        btnGuardarModal.disabled = false;
+                        btnGuardarModal.textContent = 'Crear';
+                        btnGuardarModal.style.backgroundColor = ''; 
                     }, 1000);
-                }
+                }, 1000);
             });
         }
     }

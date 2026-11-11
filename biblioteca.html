@@ -73,7 +73,7 @@
                         <p>De USUARIO</p>
                     </article>
                     
-                    <article class="portadas">
+                    <article class="portadas" id = "btnCrearPlaylist">
                         <img src="https://static.vecteezy.com/system/resources/thumbnails/011/912/003/small_2x/plus-sign-icon-free-png.png" alt="Crear Playlist">
                         <h4>Crear playlist</h4>
                         <p>Nueva lista</p>
@@ -147,5 +147,19 @@
     </div>
 
     <script src="script.js"></script>
+
+    <div id="modalPlaylist" class="modal-overlay oculto">
+        <div class="modal-contenido">
+            <h3>Crear nueva playlist</h3>
+            <p>Ponle un nombre a tu nueva playlist.</p>
+            <input type="text" id="nombrePlaylist" placeholder="Mi nueva playlist" autocomplete="off">
+            <small id = "errorPlaylist" class = "mensaje-error"></small>
+            <div class="modal-botones">
+                <button id="btnCancelarModal" class="btn-secundario">Cancelar</button>
+                <button id="btnGuardarModal" class="btn-primario">Crear</button>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>
