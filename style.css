@@ -1211,3 +1211,45 @@ input:checked + .slider:before {
     background-color: rgba(30, 215, 96, 0.15);
     color: #1ed760;
 }
+/* modo claro */
+body.modo-claro {
+    --bg-principal: #f4f4f7;
+    --bg-card: #ffffff;
+    --texto-principal: #121212;
+    --texto-secundario: #666666;
+
+    
+    background-color: var(--bg-principal) !important;
+    color: var(--texto-principal) !important;
+}
+
+body.modo-claro .barra,
+body.modo-claro .principal,
+body.modo-claro .barra-superior,
+body.modo-claro .reproductor,
+body.modo-claro .dash-card-stat,
+body.modo-claro .dash-artista-item,
+body.modo-claro .dash-cancion-item,
+body.modo-claro .portadas {
+    background-color: #ffffff !important;
+    color: #121212 !important;
+    border-color: #e0e0e0 !important;
+}
+
+body.modo-claro .barra a,
+body.modo-claro .detalles-cancion h4,
+body.modo-claro .dash-stat-label,
+body.modo-claro .albumTitulo,
+body.modo-claro .dash-cancion-titulo,
+body.modo-claro .dash-titulo,
+body.modo-claro .dash-seccion-titulo {
+    color: #121212 !important;
+}
+
+body.modo-claro .buscador {
+    background-color: #eef0f5 !important;
+}
+
+body.modo-claro .buscador input {
+    color: #121212 !important;
+}
