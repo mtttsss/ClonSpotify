@@ -351,45 +351,6 @@ if (btnMostrarClave && inputPassword) {
     });
 }
 
-// modal para crear playlist 
-
-document.addEventListener('DOMContentLoaded', () => {
-    const btnCrearPlaylist = document.getElementById('btnCrearPlaylist');
-    const modalPlaylist = document.getElementById('modalPlaylist');
-    const btnCancelarModal = document.getElementById('btnCancelarModal');
-    const btnGuardarModal = document.getElementById('btnGuardarModal');
-    const inputNombrePlaylist = document.getElementById('nombrePlaylist');
-
-    if (btnGuardarModal && inputNombrePlaylist) {
-            btnGuardarModal.addEventListener('click', () => {
-                const errorPlaylist = document.getElementById('errorPlaylist');
-                if (errorPlaylist) errorPlaylist.textContent = '';
-
-                if (inputNombrePlaylist.value.trim() === '') {
-                    if (errorPlaylist) errorPlaylist.textContent = 'Debes ingresar un nombre para la playlist';
-                    return;
-                }
-
-                btnGuardarModal.disabled = true;
-                btnGuardarModal.textContent = 'Creando...';
-
-                setTimeout(() => {
-                    btnGuardarModal.textContent = 'Playlist creada con exito';
-                    btnGuardarModal.style.backgroundColor = '#28a745'; // Verde
-
-                    setTimeout(() => {
-                        cerrarModal();
-                        
-            //resetear modal
-                        btnGuardarModal.disabled = false;
-                        btnGuardarModal.textContent = 'Crear';
-                        btnGuardarModal.style.backgroundColor = ''; 
-                    }, 1000);
-                }, 1000);
-            });
-        }
-});
-
 // [IA] inicio - 2026-11-10_cristoballopez3-modo_claro.md
 
 document.addEventListener('DOMContentLoaded', () => {
