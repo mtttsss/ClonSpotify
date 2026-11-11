@@ -16,7 +16,6 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="index.html#input-buscador">Buscar</a></li>
                     <li><a href="biblioteca.html">Tu Biblioteca</a></li>
                     <li><a href="perfil.html">Mi perfil</a></li>
                     <li><a href="dashboard.html">Dashboard</a></li>
@@ -25,20 +24,29 @@
             </nav>
         </aside>
 
-        <main class="principal">
-            <header class="barra-superior">
+         <main class="principal">
+            
+            <div class="barra-superior">
                 <div class="buscador">
-                    <input type="text" id="input-buscador" placeholder="¿Qué quieres escuchar hoy?">
+                    <span>🔍</span>
+                    <input type="text" id="input-buscador" placeholder="Buscar">
                 </div>
+
                 <div class="contenedor-dropdown">
-                    <button class="btn-perfil" id="btnPerfil">Mi Usuario ▼</button>
-                    <div class="menu-desplegable oculto" id="menuPerfil">
-                        <a href="perfil.html">Ver Perfil</a>
+                    <button id="btnPerfil" class="btn-perfil" style="display: none;">
+                        Mi Cuenta ▼
+                    </button>
+                    
+                    <div id="menuPerfil" class="menu-desplegable oculto">
+                        <a href="perfil.html">Mi Perfil</a>
                         <hr>
-                        <a href="login.html" class="texto-rojo">Cerrar Sesión</a>
+                        <a href="#" id="btnCerrarSesion" class="texto-rojo">Cerrar Sesión</a>
                     </div>
                 </div>
-            </header>
+                
+                <a href="login.html" class="botonlogin" id="btnIrLogin">INICIAR SESION</a>
+            </div>
+            
 
             <div class="contenedor-configuracion">
                 <h1 class="dash-titulo">Configuración</h1>
