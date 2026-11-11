@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const errorPlaylist = document.getElementById('errorPlaylist');
             if (errorPlaylist) errorPlaylist.textContent = '';
-        ;
+        
 
         if(btnGuardarModal){
             btnGuardarModal.disabled = false;
@@ -463,6 +463,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btnGuardarModal && inputNombrePlaylist) {
             btnGuardarModal.addEventListener('click', async () => {
                 const nombre = inputNombrePlaylist.value.trim();
+                const errorPlaylist = document.getElementById('errorPlaylist');
+                if (errorPlaylist) errorPlaylist.textContent = '';
+
+                if  (nombre === '') {
+                    if (errorPlaylist) errorPlaylist.textContent = 'Debes ingresar un nombre para la playlist.';
+                    return;
+                }
                 
                 if (nombre !== '') {
                     btnGuardarModal.textContent = 'Creando...';
