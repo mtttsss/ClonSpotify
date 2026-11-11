@@ -359,40 +359,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnGuardarModal = document.getElementById('btnGuardarModal');
     const inputNombrePlaylist = document.getElementById('nombrePlaylist');
 
-    if (btnCrearPlaylist && modalPlaylist) {
-        btnCrearPlaylist.addEventListener('click', () => {
-            modalPlaylist.classList.remove('oculto');
-            if (inputNombrePlaylist) inputNombrePlaylist.focus();
-        });
-
-        const cerrarModal = () => {
-            modalPlaylist.classList.add('oculto');
-            if (inputNombrePlaylist) inputNombrePlaylist.value = '';
-            if (btnGuardarModal) btnGuardarModal.textContent = 'Crear';
-        };
-
-        if (btnCancelarModal) {
-            btnCancelarModal.addEventListener('click', cerrarModal);
-        }
-
-        modalPlaylist.addEventListener('click', (event) => {
-            if (event.target === modalPlaylist) {
-                cerrarModal();
-            }
-        });
-
-        if (btnGuardarModal && inputNombrePlaylist) {
+    if (btnGuardarModal && inputNombrePlaylist) {
             btnGuardarModal.addEventListener('click', () => {
-                if (inputNombrePlaylist.value.trim() !== '') {
-                    btnGuardarModal.textContent = 'Creando...';
-                    
+                const errorPlaylist = document.getElementById('errorPlaylist');
+                if (errorPlaylist) errorPlaylist.textContent = '';
+
+                if (inputNombrePlaylist.value.trim() === '') {
+                    if (errorPlaylist) errorPlaylist.textContent = 'Debes ingresar un nombre para la playlist';
+                    return;
+                }
+
+                btnGuardarModal.disabled = true;
+                btnGuardarModal.textContent = 'Creando...';
+
+                setTimeout(() => {
+                    btnGuardarModal.textContent = 'Playlist creada con exito';
+                    btnGuardarModal.style.backgroundColor = '#28a745'; // Verde
+
                     setTimeout(() => {
                         cerrarModal();
+                        
+            //resetear modal
+                        btnGuardarModal.disabled = false;
+                        btnGuardarModal.textContent = 'Crear';
+                        btnGuardarModal.style.backgroundColor = ''; 
                     }, 1000);
-                }
+                }, 1000);
             });
         }
-    }
 });
 
 // [IA] inicio - 2026-11-10_cristoballopez3-modo_claro.md
