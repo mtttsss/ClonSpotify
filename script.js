@@ -406,10 +406,146 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // [IA] fin
 
-// creacion playlist
+
+// [IA] inicio - 2026-11-11_mtttsss_edicion-crud.md
+
+ // creacion y edicion de playlists
+document.addEventListener('DOMContentLoaded', () => {
+    const btnCrearPlaylist = document.getElementById('btnCrearPlaylist');
+    const modalPlaylist = document.getElementById('modalPlaylist');
+    const btnCancelarModal = document.getElementById('btnCancelarModal');
+    const btnGuardarModal = document.getElementById('btnGuardarModal');
+    const inputNombrePlaylist = document.getElementById('nombrePlaylist');
+    const inputDescripcion = document.getElementById('descripcionPlaylist');
+    const tituloModal = document.getElementById('tituloModalPlaylist');
+    const textoModal = document.getElementById('textoModalPlaylist');
+    const errorPlaylist = document.getElementById('errorPlaylist');
+
+    if (!modalPlaylist || !btnGuardarModal || !inputNombrePlaylist) return;
+
+    let playlistEnEdicion = null;
+
+    const cerrarModal = () => {
+        modalPlaylist.classList.add('oculto');
+        playlistEnEdicion = null;
+        inputNombrePlaylist.value = '';
+        if (inputDescripcion) inputDescripcion.value = '';
+        if (errorPlaylist) errorPlaylist.textContent = '';
+        btnGuardarModal.disabled = false;
+        btnGuardarModal.textContent = 'Crear';
+    };
+
+    // Abrir modal para crear
+    if (btnCrearPlaylist) {
+        btnCrearPlaylist.addEventListener('click', () => {
+            playlistEnEdicion = null;
+            if (errorPlaylist) errorPlaylist.textContent = '';
+            if (tituloModal) tituloModal.textContent = 'Crear nueva playlist';
+            if (textoModal) textoModal.textContent = 'Ponle un nombre a tu nueva playlist.';
+            btnGuardarModal.textContent = 'Crear';
+            modalPlaylist.classList.remove('oculto');
+            inputNombrePlaylist.focus();
+        });
+    }
+
+    // Abrir modal para editar
+    document.addEventListener('click', async (event) => {
+        const botonEditar = event.target.closest('.btn-editar');
+        if (!botonEditar) return;
+
+        const id = Number(botonEditar.dataset.id);
+        const respuesta = await obtenerPlaylists();
+
+        if (!respuesta.ok) {
+            alert('No se pudieron cargar las playlists: ' + respuesta.error);
+            return;
+        }
+
+        const playlist = respuesta.data.find(p => p.id === id);
+
+        if (!playlist) {
+            alert('No se encontró la playlist.');
+            return;
+        }
+
+        playlistEnEdicion = id;
+        inputNombrePlaylist.value = playlist.nombre;
+        if (inputDescripcion) inputDescripcion.value = playlist.descripcion || '';
+
+        if (tituloModal) tituloModal.textContent = 'Editar playlist';
+        if (textoModal) textoModal.textContent = 'Modifica los datos de tu playlist.';
+        btnGuardarModal.textContent = 'Guardar cambios';
+
+        modalPlaylist.classList.remove('oculto');
+        inputNombrePlaylist.focus();
+    });
+
+    // Cerrar modal
+    btnCancelarModal?.addEventListener('click', cerrarModal);
+
+    modalPlaylist.addEventListener('click', (event) => {
+        if (event.target === modalPlaylist) cerrarModal();
+    });
+
+    // Crear o actualizar playlist
+    btnGuardarModal.addEventListener('click', async () => {
+        if (btnGuardarModal.disabled) return;
+
+        const nombre = inputNombrePlaylist.value.trim();
+        const descripcion = inputDescripcion?.value.trim() || '';
+
+        if (!nombre) {
+            if (errorPlaylist) errorPlaylist.textContent = 'Debes ingresar un nombre.';
+            return;
+        }
+
+        if (errorPlaylist) errorPlaylist.textContent = '';
+
+        btnGuardarModal.disabled = true;
+        btnGuardarModal.textContent = 'Guardando...';
+
+        let respuesta;
+
+        try {
+            if (playlistEnEdicion !== null) {
+                respuesta = await editarPlaylist(playlistEnEdicion, {
+                    nombre,
+                    descripcion
+                });
+            } else {
+                respuesta = await crearPlaylist({
+                    nombre,
+                    descripcion: descripcion || 'Creado desde la web',
+                    cancionIds: []
+                });
+            }
+
+            if (respuesta.ok) {
+                cerrarModal();
+                window.location.reload();
+            } else {
+                if (errorPlaylist) errorPlaylist.textContent = respuesta.error;
+                btnGuardarModal.disabled = false;
+                btnGuardarModal.textContent =
+                    playlistEnEdicion !== null ? 'Guardar cambios' : 'Crear';
+            }
+        } catch (error) {
+            if (errorPlaylist) errorPlaylist.textContent = 'Ocurrió un error inesperado.';
+            btnGuardarModal.disabled = false;
+            btnGuardarModal.textContent =
+                playlistEnEdicion !== null ? 'Guardar cambios' : 'Crear';
+            console.error(error);
+        }
+    });
+});
 
 
-import { obtenerPlaylists, crearPlaylist, eliminarPlaylist } from "./TENJI2/js/api.js";
+import {
+    obtenerPlaylists,
+    crearPlaylist,
+    editarPlaylist,
+    eliminarPlaylist
+} from "./TENJI2/js/api.js";
 
 // cargar playlist
 document.addEventListener("DOMContentLoaded", async () => {
@@ -433,7 +569,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             <img src="https://i.scdn.co/image/ab67616d0000b273b17e8d2b2d2d768ef40aa348" alt="${playlist.nombre}">
             <h4>${playlist.nombre}</h4>
             <p>${playlist.descripcion || "De USUARIO"}</p>
-            <button class="btn-eliminar" data-id="${playlist.id}" title="Eliminar playlist" style="background:transparent; border:none; color:#ff4d4d; cursor:pointer; font-size:14px; margin-top:5px;">🗑️ Eliminar</button>
+            <button class="btn-editar"
+                data-id="${playlist.id}"
+                title="Editar playlist"
+                style="background:transparent; border:none; color:#a875ff; cursor:pointer; font-size:14px; margin-top:5px; margin-right:12px;">
+                Editar
+            </button>
+            <button class="btn-eliminar" data-id="${playlist.id}" title="Eliminar playlist" style="background:transparent; border:none; color:#ff4d4d; cursor:pointer; font-size:14px; margin-top:5px;">Eliminar</button>
         `;
         
         if (btnCrear) {
