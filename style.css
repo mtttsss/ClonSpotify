@@ -1035,4 +1035,23 @@ body {
     .reproductor .info-cancion {
         max-width: 60% !important;
     }
+    .botonlogin {
+        font-size: 0.65rem !important;
+        font-weight: bold !important;
+        padding: 6px 8px !important;
+        white-space: normal !important;
+        text-align: center !important;
+        line-height: 1.1 !important;
+        border-radius: 8px !important;
+        width: 75px !important;
+        height: auto !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+     .btn-perfil {
+        font-size: 0.7rem !important;
+        padding: 6px 10px !important;
+        border-radius: 8px !important;
+    }
 }
