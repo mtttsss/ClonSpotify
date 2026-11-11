@@ -326,7 +326,7 @@ export async function crearPlaylist(datos) {
         };
 
         playlists.push(nuevaPlaylist);
-      
+
         guardarPlaylists(playlists);
 
         return {
@@ -385,6 +385,41 @@ export async function editarPlaylist(id, datos) {
             };
         }
 
+        if (datos.descripcion !== undefined &&
+            typeof datos.descripcion !== "string") {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "La descripción debe ser un texto"
+            };
+        }
+
+        if (datos.cancionIds !== undefined) {
+
+            if (!Array.isArray(datos.cancionIds)) {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "Las canciones deben estar en un arreglo"
+                };
+            }
+
+            const idsValidos = datos.cancionIds.every((id) => {
+                return Number.isInteger(id) && id > 0;
+            });
+
+            if (!idsValidos) {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "Los IDs de las canciones deben ser enteros positivos"
+                };
+            }
+        }
+
         if (datos.nombre !== undefined) {
             if (typeof datos.nombre !== "string" ||
                 datos.nombre.trim() === "") {
@@ -429,6 +464,7 @@ export async function editarPlaylist(id, datos) {
 }
 
 
+
 // Este seria el DELETE
 
 
@@ -456,7 +492,7 @@ export async function eliminarPlaylist(id) {
             };
         }
 
-    
+
         const playlistsActualizadas = playlists.filter((p) => {
             return p.id !== id;
         });
