@@ -1,4 +1,4 @@
-# <Obtener canciones>
+# <CRUD>
 - **Fecha:** 2026-11-10
 - **Integrante:** <Matias Pinto> (@mtttsss)
 - **Herramienta y modelo:** <ChatGPT (GPT-6)>
@@ -16,7 +16,7 @@ Para esta parte (aun que ya lo deje documentado en el api.js) no solo se copio y
 
 Ayudame a implentar el CRUD en api.js, explicandome y enseñandome
 
-### Respuesta 2
+### Respuesta 1
 
 ¡Vamos! Ahora vamos a implementar el CRUD completo de playlists en TENJI, pero quiero que entiendas cómo funciona cada operación, porque después tendrás que integrarla con el frontend y probablemente explicarla en tu evaluación.
 
@@ -535,3 +535,167 @@ Sin embargo, todavía nos quedarán algunos puntos importantes para la Entrega 2
 Además, ten presente que `localStorage` es una simulación: cualquiera que utilice el navegador puede modificar esos datos. No reemplaza una autorización real de servidor.
 
 Mi recomendación: agrega las funciones en el orden presentado, prueba primero `obtenerPlaylist()` y `crearPlaylist()`, y después prueba edición y eliminación. Cuando me envíes tu `api.js` actualizado, revisaremos toda la integración y corregiremos cualquier error antes de subirlo a GitHub.
+
+### Prompt 2
+
+Revisa mi codigo de CRUD dime si todo esta correcto: (codigo adjunto)
+
+### Respuesta 2
+
+Tu CRUD está bien estructurado y debería funcionar correctamente en los casos normales. Tienes implementadas las operaciones de lectura, creación, actualización y eliminación, además de persistencia mediante `localStorage`.
+
+No encontré errores de sintaxis evidentes. Sin embargo, hay 6 aspectos que puedes mejorar.
+
+## 1. Validar los datos de entrada en `crearPlaylist()`
+
+Actualmente solo compruebas que el nombre no esté vacío.
+
+Deberías validar también:
+
+- `descripcion`: que sea un texto.
+- `usuarioId`: que sea un identificador válido.
+- `cancionIds`: que sea un arreglo de números enteros.
+- Que los IDs de las canciones existan en `canciones.json`.
+- Que `datos` sea un objeto y no un arreglo.
+
+Prioridad: alta. Esto evitará crear playlists con información incorrecta.
+
+## 2. Mejorar las validaciones de `editarPlaylist()`
+
+Actualmente tienes:
+
+```
+if (datos.descripcion !== undefined) {
+    playlist.descripcion = datos.descripcion;
+}
+
+if (datos.cancionIds !== undefined) {
+    playlist.cancionIds = datos.cancionIds;
+}
+```
+
+El problema es que aceptarías valores como:
+
+```
+{
+    descripcion: 123,
+    cancionIds: "hola"
+}
+```
+
+Deberías comprobar los tipos antes de actualizar.
+
+También conviene validar todos los campos antes de modificar el objeto, para evitar cambios parciales cuando ocurre un error.
+
+Prioridad: alta.
+
+## 3. Validar los identificadores de las playlists
+
+Actualmente utilizas:
+
+```
+const playlist = playlists.find((p) => {
+    return p.id === id;
+});
+```
+
+Esto funciona con números, pero:
+
+```
+obtenerPlaylist(1);   // Funciona
+obtenerPlaylist("1"); // No encuentra la playlist
+```
+
+Deberías establecer una regla consistente: recibir únicamente IDs numéricos o convertir los IDs que llegan como texto desde la interfaz.
+
+Esta mejora también corresponde a `editarPlaylist()` y `eliminarPlaylist()`.
+
+Prioridad: media.
+
+## 4. Verificar los datos recuperados de `localStorage`
+
+Tu función `obtenerPlaylists()` utiliza:
+
+```
+playlists = JSON.parse(guardadas);
+```
+
+Esto es correcto, pero no garantiza que los datos recuperados sean un arreglo.
+
+Por ejemplo, si el almacenamiento contiene:
+
+```
+{"nombre": "Playlist incorrecta"}
+```
+
+`JSON.parse()` funcionará, pero después `.find()`, `.reduce()` y `.filter()` podrían producir errores.
+
+Después de recuperar los datos, sería conveniente comprobar:
+
+```
+if (!Array.isArray(playlists)) {
+    throw new Error("Los datos de playlists no son válidos");
+}
+```
+
+Así evitarás devolver `ok: true` cuando los datos tengan una estructura incorrecta.
+
+Prioridad: media.
+
+## 5. Mejorar la generación de identificadores
+
+Actualmente utilizas:
+
+```
+const nuevoId = playlists.reduce((maximo, playlist) => {
+    return Math.max(maximo, playlist.id);
+}, 0) + 1;
+```
+
+Este método funciona correctamente con los IDs numéricos de tus mocks.
+
+Sin embargo, existe un caso especial: si eliminas la playlist con el ID más alto y luego creas otra, podrías reutilizar ese identificador.
+
+No necesariamente es un error para TENJI, pero sería más robusto mantener un contador persistente de IDs para evitar reutilizarlos.
+
+Prioridad: baja.
+
+## 6. Implementar errores simulados
+
+Tu CRUD ya maneja errores reales mediante `try/catch`, pero todavía no permite provocar uno intencionalmente.
+
+Podrías incorporar una opción como:
+
+```
+obtenerPlaylists({ forzarError: true });
+```
+
+Y devolver:
+
+```
+{
+    ok: false,
+    status: 500,
+    data: null,
+    error: "Error simulado del servidor"
+}
+```
+
+Esto permitiría probar los estados de error que exige la pauta de tu Entrega 2.
+
+Prioridad: alta.
+
+## Resumen de mejoras
+
+| Mejora                              | Prioridad |
+| ----------------------------------- | --------- |
+| Validaciones de `crearPlaylist()`   | Alta      |
+| Validaciones de `editarPlaylist()`  | Alta      |
+| Error forzado para pruebas          | Alta      |
+| Validación de `localStorage`        | Media     |
+| Validación de IDs                   | Media     |
+| Generación de IDs sin reutilización | Baja      |
+
+Evaluación general: 8,5/10.
+
+La estructura de tu CRUD es correcta y no necesitas reescribirlo. Lo principal ahora es mejorar la validación de datos y la gestión de errores para que funcione correctamente incluso cuando reciba información inválida.
