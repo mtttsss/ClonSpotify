@@ -1,3 +1,10 @@
+:root {
+    --bg-principal: #121212;
+    --bg-card: #141022;
+    --color-acento: #5e17eb;
+    --texto-principal: #ffffff;
+    --texto-secundario: #a7a7a7;
+}
 
 * {
     margin: 0;
