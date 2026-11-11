@@ -1,3 +1,26 @@
+//toasts
+
+const mostrarToast = (mensaje, tipo = 'exito') => {
+    let toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toastContainer';
+        toastContainer.className = 'toast-container';
+        document.body.appendChild(toastContainer);
+    }
+
+    const toast = document.createElement('div');
+    toast.textContent = mensaje;
+    toast.className = `toast ${tipo}`;
+    toastContainer.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('oculto');
+        setTimeout(() => toast.remove(), 400);
+    }, 4000);
+};
+
+
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementacion_usuarioguardado_cambiarfoto.md
 const usuarioActivo = JSON.parse(localStorage.getItem('sesion_tenji'));
@@ -460,6 +483,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        //CERRAR MODAL CON ESC
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modalPlaylist.classList.contains('oculto')) {
+                cerrarModal();
+            }
+        });
+
         if (btnGuardarModal && inputNombrePlaylist) {
             btnGuardarModal.addEventListener('click', async () => {
                 const nombre = inputNombrePlaylist.value.trim();
@@ -485,10 +516,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (respuesta.ok) {
                         btnGuardarModal.textContent = '¡Creada!';
+                        mostrarToast('¡Playlist creada con éxito!', 'exito');
                         setTimeout(() => {
                             cerrarModal();
                             window.location.reload(); 
-                        }, 500);
+                        }, 1000);
+
                     } else {
                         console.error("Error al crear:", respuesta.error);
                         alert("No se pudo crear: " + respuesta.error);
@@ -513,7 +546,11 @@ document.addEventListener('click', async (event) => {
         const respuesta = await eliminarPlaylist(idPlaylist);
 
         if (respuesta.ok) {
-            window.location.reload(); 
+            mostrarToast('Playlist eliminada correctamente', 'exito');
+            setTimeout(() => {
+        window.location.reload(); 
+    }, 1000);
+
         } else {
             console.error("Error al eliminar la playlist:", respuesta.error);
             alert("No se pudo eliminar: " + respuesta.error);
