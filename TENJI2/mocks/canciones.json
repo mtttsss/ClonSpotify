@@ -12,7 +12,7 @@
     "id": 2,
     "titulo": "Simplemente Amiga",
     "artista": "Leo Rey",
-    "album": "Ejemplo de álbum",
+    "album": "Simplemente",
     "duracion": 219,
     "genero": "Cumbia",
     "imagen": "https://i.scdn.co/image/ab67616d0000b273571b81393b9b40ca2b153c55"
@@ -50,7 +50,7 @@
     "artista": "Drake",
     "album": "For All the Dogs Scary Hours Edition",
     "duracion": 260,
-    "genero": "Trap",
+    "genero": "Rap",
     "imagen": "https://i.scdn.co/image/ab67616d0000b273e286ee36b4015afa8832356a"
   },
   {
@@ -97,7 +97,142 @@
     "duracion": 249,
     "genero": "Urbano",
     "imagen": "https://cdn-images.dzcdn.net/images/cover/fae4dbcc9ae4cdc7ec2f91d1d8843603/0x1900-000000-80-0-0.jpg"
+  },
+  {
+    "id": 12,
+    "titulo": "Arrancacorazones",
+    "artista": "Attaque 77",
+    "album": "Antihumano",
+    "duracion": 259,
+    "genero": "Rock",
+    "imagen": "https://akamai.sscdn.co/uploadfile/letras/albuns/a/5/9/4/633591524754449.jpg"
+  },
+  {
+    "id": 13,
+    "titulo": "¿Qué vas a hacer tan sola hoy?",
+    "artista": "Viejas Locas",
+    "album": "Especial",
+    "duracion": 248,
+    "genero": "Rock",
+    "imagen": "https://cdn-images.dzcdn.net/images/cover/6f2a672908fcd8b63fd3e1d745e9ca35/1900x1900-000000-81-0-0.jpg"
+  },
+  {
+    "id": 14,
+    "titulo": "Obsesionario en La Mayor",
+    "artista": "Tan Bionica",
+    "album": "Obsesionario",
+    "duracion": 266,
+    "genero": "Rock",
+    "imagen": "https://cdn-images.dzcdn.net/images/cover/10956a05a332898b3234d916d7cd6dc8/0x1900-000000-80-0-0.jpg"
+  },
+  {
+    "id": 15,
+    "titulo": "Another Brick in the Wall (Part 2)",
+    "artista": "Pink Floyd",
+    "album": "The Wall",
+    "duracion": 238,
+    "genero": "Rock",
+    "imagen": "https://cdn-images.dzcdn.net/images/cover/10956a05a332898b3234d916d7cd6dc8/0x1900-000000-80-0-0.jpg"
+  },
+   {
+    "id": 16,
+    "titulo": "Yo Tomo",
+    "artista": "Amar Azul",
+    "album": "El Campeon",
+    "duracion": 200,
+    "genero": "Cumbia",
+    "imagen": "https://i.scdn.co/image/ab67616d0000b27309cd3af1ecc0e0c3c67019c8"
+  },
+   {
+    "id": 17,
+    "titulo": "Que Te Vaya Bien",
+    "artista": "Santa feria",
+    "album": "Que Te Vaya Bien",
+    "duracion": 175,
+    "genero": "Cumbia",
+    "imagen": "https://cdn-images.dzcdn.net/images/cover/2f16c9c26ba9ffba2d31a0a1959bbb30/0x1900-000000-80-0-0.jpg"
+  },
+   {
+    "id": 18,
+    "titulo": "Freestyle",
+    "artista": "Lil Baby",
+    "album": "Too Hard",
+    "duracion": 162,
+    "genero": "Rap",
+    "imagen": "https://i.scdn.co/image/ab67616d0000b2735067cc9332e2fdc69ea7b7a9"
+  },
+   {
+    "id": 19,
+    "titulo": "70 Lunas Llenas",
+    "artista": "Dr. Bene",
+    "album": "Salven las palomas",
+    "duracion": 194,
+    "genero": "Rap",
+    "imagen": "https://s.mxmcdn.net/images-storage/albums4/4/1/9/4/1/5/33514914_350_350.jpg"
+  },
+   {
+    "id": 20,
+    "titulo": "Chichabeba",
+    "artista": "La Obsesion",
+    "album": "La Obsesion",
+    "duracion": 131,
+    "genero": "Reggaeton",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsW7TDlZa018yxA-qejNo2zPV6U-fb3EQ6h3cUilJdjpTXHyP-2JD3HOK7&s=10"
+  },
+   {
+    "id": 21,
+    "titulo": "Por Que Te Demoras?",
+    "artista": "Plan B",
+    "album": "House of Pleasure",
+    "duracion": 191,
+    "genero": "Reggaeton",
+    "imagen": "https://i.discogs.com/xXK8mWn_KQM9mIR7u8GOfnQm3_1BTtqsXqJuQS3gyVQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0NjUz/NDI5LTE1Nzg5NTk3/MjItMjI3MC5qcGVn.jpeg"
+  },
+   {
+    "id": 22,
+    "titulo": "Is There Someone Else?",
+    "artista": "The Weeknd",
+    "album": "Dawn FM",
+    "duracion": 199,
+    "genero": "Pop",
+    "imagen": "https://cdn-images.dzcdn.net/images/cover/478a544d29275755b3b8f7b4a1fd7a3c/0x1900-000000-80-0-0.jpg"
+  },
+   {
+    "id": 23,
+    "titulo": "Espresso",
+    "artista": "Sabrina Carpenter",
+    "album": "Short n' Sweet",
+    "duracion": 213,
+    "genero": "Pop",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJcsDGe0GIrug-39bTl6aBtcuolI6vsWqrNZYXDDhw1jPIvJEuDtI0Kmc&s=10"
+  },
+   {
+    "id": 24,
+    "titulo": "Die With A Smile",
+    "artista": "Lady Gaga",
+    "album": "MAYHEM",
+    "duracion": 251,
+    "genero": "Pop",
+    "imagen": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c"
+  },
+   {
+    "id": 25,
+    "titulo": "BbY WOW",
+    "artista": "KAROL G",
+    "album": "NO ME ARREPIENTO DE SENTIR TANTO",
+    "duracion": 225,
+    "genero": "Dancehall",
+    "imagen": "https://i.scdn.co/image/ab67616d0000b27321deb742375f88edfb2e7368"
+  },
+   {
+    "id": 26,
+    "titulo": "KOKO",
+    "artista": "Omar Courtz",
+    "album": "POR SI MAÑANA NO ESTOY",
+    "duracion": 195,
+    "genero": "Reggaeton",
+    "imagen": "https://cdn-images.dzcdn.net/images/cover/1ef9489b58a25622c2e3d2aa0473dde0/500x500.jpg"
   }
-
+  
 
 ]

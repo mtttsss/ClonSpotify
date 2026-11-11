@@ -360,29 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnGuardarModal = document.getElementById('btnGuardarModal');
     const inputNombrePlaylist = document.getElementById('nombrePlaylist');
 
-    if (btnCrearPlaylist && modalPlaylist) {
-        btnCrearPlaylist.addEventListener('click', () => {
-            modalPlaylist.classList.remove('oculto');
-            if (inputNombrePlaylist) inputNombrePlaylist.focus();
-        });
-
-        const cerrarModal = () => {
-            modalPlaylist.classList.add('oculto');
-            if (inputNombrePlaylist) inputNombrePlaylist.value = '';
-            if (btnGuardarModal) btnGuardarModal.textContent = 'Crear';
-        };
-
-        if (btnCancelarModal) {
-            btnCancelarModal.addEventListener('click', cerrarModal);
-        }
-
-        modalPlaylist.addEventListener('click', (event) => {
-            if (event.target === modalPlaylist) {
-                cerrarModal();
-            }
-        });
-
-        if (btnGuardarModal && inputNombrePlaylist) {
+    if (btnGuardarModal && inputNombrePlaylist) {
             btnGuardarModal.addEventListener('click', () => {
                 const errorPlaylist = document.getElementById('errorPlaylist');
                 if (errorPlaylist) errorPlaylist.textContent = '';
@@ -402,7 +380,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         cerrarModal();
                         
+<<<<<<< HEAD
 //resetear modal            
+=======
+            //resetear modal
+>>>>>>> f4ff70fc189a100a785b10e32f9ec6d1eec36e0d
                         btnGuardarModal.disabled = false;
                         btnGuardarModal.textContent = 'Crear';
                         btnGuardarModal.style.backgroundColor = ''; 
@@ -410,7 +392,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 1000);
             });
         }
-    }
 });
 
 // [IA] inicio - 2026-11-10_cristoballopez3-modo_claro.md
@@ -443,10 +424,135 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// [IA] fin
 
+<<<<<<< HEAD
 // [IA] fin
 
 
 
 
 
+=======
+// creacion playlist
+
+
+import { obtenerPlaylists, crearPlaylist, eliminarPlaylist } from "./TENJI2/js/api.js";
+
+// cargar playlist
+document.addEventListener("DOMContentLoaded", async () => {
+    const contenedorPlaylists = document.getElementById("contenedor-mis-playlists");
+    if (!contenedorPlaylists) return;
+
+    const btnCrear = document.getElementById("btnCrearPlaylist");
+    const respuesta = await obtenerPlaylists();
+
+    if (!respuesta.ok) {
+        console.error("Error al obtener playlists:", respuesta.error);
+        return;
+    }
+
+    const playlists = respuesta.data;
+
+    playlists.forEach(playlist => {
+        const article = document.createElement("article");
+        article.className = "portadas";
+        article.innerHTML = `
+            <img src="https://i.scdn.co/image/ab67616d0000b273b17e8d2b2d2d768ef40aa348" alt="${playlist.nombre}">
+            <h4>${playlist.nombre}</h4>
+            <p>${playlist.descripcion || "De USUARIO"}</p>
+            <button class="btn-eliminar" data-id="${playlist.id}" title="Eliminar playlist" style="background:transparent; border:none; color:#ff4d4d; cursor:pointer; font-size:14px; margin-top:5px;">🗑️ Eliminar</button>
+        `;
+        
+        if (btnCrear) {
+            contenedorPlaylists.insertBefore(article, btnCrear);
+        } else {
+            contenedorPlaylists.appendChild(article);
+        }
+    });
+});
+
+//creacion playlist
+document.addEventListener('DOMContentLoaded', () => {
+    const btnCrearPlaylist = document.getElementById('btnCrearPlaylist');
+    const modalPlaylist = document.getElementById('modalPlaylist');
+    const btnCancelarModal = document.getElementById('btnCancelarModal');
+    const btnGuardarModal = document.getElementById('btnGuardarModal');
+    const inputNombrePlaylist = document.getElementById('nombrePlaylist');
+
+    if (btnCrearPlaylist && modalPlaylist) {
+        btnCrearPlaylist.addEventListener('click', () => {
+            modalPlaylist.classList.remove('oculto');
+            if (inputNombrePlaylist) inputNombrePlaylist.focus();
+        });
+
+        const cerrarModal = () => {
+            modalPlaylist.classList.add('oculto');
+            if (inputNombrePlaylist) inputNombrePlaylist.value = '';
+            if (btnGuardarModal) btnGuardarModal.textContent = 'Crear';
+        };
+
+        if (btnCancelarModal) {
+            btnCancelarModal.addEventListener('click', cerrarModal);
+        }
+
+        modalPlaylist.addEventListener('click', (event) => {
+            if (event.target === modalPlaylist) {
+                cerrarModal();
+            }
+        });
+
+        if (btnGuardarModal && inputNombrePlaylist) {
+            btnGuardarModal.addEventListener('click', async () => {
+                const nombre = inputNombrePlaylist.value.trim();
+                
+                if (nombre !== '') {
+                    btnGuardarModal.textContent = 'Creando...';
+                    btnGuardarModal.disabled = true;
+
+                    const nuevaPlaylistDatos = {
+                        nombre: nombre,
+                        descripcion: "Creado desde la web",
+                        cancionIds: []
+                    };
+
+                    const respuesta = await crearPlaylist(nuevaPlaylistDatos);
+
+                    if (respuesta.ok) {
+                        btnGuardarModal.textContent = '¡Creada!';
+                        setTimeout(() => {
+                            cerrarModal();
+                            window.location.reload(); 
+                        }, 500);
+                    } else {
+                        console.error("Error al crear:", respuesta.error);
+                        alert("No se pudo crear: " + respuesta.error);
+                        btnGuardarModal.textContent = 'Crear';
+                        btnGuardarModal.disabled = false;
+                    }
+                }
+            });
+        }
+    }
+});
+
+
+// eliminar playlist
+document.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('btn-eliminar')) {
+        const idPlaylist = Number(event.target.getAttribute('data-id'));
+
+        const confirmar = confirm("¿Estás seguro de que deseas eliminar esta playlist?");
+        if (!confirmar) return;
+
+        const respuesta = await eliminarPlaylist(idPlaylist);
+
+        if (respuesta.ok) {
+            window.location.reload(); 
+        } else {
+            console.error("Error al eliminar la playlist:", respuesta.error);
+            alert("No se pudo eliminar: " + respuesta.error);
+        }
+    }
+});
+>>>>>>> f4ff70fc189a100a785b10e32f9ec6d1eec36e0d

@@ -1526,7 +1526,3 @@ Con ella aprenderás a utilizar `.find()`, que es parecido a `.filter()`, pero s
 Mi recomendación es avanzar con esa función antes de comenzar las operaciones CRUD de playlists, porque es más sencilla y te ayudará a consolidar cómo trabajar con identificadores y respuestas de la API.
 
 Conclusión: tu código está bien planteado para tu nivel académico y podemos continuar.
-
-### Prompt 8
-
-### Respuesta 8
