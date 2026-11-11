@@ -427,8 +427,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // [IA] fin
-
-
-
-
-
