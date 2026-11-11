@@ -139,7 +139,7 @@ export async function obtenerCancion(id) {
 // CRUD, esta parte es para crear, actualizar y eliminar canciones, esta parte igual que la anterior fue una combinacion de IA con aprendizaje propio
 // Al poner los comentarios de [IA] inicio y [IA] fin no quiere decir solo que fue un copy paste, si no que me guiee con la IA, ademas de videos de youtube
 
-
+// [IA] inicio · ia/2026-11-09_mtttsss_crud.md
 
 export async function obtenerPlaylists() {
     await esperar(LATENCIA);
@@ -171,6 +171,10 @@ export async function obtenerPlaylists() {
             );
         }
 
+        if (!Array.isArray(playlists)) {
+            throw new Error("Los datos de playlists no son válidos");
+        }
+
         return {
             ok: true,
             status: 200,
@@ -198,30 +202,198 @@ function guardarPlaylists(playlists) {
     );
 }
 
+// [IA] Inicio · ia/2026-11-10_localStorage-validacion.md
+
 function validarId(id) {
     return Number.isInteger(id) && id > 0;
 }
+
+// [IA] fin
 
 // Este seria el READ
 
 export async function obtenerPlaylist(id) {
 
-        if (!validarId(id)) {
+    if (!validarId(id)) {
+        return {
+            ok: false,
+            status: 400,
+            data: null,
+            error: "El ID de la playlist debe ser un número entero positivo"
+        };
+    }
+
+    const respuesta = await obtenerPlaylists();
+
+    if (!respuesta.ok) {
+        return respuesta;
+    }
+
+    const playlist = respuesta.data.find((p) => {
+        return p.id === id;
+    });
+
+    if (!playlist) {
+        return {
+            ok: false,
+            status: 404,
+            data: null,
+            error: "Playlist no encontrada"
+        };
+    }
+
+    return {
+        ok: true,
+        status: 200,
+        data: playlist,
+        error: null
+    };
+}
+
+// Este seria el CREATE
+
+
+export async function crearPlaylist(datos) {
+
+    const respuesta = await obtenerPlaylists();
+
+    if (!respuesta.ok) {
+        return respuesta;
+    }
+
+    try {
+        const playlists = respuesta.data;
+
+
+        if (!datos || typeof datos !== "object" ||
+            Array.isArray(datos)) {
             return {
                 ok: false,
                 status: 400,
                 data: null,
-                error: "El ID de la playlist debe ser un número entero positivo"
+                error: "Debes proporcionar datos válidos"
             };
         }
 
-        const respuesta = await obtenerPlaylists();
-
-        if (!respuesta.ok) {
-            return respuesta;
+        if (typeof datos.nombre !== "string" ||
+            datos.nombre.trim() === "") {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "Debes ingresar un nombre para la playlist"
+            };
         }
 
-        const playlist = respuesta.data.find((p) => {
+        if (datos.descripcion !== undefined &&
+            typeof datos.descripcion !== "string") {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "La descripción debe ser un texto"
+            };
+        }
+
+        if (datos.usuarioId !== undefined &&
+            datos.usuarioId !== null &&
+            (!Number.isInteger(datos.usuarioId) || datos.usuarioId <= 0)) {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "El ID del usuario debe ser un número entero positivo"
+            };
+        }
+
+
+        if (datos.cancionIds !== undefined) {
+
+            if (!Array.isArray(datos.cancionIds)) {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "Las canciones deben estar en un arreglo"
+                };
+            }
+
+            const idsValidos = datos.cancionIds.every((id) => {
+                return Number.isInteger(id) && id > 0;
+            });
+
+            if (!idsValidos) {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "Los IDs de las canciones deben ser enteros positivos"
+                };
+            }
+        }
+
+
+        const nuevoId = playlists.reduce((maximo, playlist) => {
+            return Math.max(maximo, playlist.id);
+        }, 0) + 1;
+
+
+        const nuevaPlaylist = {
+            id: nuevoId,
+            nombre: datos.nombre.trim(),
+            descripcion: datos.descripcion ?? "",
+            usuarioId: datos.usuarioId ?? null,
+            cancionIds: datos.cancionIds ?? []
+        };
+
+        playlists.push(nuevaPlaylist);
+
+        guardarPlaylists(playlists);
+
+        return {
+            ok: true,
+            status: 201,
+            data: nuevaPlaylist,
+            error: null
+        };
+
+    } catch (error) {
+        console.error("Error en crearPlaylist:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "No se pudo crear la playlist"
+        };
+    }
+}
+
+// Este seria el UPDATE
+
+
+export async function editarPlaylist(id, datos) {
+
+    if (!validarId(id)) {
+        return {
+            ok: false,
+            status: 400,
+            data: null,
+            error: "El ID de la playlist debe ser un número entero positivo"
+        };
+    }
+
+
+    const respuesta = await obtenerPlaylists();
+
+    if (!respuesta.ok) {
+        return respuesta;
+    }
+
+    try {
+        const playlists = respuesta.data;
+
+        const playlist = playlists.find((p) => {
             return p.id === id;
         });
 
@@ -234,319 +406,158 @@ export async function obtenerPlaylist(id) {
             };
         }
 
-        return {
-            ok: true,
-            status: 200,
-            data: playlist,
-            error: null
-        };
-    }
-
-    // Este seria el CREATE
-
-
-    export async function crearPlaylist(datos) {
-
-        const respuesta = await obtenerPlaylists();
-
-        if (!respuesta.ok) {
-            return respuesta;
+        if (!datos || typeof datos !== "object" ||
+            Array.isArray(datos)) {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "Debes proporcionar datos válidos"
+            };
         }
 
-        try {
-            const playlists = respuesta.data;
+        if (datos.descripcion !== undefined &&
+            typeof datos.descripcion !== "string") {
+            return {
+                ok: false,
+                status: 400,
+                data: null,
+                error: "La descripción debe ser un texto"
+            };
+        }
 
+        if (datos.cancionIds !== undefined) {
 
-            if (!datos || typeof datos !== "object" ||
-                Array.isArray(datos)) {
+            if (!Array.isArray(datos.cancionIds)) {
                 return {
                     ok: false,
                     status: 400,
                     data: null,
-                    error: "Debes proporcionar datos válidos"
+                    error: "Las canciones deben estar en un arreglo"
                 };
             }
 
+            const idsValidos = datos.cancionIds.every((id) => {
+                return Number.isInteger(id) && id > 0;
+            });
+
+            if (!idsValidos) {
+                return {
+                    ok: false,
+                    status: 400,
+                    data: null,
+                    error: "Los IDs de las canciones deben ser enteros positivos"
+                };
+            }
+        }
+
+        if (datos.nombre !== undefined) {
             if (typeof datos.nombre !== "string" ||
                 datos.nombre.trim() === "") {
                 return {
                     ok: false,
                     status: 400,
                     data: null,
-                    error: "Debes ingresar un nombre para la playlist"
+                    error: "El nombre de la playlist no puede estar vacío"
                 };
             }
 
-            if (datos.descripcion !== undefined &&
-                typeof datos.descripcion !== "string") {
-                return {
-                    ok: false,
-                    status: 400,
-                    data: null,
-                    error: "La descripción debe ser un texto"
-                };
-            }
-
-            if (datos.usuarioId !== undefined &&
-                datos.usuarioId !== null &&
-                (!Number.isInteger(datos.usuarioId) || datos.usuarioId <= 0)) {
-                return {
-                    ok: false,
-                    status: 400,
-                    data: null,
-                    error: "El ID del usuario debe ser un número entero positivo"
-                };
-            }
-
-
-            if (datos.cancionIds !== undefined) {
-
-                if (!Array.isArray(datos.cancionIds)) {
-                    return {
-                        ok: false,
-                        status: 400,
-                        data: null,
-                        error: "Las canciones deben estar en un arreglo"
-                    };
-                }
-
-                const idsValidos = datos.cancionIds.every((id) => {
-                    return Number.isInteger(id) && id > 0;
-                });
-
-                if (!idsValidos) {
-                    return {
-                        ok: false,
-                        status: 400,
-                        data: null,
-                        error: "Los IDs de las canciones deben ser enteros positivos"
-                    };
-                }
-            }
-
-
-            const nuevoId = playlists.reduce((maximo, playlist) => {
-                return Math.max(maximo, playlist.id);
-            }, 0) + 1;
-
-
-            const nuevaPlaylist = {
-                id: nuevoId,
-                nombre: datos.nombre.trim(),
-                descripcion: datos.descripcion ?? "",
-                usuarioId: datos.usuarioId ?? null,
-                cancionIds: datos.cancionIds ?? []
-            };
-
-            playlists.push(nuevaPlaylist);
-
-            guardarPlaylists(playlists);
-
-            return {
-                ok: true,
-                status: 201,
-                data: nuevaPlaylist,
-                error: null
-            };
-
-        } catch (error) {
-            console.error("Error en crearPlaylist:", error);
-
-            return {
-                ok: false,
-                status: 500,
-                data: null,
-                error: "No se pudo crear la playlist"
-            };
+            playlist.nombre = datos.nombre.trim();
         }
+
+        if (datos.descripcion !== undefined) {
+            playlist.descripcion = datos.descripcion;
+        }
+
+        if (datos.cancionIds !== undefined) {
+            playlist.cancionIds = datos.cancionIds;
+        }
+
+        guardarPlaylists(playlists);
+
+        return {
+            ok: true,
+            status: 200,
+            data: playlist,
+            error: null
+        };
+
+    } catch (error) {
+        console.error("Error en editarPlaylist:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "No se pudo editar la playlist"
+        };
+    }
+}
+
+
+
+// Este seria el DELETE
+
+
+export async function eliminarPlaylist(id) {
+
+    if (!validarId(id)) {
+        return {
+            ok: false,
+            status: 400,
+            data: null,
+            error: "El ID de la playlist debe ser un número entero positivo"
+        };
     }
 
-    // Este seria el UPDATE
+    const respuesta = await obtenerPlaylists();
 
-
-    export async function editarPlaylist(id, datos) {
-
-        if (!validarId(id)) {
-            return {
-                ok: false,
-                status: 400,
-                data: null,
-                error: "El ID de la playlist debe ser un número entero positivo"
-            };
-        }
-
-
-        const respuesta = await obtenerPlaylists();
-
-        if (!respuesta.ok) {
-            return respuesta;
-        }
-
-        try {
-            const playlists = respuesta.data;
-
-            const playlist = playlists.find((p) => {
-                return p.id === id;
-            });
-
-            if (!playlist) {
-                return {
-                    ok: false,
-                    status: 404,
-                    data: null,
-                    error: "Playlist no encontrada"
-                };
-            }
-
-            if (!datos || typeof datos !== "object" ||
-                Array.isArray(datos)) {
-                return {
-                    ok: false,
-                    status: 400,
-                    data: null,
-                    error: "Debes proporcionar datos válidos"
-                };
-            }
-
-            if (datos.descripcion !== undefined &&
-                typeof datos.descripcion !== "string") {
-                return {
-                    ok: false,
-                    status: 400,
-                    data: null,
-                    error: "La descripción debe ser un texto"
-                };
-            }
-
-            if (datos.cancionIds !== undefined) {
-
-                if (!Array.isArray(datos.cancionIds)) {
-                    return {
-                        ok: false,
-                        status: 400,
-                        data: null,
-                        error: "Las canciones deben estar en un arreglo"
-                    };
-                }
-
-                const idsValidos = datos.cancionIds.every((id) => {
-                    return Number.isInteger(id) && id > 0;
-                });
-
-                if (!idsValidos) {
-                    return {
-                        ok: false,
-                        status: 400,
-                        data: null,
-                        error: "Los IDs de las canciones deben ser enteros positivos"
-                    };
-                }
-            }
-
-            if (datos.nombre !== undefined) {
-                if (typeof datos.nombre !== "string" ||
-                    datos.nombre.trim() === "") {
-                    return {
-                        ok: false,
-                        status: 400,
-                        data: null,
-                        error: "El nombre de la playlist no puede estar vacío"
-                    };
-                }
-
-                playlist.nombre = datos.nombre.trim();
-            }
-
-            if (datos.descripcion !== undefined) {
-                playlist.descripcion = datos.descripcion;
-            }
-
-            if (datos.cancionIds !== undefined) {
-                playlist.cancionIds = datos.cancionIds;
-            }
-
-            guardarPlaylists(playlists);
-
-            return {
-                ok: true,
-                status: 200,
-                data: playlist,
-                error: null
-            };
-
-        } catch (error) {
-            console.error("Error en editarPlaylist:", error);
-
-            return {
-                ok: false,
-                status: 500,
-                data: null,
-                error: "No se pudo editar la playlist"
-            };
-        }
+    if (!respuesta.ok) {
+        return respuesta;
     }
 
+    try {
+        const playlists = respuesta.data;
 
+        const playlist = playlists.find((p) => {
+            return p.id === id;
+        });
 
-    // Este seria el DELETE
-
-
-    export async function eliminarPlaylist(id) {
-
-        if (!validarId(id)) {
+        if (!playlist) {
             return {
                 ok: false,
-                status: 400,
+                status: 404,
                 data: null,
-                error: "El ID de la playlist debe ser un número entero positivo"
+                error: "Playlist no encontrada"
             };
         }
 
-        const respuesta = await obtenerPlaylists();
 
-        if (!respuesta.ok) {
-            return respuesta;
-        }
+        const playlistsActualizadas = playlists.filter((p) => {
+            return p.id !== id;
+        });
 
-        try {
-            const playlists = respuesta.data;
+        guardarPlaylists(playlistsActualizadas);
 
-            const playlist = playlists.find((p) => {
-                return p.id === id;
-            });
+        return {
+            ok: true,
+            status: 200,
+            data: playlist,
+            error: null
+        };
 
-            if (!playlist) {
-                return {
-                    ok: false,
-                    status: 404,
-                    data: null,
-                    error: "Playlist no encontrada"
-                };
-            }
+    } catch (error) {
+        console.error("Error en eliminarPlaylist:", error);
 
-
-            const playlistsActualizadas = playlists.filter((p) => {
-                return p.id !== id;
-            });
-
-            guardarPlaylists(playlistsActualizadas);
-
-            return {
-                ok: true,
-                status: 200,
-                data: playlist,
-                error: null
-            };
-
-        } catch (error) {
-            console.error("Error en eliminarPlaylist:", error);
-
-            return {
-                ok: false,
-                status: 500,
-                data: null,
-                error: "No se pudo eliminar la playlist"
-            };
-        }
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "No se pudo eliminar la playlist"
+        };
     }
+}
+
+// [IA] fin
+// Las validaciones fueron hechas en su mayoria por mi, por lo que no documente todo en el md
 
