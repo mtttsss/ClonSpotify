@@ -1,7 +1,26 @@
 
 import { obtenerCanciones } from "../TENJI2/js/api.js";
 
-ddocument.addEventListener('DOMContentLoaded', cargarLikes);
+
+function mostrarCarga(destino, mensaje) {
+    destino.textContent = mensaje;
+}
+
+function mostrarError(destino, mensaje, reintentar) {
+    destino.replaceChildren();
+
+    const texto = document.createElement('p');
+    texto.textContent = mensaje;
+
+    const boton = document.createElement('button');
+    boton.textContent = 'Reintentar';
+    boton.addEventListener('click', reintentar);
+
+    destino.append(texto, boton);
+}
+
+
+document.addEventListener('DOMContentLoaded', cargarLikes);
 
 async function cargarLikes() {
 
@@ -10,10 +29,19 @@ async function cargarLikes() {
 
     if (!contenedorLikes || !estadoLikes) return;
 
+    const usuario = JSON.parse(localStorage.getItem('sesion_tenji'));
+
+    if (!usuario || usuario.id === undefined || usuario.id === null) {
+        estadoLikes.textContent = 'Debes iniciar sesión para ver tus favoritos.';
+        return;
+    }
+
+    const clave = `tenji_likes_${usuario.id}`;
+
     let likesGuardados;
 
     try {
-        likesGuardados = JSON.parse(localStorage.getItem('tenji_likes')) || [];
+        likesGuardados = JSON.parse(localStorage.getItem(clave)) || [];
     } catch (error) {
         estadoLikes.textContent = 'No se pudieron leer los favoritos guardados.';
         console.error('Error al leer los Likes:', error);
@@ -21,6 +49,7 @@ async function cargarLikes() {
     }
 
     if (!Array.isArray(likesGuardados) || likesGuardados.length === 0) {
+        contenedorLikes.replaceChildren();
         estadoLikes.textContent = 'Todavía no tienes canciones favoritas.';
         return;
     }
@@ -42,6 +71,7 @@ async function cargarLikes() {
         );
 
         contenedorLikes.replaceChildren();
+
         cancionesFavoritas.forEach(cancion => {
 
             const tarjeta = document.createElement('article');

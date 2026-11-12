@@ -3,9 +3,23 @@ const botonLike = document.querySelector('.like');
 
 let cancionSeleccionadaId = null;
 
+// Obtener la clave de favoritos del usuario que inició sesión
+function obtenerClaveLikes() {
+    const usuario = JSON.parse(localStorage.getItem('sesion_tenji'));
+
+    if (!usuario || usuario.id === undefined || usuario.id === null) {
+        return null;
+    }
+
+    return `tenji_likes_${usuario.id}`;
+}
+
 function obtenerLikes() {
-    const likesGuardados = JSON.parse(localStorage.getItem('tenji_likes')) || [];
-    return likesGuardados;
+    const clave = obtenerClaveLikes();
+
+    if (!clave) return [];
+
+    return JSON.parse(localStorage.getItem(clave)) || [];
 }
 
 function actualizarBotonLike() {
@@ -35,6 +49,13 @@ if (botonLike) {
 
         if (cancionSeleccionadaId === null) return;
 
+        const clave = obtenerClaveLikes();
+
+        if (!clave) {
+            console.error('No hay un usuario conectado.');
+            return;
+        }
+
         let likes = obtenerLikes();
 
         if (likes.includes(cancionSeleccionadaId)) {
@@ -43,10 +64,11 @@ if (botonLike) {
             likes.push(cancionSeleccionadaId);
         }
 
-        localStorage.setItem('tenji_likes', JSON.stringify(likes));
+        localStorage.setItem(clave, JSON.stringify(likes));
 
         actualizarBotonLike();
 
+        console.log('Usuario:', clave);
         console.log('Canciones favoritas:', likes);
     });
 }
@@ -73,27 +95,14 @@ document.addEventListener('click', (event) => {
     }
 });
 
-
-
 const botonPlay = document.querySelector('.play');
 
 if (botonPlay) {
-
-    botonPlay.addEventListener('click', (e) => {
-
-        if (botonPlay.textContent === '▶') {
-            botonPlay.textContent = '⏸';
-        } else {
-            botonPlay.textContent = '▶';
-        }
-
+    botonPlay.addEventListener('click', () => {
+        botonPlay.textContent =
+            botonPlay.textContent === '▶' ? '⏸' : '▶';
     });
-
 }
-
-// que se cambie el boton de play a pause al hacer click
-
-
 
 const selectorImagen = document.querySelector('.info-cancion img');
 
@@ -103,31 +112,8 @@ const selectorNombre = document.querySelector('.reproductorTitulo')
 const selectorArtista = document.querySelector('.reproductorArtista')
     || document.querySelector('.info-cancion .detalles-cancion p');
 
-
-const albumes = document.querySelectorAll('.portadas');
-
-albumes.forEach((album) => {
-
-    album.addEventListener('click', () => {
-
-        const imagen = album.querySelector('img');
-        const nombre = album.querySelector('.albumTitulo');
-        const artista = album.querySelector('.albumArtista');
-
-        if (imagen && nombre && artista) {
-
-            selectorImagen.src = imagen.src;
-            selectorNombre.textContent = nombre.textContent;
-            selectorArtista.textContent = artista.textContent;
-
-        }
-
-    });
-
-});
-
-
 document.addEventListener('click', (event) => {
+
     const tarjeta = event.target.closest(
         '#contenedor-canciones .portadas, #contenedor-mis-likes .portadas'
     );
@@ -168,16 +154,9 @@ document.addEventListener('click', (event) => {
     }
 });
 
-
-
 function formatearDuracion(segundos) {
     const minutos = Math.floor(segundos / 60);
     const segundosRestantes = segundos % 60;
 
     return `${minutos}:${String(segundosRestantes).padStart(2, '0')}`;
 }
-
-
-
-
-
