@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,10 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="contenedor">
-        
+
         <aside class="barra">
             <a href="index.html">
                 <img src="tenji.png" alt="logo" class="logosuperior">
@@ -26,9 +28,9 @@
             </nav>
         </aside>
 
-        
+
         <main class="principal">
-            
+
             <div class="barra-superior">
                 <div class="buscador">
                     <span>🔍</span>
@@ -39,138 +41,40 @@
                     <button id="btnPerfil" class="btn-perfil">
                         Mi Cuenta ▼
                     </button>
-                    
+
                     <div id="menuPerfil" class="menu-desplegable oculto">
                         <a href="perfil.html">Mi Perfil</a>
                         <hr>
                         <a href="#" id="btnCerrarSesion" class="texto-rojo">Cerrar Sesión</a>
                     </div>
                 </div>
-                
+
                 <a href="login.html" class="botonlogin" id="btnIrLogin">INICIAR SESION</a>
             </div>
 
             <h1 class="dash-titulo">Panel de Control</h1>
-            <p class="dash-subtitulo">Métricas y estadísticas personalizadas de tu actividad en TENJI</p>
+            <p class="dash-subtitulo">Estadísticas del catálogo y tus playlists en TENJI</p>
+            <p id="estado-dashboard" class="dash-subtitulo" aria-live="polite"></p>
 
-            
             <section class="dash-seccion">
-                <h2 class="dash-seccion-titulo">Resumen Mensual</h2>
-                <div class="dash-grid-stats">
-                    
-                    <article class="dash-card-stat">
-                        <span class="dash-stat-icon">🎧</span>
-                        <h3 class="dash-stat-valor">124 hrs</h3>
-                        <p class="dash-stat-label">Tiempo Escuchado</p>
-                        <span class="dash-badge positivo">+15% este mes</span>
-                    </article>
-
-                    <article class="dash-card-stat">
-                        <span class="dash-stat-icon">🎵</span>
-                        <h3 class="dash-stat-valor">348</h3>
-                        <p class="dash-stat-label">Canciones Reproducidas</p>
-                        <span class="dash-badge positivo">+12% este mes</span>
-                    </article>
-
-                    <article class="dash-card-stat">
-                        <span class="dash-stat-icon">🌟</span>
-                        <h3 class="dash-stat-valor">18</h3>
-                        <p class="dash-stat-label">Artistas Nuevos</p>
-                        <span class="dash-badge neutro">Exploración alta</span>
-                    </article>
-
-                    <article class="dash-card-stat">
-                        <span class="dash-stat-icon">👑</span>
-                        <h3 class="dash-stat-valor">Top 1%</h3>
-                        <p class="dash-stat-label">Oyente de Easykid</p>
-                        <span class="dash-badge especial">Fan Destacado</span>
-                    </article>
-
-                </div>
-            </section>
-
-            
-            <section class="dash-seccion">
-                <h2 class="dash-seccion-titulo">Artistas Más Escuchados</h2>
-                <div class="dash-lista-artistas">
-                    
-                    <div class="dash-artista-item">
-                        <span class="dash-rank">1</span>
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXKVjFxgdHlu9AiJ5U4aRRIN1n46Lo-kv7HeWnFXwZFI3ksMEsDOskPe4&s=10" alt="Easykid" class="dash-artista-foto">
-                        <div class="dash-artista-info">
-                            <h4 class="albumTitulo">Easykid</h4>
-                            <p class="albumArtista">Urbano / Reggaeton</p>
-                        </div>
-                        <span class="dash-horas">42 hrs escuchadas</span>
-                    </div>
-
-                    <div class="dash-artista-item">
-                        <span class="dash-rank">2</span>
-                        <img src="https://i.scdn.co/image/ab67616100005174e3ac5eb948e78d9285d1dbdb" alt="Deftones" class="dash-artista-foto">
-                        <div class="dash-artista-info">
-                            <h4 class="albumTitulo">Deftones</h4>
-                            <p class="albumArtista">Alternative Metal</p>
-                        </div>
-                        <span class="dash-horas">28 hrs escuchadas</span>
-                    </div>
-
-                    <div class="dash-artista-item">
-                        <span class="dash-rank">3</span>
-                        <img src="https://i.scdn.co/image/ab6761610000e5eb4293385d324db8558179afd9" alt="Drake" class="dash-artista-foto">
-                        <div class="dash-artista-info">
-                            <h4 class="albumTitulo">Drake</h4>
-                            <p class="albumArtista">Hip-Hop / Rap</p>
-                        </div>
-                        <span class="dash-horas">19 hrs escuchadas</span>
-                    </div>
-
-                    <div class="dash-artista-item">
-                        <span class="dash-rank">4</span>
-                        <img src="https://mundocumbia.cl/wp-content/uploads/2024/12/20241225_125951-1600x1151.jpg" alt="Chico Trujillo" class="dash-artista-foto">
-                        <div class="dash-artista-info">
-                            <h4 class="albumTitulo">Chico Trujillo</h4>
-                            <p class="albumArtista">Cumbia</p>
-                        </div>
-                        <span class="dash-horas">15 hrs escuchadas</span>
-                    </div>
-
-                </div>
+                <h2 class="dash-seccion-titulo">Resumen del catálogo</h2>
+                <div class="dash-grid-stats" id="dash-stats"></div>
             </section>
 
             <section class="dash-seccion">
-                <h2 class="dash-seccion-titulo">Canciones Más Escuchadas</h2>
-                <div class="dash-grid-canciones">
-                    
-                    <div class="dash-cancion-item">
-                        <img src="https://i.scdn.co/image/ab67616d0000b27343bb1b887f63c961473ff573" alt="MOOD" class="dash-cancion-foto">
-                        <h4 class="dash-cancion-titulo">Ojos Empapados</h4>
-                        <p class="dash-cancion-sub">Easykid · 86 reproducciones</p>
-                    </div>
-
-                    <div class="dash-cancion-item">
-                        <img src="https://dojiw2m9tvv09.cloudfront.net/36300/product/r-2663769-1296664419-jpeg3642.jpg" alt="Sextape" class="dash-cancion-foto">
-                        <h4 class="dash-cancion-titulo">Sextape</h4>
-                        <p class="dash-cancion-sub">Deftones · 64 reproducciones</p>
-                    </div>
-
-                    <div class="dash-cancion-item">
-                        <img src="https://i.scdn.co/image/ab67616d0000b273a6e8e8f13522b98388681662" alt="Mas Roto Que Nunca" class="dash-cancion-foto">
-                        <h4 class="dash-cancion-titulo">FERRARI SIN FRENO</h4>
-                        <p class="dash-cancion-sub">Ober · 51 reproducciones</p>
-                    </div>
-
-                    <div class="dash-cancion-item">
-                        <img src="https://i.scdn.co/image/ab67616d0000b273571b81393b9b40ca2b153c55" alt="Simplemente" class="dash-cancion-foto">
-                        <h4 class="dash-cancion-titulo">MORTAL KUMBIAT</h4>
-                        <p class="dash-cancion-sub">Leo Rey · 40 reproducciones</p>
-                    </div>
-
-                </div>
+                <h2 class="dash-seccion-titulo">Artistas con Más Canciones</h2>
+                <div class="dash-lista-artistas" id="dash-artistas"></div>
             </section>
+
+            <section class="dash-seccion">
+                <h2 class="dash-seccion-titulo">Canciones Más Largas</h2>
+                <div class="dash-grid-canciones" id="dash-canciones"></div>
+            </section>
+
 
         </main>
-                
-        
+
+
         <footer class="reproductor">
             <div class="info-cancion">
                 <img src="https://via.placeholder.com/50" alt="Portada de la canción">
@@ -203,5 +107,7 @@
     </div>
 
     <script type="module" src="script.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
 </body>
+
 </html>
