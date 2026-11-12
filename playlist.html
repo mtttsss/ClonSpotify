@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist · TENJI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="contenedor">
+
+        <aside class="barra">
+            <a href="index.html">
+                <img src="tenji.png" alt="logo" class="logosuperior">
+            </a>
+            <button class="btn-hamburguesa" id="btnHamburguesa" aria-label="Abrir menú" aria-expanded="false">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a class="activo" href="biblioteca.html">Tu Biblioteca</a></li>
+                    <li><a href="perfil.html">Mi perfil</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="configuracion.html">Configuracion</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="principal">
+
+            <div class="barra-superior">
+                <div class="contenedor-dropdown">
+                    <button id="btnPerfil" class="btn-perfil">
+                        Mi Cuenta ▼
+                    </button>
+
+                    <div id="menuPerfil" class="menu-desplegable oculto">
+                        <a href="perfil.html">Mi Perfil</a>
+                        <hr>
+                        <a href="#" id="btnCerrarSesion" class="texto-rojo">Cerrar Sesión</a>
+                    </div>
+                </div>
+
+                <a href="login.html" class="botonlogin" id="btnIrLogin">INICIAR SESION</a>
+            </div>
+
+            <a href="biblioteca.html" style="color: #a875ff; text-decoration: none; font-weight: bold;">← Volver a tu biblioteca</a>
+
+            <section id="contenedor-playlist" aria-live="polite" style="margin-top: 30px;">
+                <p>Cargando...</p>
+            </section>
+
+        </main>
+
+        <footer class="reproductor">
+            <div class="info-cancion">
+                <img src="https://via.placeholder.com/50" alt="Portada de la canción">
+                <div class="detalles-cancion">
+                    <h4 class="reproductorTitulo">Nombre de la Canción</h4>
+                    <p class="reproductorArtista">Artista</p>
+                </div>
+                <button class="like">♡</button>
+            </div>
+
+            <div class="controles-centrales">
+                <div class="botones">
+                    <button class="anterior">⏮</button>
+                    <button class="play">▶</button>
+                    <button class="siguiente">⏭</button>
+                </div>
+                <div class="duracion">
+                    <span class="tiempo-actual">0:00</span>
+                    <input type="range" class="barra-progreso" min="0" max="100" value="0">
+                    <span class="tiempo-total">3:30</span>
+                </div>
+            </div>
+
+            <div class="volumen">
+                <span>🔊</span>
+                <input type="range" class="barra-volumen" min="0" max="100" value="50">
+            </div>
+        </footer>
+
+    </div>
+
+// [IA] inicio · ia/2026-11-11_daviidcjcj_playlist_detalle.md
+    <script>
+        function falloCarga(archivo) {
+            var c = document.getElementById('contenedor-playlist');
+            if (c) {
+                c.innerHTML = '<p style="color:#ff4d4d;font-weight:bold;">No se pudo cargar ' + archivo +
+                    '. Revisa que el archivo exista en esa ruta y abre el sitio con Live Server (no con doble clic).</p>';
+            }
+        }
+    </script>
+// [IA] fin
+
+    <script type="module" src="script.js"></script>
+    <script type="module" src="js/playlist.js" onerror="falloCarga('js/playlist.js')"></script>
+// [IA] fin
+</body>
+
+</html>

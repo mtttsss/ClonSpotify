@@ -156,6 +156,17 @@ import {
     eliminarPlaylist
 } from "../TENJI2/js/api.js";
 
+// [IA] inicio · ia/2026-11-11_daviidcjcj_playlist_detalle.md
+function escaparHTML(texto) {
+    return String(texto ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+// [IA] fin
+
 // cargar playlist
 
 /* [IA]
@@ -167,11 +178,9 @@ const cargarMisPlaylists = async () => {
 
     const btnCrear = document.getElementById("btnCrearPlaylist");
 
-    // Limpiamos el contenedor pero conservamos el botón de crear
     contenedorPlaylists.innerHTML = '';
     if (btnCrear) contenedorPlaylists.appendChild(btnCrear);
 
-    // 1. ESTADO DE CARGA (Spinner)
     const msjCarga = document.createElement("div");
     msjCarga.id = "msjCarga";
     msjCarga.className = "estado-ui";
@@ -193,11 +202,9 @@ const cargarMisPlaylists = async () => {
         respuesta = { ok: false, error: "Fallo de conexión con el servidor." };
     }
 
-    // Quitamos el spinner de carga
     const elementoCarga = document.getElementById("msjCarga");
     if (elementoCarga) elementoCarga.remove();
 
-    // 2. ESTADO DE ERROR (Con botón Reintentar)
     if (!respuesta.ok) {
         const divError = document.createElement("div");
         divError.className = "estado-ui estado-error";
@@ -234,24 +241,33 @@ const cargarMisPlaylists = async () => {
         return;
     }
 
-    // 4. ESTADO DE ÉXITO (Pinta las playlists)
+
+    // [IA] inicio · ia/2026-11-11_daviidcjcj_playlist_detalle.md
     playlists.forEach(playlist => {
+        const id = Number(playlist.id);
+        const nombre = escaparHTML(playlist.nombre);
+        const descripcion = escaparHTML(playlist.descripcion || "De USUARIO");
+
         const article = document.createElement("article");
         article.className = "portadas";
+        article.dataset.id = id;
         article.innerHTML = `
-            <img src="https://i.scdn.co/image/ab67616d0000b273b17e8d2b2d2d768ef40aa348" alt="${playlist.nombre}">
-            <h4>${playlist.nombre}</h4>
-            <p>${playlist.descripcion || "De USUARIO"}</p>
-            <button class="btn-editar" data-id="${playlist.id}" title="Editar playlist" style="background:transparent; border:none; color:#a875ff; cursor:pointer; font-size:14px; margin-top:5px; margin-right:12px;">Editar</button>
-            <button class="btn-eliminar" data-id="${playlist.id}" title="Eliminar playlist" style="background:transparent; border:none; color:#ff4d4d; cursor:pointer; font-size:14px; margin-top:5px;">Eliminar</button>
+            <a href="playlist.html?id=${id}" class="enlace-playlist" aria-label="Abrir playlist ${nombre}">
+                <img src="https://i.scdn.co/image/ab67616d0000b273b17e8d2b2d2d768ef40aa348" alt="Portada de ${nombre}">
+                <h4>${nombre}</h4>
+                <p>${descripcion}</p>
+            </a>
+            <button class="btn-editar" data-id="${id}" title="Editar playlist" style="background:transparent; border:none; color:#a875ff; cursor:pointer; font-size:14px; margin-top:5px; margin-right:12px;">Editar</button>
+            <button class="btn-eliminar" data-id="${id}" title="Eliminar playlist" style="background:transparent; border:none; color:#ff4d4d; cursor:pointer; font-size:14px; margin-top:5px;">Eliminar</button>
         `;
-        
+
         if (btnCrear) {
             contenedorPlaylists.insertBefore(article, btnCrear);
         } else {
             contenedorPlaylists.appendChild(article);
         }
     });
+    // [IA] fin
 };
 
 document.addEventListener("DOMContentLoaded", cargarMisPlaylists);
@@ -282,4 +298,14 @@ document.addEventListener('click', async (event) => {
             alert("No se pudo eliminar: " + respuesta.error);
         }
     }
+});
+
+
+document.addEventListener('click', (event) => {
+    const tarjeta = event.target.closest('#contenedor-mis-playlists .portadas[data-id]');
+    if (!tarjeta) return;
+
+    if (event.target.closest('button, a')) return;
+
+    window.location.href = `playlist.html?id=${tarjeta.dataset.id}`;
 });

@@ -1475,3 +1475,86 @@ body.modo-claro .botonlogin:hover {
         width: 100%;
     }
 }
+
+
+/* diseño playlist
+*/
+
+.enlace-playlist {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+.detalle-playlist {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.detalle-playlist h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.detalle-playlist .detalle-descripcion {
+    color: var(--texto-secundario);
+    margin-bottom: 8px;
+}
+
+.detalle-playlist .detalle-meta {
+    color: var(--texto-secundario);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.lista-canciones {
+    list-style: none;
+}
+
+.lista-canciones li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background-color: var(--bg-card);
+    margin-bottom: 8px;
+}
+
+.lista-canciones img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.lista-canciones .cancion-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.lista-canciones .cancion-info strong,
+.lista-canciones .cancion-info span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lista-canciones .cancion-info span,
+.lista-canciones .cancion-duracion {
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.btn-reintentar {
+    margin-top: 15px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: var(--error);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
