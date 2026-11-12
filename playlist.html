@@ -46,8 +46,8 @@
                 <a href="login.html" class="botonlogin" id="btnIrLogin">INICIAR SESION</a>
             </div>
 
-            <a href="biblioteca.html" style="color: #a875ff; text-decoration: none; font-weight: bold;">← Volver a tu biblioteca</a>
-
+           <a href="biblioteca.html" class="link-volver">← Volver a tu biblioteca</a>
+           
             <section id="contenedor-playlist" aria-live="polite" style="margin-top: 30px;">
                 <p>Cargando...</p>
             </section>
@@ -90,7 +90,7 @@
         function falloCarga(archivo) {
             var c = document.getElementById('contenedor-playlist');
             if (c) {
-                c.innerHTML = '<p style="color:#ff4d4d;font-weight:bold;">No se pudo cargar ' + archivo +
+                c.innerHTML = '<p class="mensaje-error">No se pudo cargar ' + archivo +
                     '. Revisa que el archivo exista en esa ruta y abre el sitio con Live Server (no con doble clic).</p>';
             }
         }
