@@ -157,20 +157,84 @@ import {
 } from "../TENJI2/js/api.js";
 
 // cargar playlist
-document.addEventListener("DOMContentLoaded", async () => {
+
+/* [IA]
+*/
+
+const cargarMisPlaylists = async () => {
     const contenedorPlaylists = document.getElementById("contenedor-mis-playlists");
     if (!contenedorPlaylists) return;
 
     const btnCrear = document.getElementById("btnCrearPlaylist");
-    const respuesta = await obtenerPlaylists();
 
+    // Limpiamos el contenedor pero conservamos el botón de crear
+    contenedorPlaylists.innerHTML = '';
+    if (btnCrear) contenedorPlaylists.appendChild(btnCrear);
+
+    // 1. ESTADO DE CARGA (Spinner)
+    const msjCarga = document.createElement("div");
+    msjCarga.id = "msjCarga";
+    msjCarga.className = "estado-ui";
+    msjCarga.innerHTML = `
+        <div class="spinner"></div>
+        <p style="color: #b3b3b3; margin-top: 10px;">Cargando tus playlists...</p>
+    `;
+    if (btnCrear) {
+        contenedorPlaylists.insertBefore(msjCarga, btnCrear);
+    } else {
+        contenedorPlaylists.appendChild(msjCarga);
+    }
+
+    let respuesta;
+    try {
+        await new Promise(resolve => setTimeout(resolve, 800));
+        respuesta = await obtenerPlaylists();
+    } catch (error) {
+        respuesta = { ok: false, error: "Fallo de conexión con el servidor." };
+    }
+
+    // Quitamos el spinner de carga
+    const elementoCarga = document.getElementById("msjCarga");
+    if (elementoCarga) elementoCarga.remove();
+
+    // 2. ESTADO DE ERROR (Con botón Reintentar)
     if (!respuesta.ok) {
-        console.error("Error al obtener playlists:", respuesta.error);
+        const divError = document.createElement("div");
+        divError.className = "estado-ui estado-error";
+        divError.innerHTML = `
+            <p style="color: #ff4d4d; font-weight: bold;">Error: ${respuesta.error}</p>
+            <button id="btnReintentar" style="margin-top: 15px; padding: 8px 20px; border-radius: 20px; background: #ff4d4d; color: white; border: none; cursor: pointer; font-weight: bold;">Reintentar</button>
+        `;
+        if (btnCrear) {
+            contenedorPlaylists.insertBefore(divError, btnCrear);
+        } else {
+            contenedorPlaylists.appendChild(divError);
+        }
+
+        // El botón vuelve a ejecutar la función sin recargar la página entera
+        document.getElementById("btnReintentar").addEventListener("click", cargarMisPlaylists);
         return;
     }
+/* [IA] fin
+*/
 
     const playlists = respuesta.data;
 
+    // 3. ESTADO VACÍO
+    if (!playlists || playlists.length === 0) {
+        const msjVacio = document.createElement("div");
+        msjVacio.className = "estado-ui";
+        msjVacio.textContent = "Aún no tienes playlists. ¡Crea la primera!";
+        msjVacio.style.cssText = "width: 100%; text-align: center; color: #b3b3b3; padding: 40px;";
+        if (btnCrear) {
+            contenedorPlaylists.insertBefore(msjVacio, btnCrear);
+        } else {
+            contenedorPlaylists.appendChild(msjVacio);
+        }
+        return;
+    }
+
+    // 4. ESTADO DE ÉXITO (Pinta las playlists)
     playlists.forEach(playlist => {
         const article = document.createElement("article");
         article.className = "portadas";
@@ -178,22 +242,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             <img src="https://i.scdn.co/image/ab67616d0000b273b17e8d2b2d2d768ef40aa348" alt="${playlist.nombre}">
             <h4>${playlist.nombre}</h4>
             <p>${playlist.descripcion || "De USUARIO"}</p>
-            <button class="btn-editar"
-                data-id="${playlist.id}"
-                title="Editar playlist"
-                style="background:transparent; border:none; color:#a875ff; cursor:pointer; font-size:14px; margin-top:5px; margin-right:12px;">
-                Editar
-            </button>
+            <button class="btn-editar" data-id="${playlist.id}" title="Editar playlist" style="background:transparent; border:none; color:#a875ff; cursor:pointer; font-size:14px; margin-top:5px; margin-right:12px;">Editar</button>
             <button class="btn-eliminar" data-id="${playlist.id}" title="Eliminar playlist" style="background:transparent; border:none; color:#ff4d4d; cursor:pointer; font-size:14px; margin-top:5px;">Eliminar</button>
         `;
-
+        
         if (btnCrear) {
             contenedorPlaylists.insertBefore(article, btnCrear);
         } else {
             contenedorPlaylists.appendChild(article);
         }
     });
-});
+};
+
+document.addEventListener("DOMContentLoaded", cargarMisPlaylists);
 
 
 // [IA] fin - 2026-11-11_mtttsss_edicion-crud.md
