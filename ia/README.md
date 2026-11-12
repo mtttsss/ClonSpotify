@@ -26,5 +26,7 @@
 
 | 2026-11-11 | @daviidcjcj | Gemini |Implementación de la logica en JavaScript para poder dejarle a un usuario su perfil unico, y la opcion de cambiar foto de perfil.|  [Ver registro](2026-11-11_daviidcjcj_implementacion_usuarioguardado_cambiarfoto.md) |
 
-| 2026-11-09 | @daviidcjcj | Gemini | Flujo principal de playlists, detalle y aspectos del criterio A1 de la pauta.
+| 2026-11-09 | @daviidcjcj | Claude | Flujo principal de playlists, detalle y aspectos del criterio A1 de la pauta.
 |  [Ver registro](2026-11-11_daviidcjcj_playlist_detalle.md) |
+
+| 2026-11-09 | @daviidcjcj | Claude | Implementacion de la seccion amigos provenientes de usuarios.json, y tambien la opcion de iniciar sesion con las credenciales de usuarios.json | [Ver registro](2026-11-12_daviidcjcj_seccionamigos_usuariosjson.md) |
