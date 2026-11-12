@@ -13,12 +13,14 @@ TENJI es una aplicación web inspirada en las plataformas de música. Permite ex
 ## Tecnologías utilizadas
 
 | Tecnología | Uso en el proyecto | Cómo se incorpora |
+|---|---|---|
 | HTML5 | Estructura y navegación entre vistas | Archivos `.html` del proyecto |
-| CSS3 | Diseño, componentes visuales, tema y adaptación a pantallas | `style.css` |
-| JavaScript (ES Modules) | Interacciones, validaciones, renderizado dinámico y servicios | `script.js`, módulos de `js/` y `TENJI2/js/api.js` |
-| JSON | Datos simulados de canciones, álbumes y playlists | Archivos en `TENJI2/mocks/` |
-| Web Storage (`localStorage`) | Sesión simulada, usuarios registrados, playlists y favoritos | API del navegador |
-| Google Fonts (Montserrat) | Tipografía de la interfaz | Enlace CDN en los archivos HTML |
+| CSS3 | Diseño y apariencia de la interfaz | `style.css` |
+| JavaScript (ES Modules) | Interacciones, validaciones y funcionamiento de la aplicación | Archivos de `js/` y `script.js` |
+| JSON | Almacenamiento de datos simulados de canciones, álbumes, playlists y usuarios | Archivos de `mocks/` |
+| Web Storage (`localStorage`) | Guardado de sesiones, playlists y canciones favoritas | API del navegador |
+| Google Fonts (Montserrat) | Tipografía de la interfaz | Enlace externo en los archivos HTML |
+
 
 **Sobre las librerías:** se trabajó con JavaScript y CSS nativos, separados en módulos para mantener el proyecto comprensible. Esto se hizo debido a que para nosotros era mucho mas facil trabajar con librerias que ya conociamos y habiamos utilizado desde antes, esto no afectara a la profesionalidad de la entrega.
 

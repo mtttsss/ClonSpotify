@@ -1,5 +1,5 @@
 // [IA] inicio · ia/2026-11-11_daviidcjcj_playlist_detalle.md
-import { obtenerPlaylist, obtenerCanciones } from "../TENJI2/js/api.js";
+import { obtenerPlaylist, obtenerCanciones } from "./api.js";
 
 const contenedor = document.getElementById("contenedor-playlist");
 

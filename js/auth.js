@@ -1,6 +1,6 @@
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementacion_usuarioguardado_cambiarfoto.md
-import { iniciarSesion } from "../TENJI2/js/api.js";
+import { iniciarSesion } from "./api.js";
 
 const usuarioActivo = JSON.parse(localStorage.getItem('sesion_tenji'));
 const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html', 'configuracion.html', 'playlist.html'];

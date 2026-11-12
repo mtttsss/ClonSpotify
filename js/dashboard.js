@@ -1,6 +1,6 @@
 // [IA] inicio · ia/2026-11-11_cristoballopez3-dashboard.md
 
-import { obtenerCanciones, obtenerPlaylists } from "../TENJI2/js/api.js";
+import { obtenerCanciones, obtenerPlaylists } from "./api.js";
 
 console.log('dashboard.js cargado');
 

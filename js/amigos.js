@@ -1,6 +1,6 @@
 // [IA] inicio · ia/2026-11-12_daviidcjcj_seccionamigos_usuariosjson.md
 
-import { obtenerUsuarios } from "../TENJI2/js/api.js";
+import { obtenerUsuarios } from "./api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const contenedor = document.getElementById('contenedor-amigos');

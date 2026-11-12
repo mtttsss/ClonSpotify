@@ -1,5 +1,5 @@
 
-import { obtenerCanciones } from "../TENJI2/js/api.js";
+import { obtenerCanciones } from "./api.js";
 
 
 function mostrarCarga(destino, mensaje) {

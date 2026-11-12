@@ -1,4 +1,4 @@
-import { obtenerCanciones, obtenerAlbumes } from "../TENJI2/js/api.js";
+import { obtenerCanciones, obtenerAlbumes } from "./api.js";
 
 function mostrarCarga(destino, mensaje) {
     destino.innerHTML = `<div class="estado-ui"><div class="spinner"></div><p>${mensaje}</p></div>`;

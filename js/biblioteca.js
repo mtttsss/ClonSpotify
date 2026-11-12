@@ -152,7 +152,7 @@ import {
     crearPlaylist,
     editarPlaylist,
     eliminarPlaylist
-} from "../TENJI2/js/api.js";
+} from "./api.js";
 
 // [IA] inicio · ia/2026-11-11_daviidcjcj_playlist_detalle.md
 function escaparHTML(texto) {
