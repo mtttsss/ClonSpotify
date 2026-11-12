@@ -1,5 +1,7 @@
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementacion_usuarioguardado_cambiarfoto.md
+import { iniciarSesion } from "../TENJI2/js/api.js";
+
 const usuarioActivo = JSON.parse(localStorage.getItem('sesion_tenji'));
 const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html', 'configuracion.html', 'playlist.html'];
 const paginaActual = window.location.pathname.split('/').pop();
@@ -133,29 +135,27 @@ if (formLogin) {
 
             // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
 
-            setTimeout(() => {
-                const usuarios = JSON.parse(localStorage.getItem('usuarios_tenji')) || [];
+                       iniciarSesion(correo.value, password.value).then((resultado) => {
+                if (resultado.ok) {
+                    const u = resultado.data;
 
-                const usuarioValido = usuarios.find(u => u.correo === correo.value && u.password === password.value);
-
-                if (usuarioValido) {
                     localStorage.setItem('sesion_tenji', JSON.stringify({
-                        nombre: usuarioValido.nombre,
-                        correo: usuarioValido.correo,
-                        avatar: usuarioValido.avatar
+                        id: u.id,
+                        nombre: u.nombre,
+                        correo: u.correo,
+                        avatar: u.avatar
                     }));
 
                     window.location.href = 'dashboard.html';
                 } else {
-                    errorPassword.textContent = 'Correo o contraseña incorrectos.';
+                    errorPassword.textContent = resultado.error;
                     botonLogin.disabled = false;
                     botonLogin.textContent = 'Iniciar Sesión';
                     botonLogin.style.opacity = '1';
                     botonLogin.style.cursor = 'pointer';
                 }
                 // [IA] fin
-
-            }, 1000);
+            });
         }
 
     });

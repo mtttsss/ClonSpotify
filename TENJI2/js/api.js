@@ -621,5 +621,118 @@ export async function obtenerAlbumes({ categoria = "" } = {}) {
 
 
 // [IA] fin
+
+// [IA] inicio · ia/2026-11-12_daviidcjcj_seccionamigos_usuariosjson.md
 // Las validaciones fueron hechas en su mayoria por mi, por lo que no documente todo en el md
 
+// ---------------------------------------------------------------
+// USUARIOS Y SESIÓN
+//   obtenerUsuarios()  -> GET  /api/usuarios
+//   iniciarSesion(...) -> POST /api/login
+// ---------------------------------------------------------------
+
+// Quita la contraseña antes de entregar un usuario a las vistas
+function usuarioPublico(usuario) {
+    const { password, ...resto } = usuario;
+    return resto;
+}
+
+// Lee usuarios.json (con contraseña, solo uso interno)
+async function leerUsuariosMock() {
+    const respuesta = await fetch(new URL("../mocks/usuarios.json", import.meta.url));
+
+    if (!respuesta.ok) {
+        throw new Error("No se pudo leer usuarios.json (" + respuesta.status + ")");
+    }
+
+    const usuarios = await respuesta.json();
+
+    if (!Array.isArray(usuarios)) {
+        throw new Error("Los datos de usuarios no son válidos");
+    }
+
+    return usuarios;
+}
+
+// Devuelve los usuarios del JSON SIN contraseña (para la sección amigos)
+export async function obtenerUsuarios() {
+    await esperar(LATENCIA);
+
+    try {
+        const usuarios = await leerUsuariosMock();
+
+        return {
+            ok: true,
+            status: 200,
+            data: usuarios.map(usuarioPublico),
+            error: null
+        };
+    } catch (error) {
+        console.error("Error en obtenerUsuarios:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "Ocurrió un error al cargar los usuarios"
+        };
+    }
+}
+
+// Valida contra usuarios.json y, si no está, contra los registrados en localStorage
+export async function iniciarSesion(identificador, password) {
+    await esperar(LATENCIA);
+
+    if (typeof identificador !== "string" || identificador.trim() === "" ||
+        typeof password !== "string" || password === "") {
+        return {
+            ok: false,
+            status: 400,
+            data: null,
+            error: "Debes ingresar tus credenciales"
+        };
+    }
+
+    try {
+        const buscado = identificador.trim().toLowerCase();
+
+        const delJson = await leerUsuariosMock();
+        const delRegistro = JSON.parse(localStorage.getItem("usuarios_tenji")) || [];
+
+        const coincide = (u) => {
+            return (
+                (u.correo || "").toLowerCase() === buscado ||
+                (u.nombre || "").toLowerCase() === buscado
+            ) && u.password === password;
+        };
+
+        const usuario = delJson.find(coincide) || delRegistro.find(coincide);
+
+        if (!usuario) {
+            return {
+                ok: false,
+                status: 401,
+                data: null,
+                error: "Correo o contraseña incorrectos."
+            };
+        }
+
+        return {
+            ok: true,
+            status: 200,
+            data: usuarioPublico(usuario),
+            error: null
+        };
+    } catch (error) {
+        console.error("Error en iniciarSesion:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "No se pudo iniciar sesión. Intenta nuevamente."
+        };
+    }
+}
+
+// [IA] fin
