@@ -19,3 +19,12 @@
 
 
 | 2026-11-10 | @mtttsss | ChatGPT (GPT-6) | Aplicar lo mismo aplicado en las canciones, pero con los albumes |  [Ver registro](2026-11-09_mtttsss_albumes.md) |
+
+| 2026-11-10 | @daviidcjcj | Gemini | Implementacion de logica en javascript para desplegar menu al iniciar sesion.|  [Ver registro](2026-11-10_daviidcjcj_logica_javascript_menudesplegable.md) |
+
+| 2026-11-11 | @daviidcjcj | Gemini | Implementación del estado de carga, vacio y error|  [Ver registro](2026-11-11_daviidcjcj_implementacion_estado_carga_vacio_error.md) |
+
+| 2026-11-11 | @daviidcjcj | Gemini |Implementación de la logica en JavaScript para poder dejarle a un usuario su perfil unico, y la opcion de cambiar foto de perfil.|  [Ver registro](2026-11-11_daviidcjcj_implementacion_usuarioguardado_cambiarfoto.md) |
+
+| 2026-11-09 | @daviidcjcj | Gemini | Flujo principal de playlists, detalle y aspectos del criterio A1 de la pauta.
+|  [Ver registro](2026-11-11_daviidcjcj_playlist_detalle.md) |
