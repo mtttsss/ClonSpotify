@@ -1,7 +1,7 @@
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementaciones_validacion_login.md
 // [IA] inicio · ia/2026-11-09_daviidcjcj_implementacion_usuarioguardado_cambiarfoto.md
 const usuarioActivo = JSON.parse(localStorage.getItem('sesion_tenji'));
-const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html', 'configuracion.html'];
+const paginasProtegidas = ['dashboard.html', 'perfil.html', 'biblioteca.html', 'configuracion.html', 'playlist.html'];
 const paginaActual = window.location.pathname.split('/').pop();
 
 if (paginasProtegidas.includes(paginaActual) && !usuarioActivo) {
