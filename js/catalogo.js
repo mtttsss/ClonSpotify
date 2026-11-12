@@ -1,5 +1,14 @@
 import { obtenerCanciones, obtenerAlbumes } from "../TENJI2/js/api.js";
 
+function mostrarCarga(destino, mensaje) {
+    destino.innerHTML = `<div class="estado-ui"><div class="spinner"></div><p>${mensaje}</p></div>`;
+}
+
+function mostrarError(destino, mensaje, reintentar) {
+    destino.innerHTML = `<div class="estado-ui estado-error"><p style="color: var(--error); font-weight: bold;">${mensaje}</p><button type="button" class="btn-reintentar">Reintentar</button></div>`;
+    destino.querySelector('.btn-reintentar').addEventListener('click', reintentar);
+}
+
 // [IA] inicio - 2026-11-11_mttts_filtros.md
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function cargarCanciones(busqueda = '', genero = '', ordenarPor = '') {
         const consultaActual = ++numeroConsulta;
 
-        estadoCanciones.textContent = 'Cargando canciones...';
+        mostrarCarga(estadoCanciones, 'Cargando canciones...');
         contenedorCanciones.replaceChildren();
 
         try {
@@ -33,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (consultaActual !== numeroConsulta) return;
 
             if (!respuesta.ok) {
-                estadoCanciones.textContent = 'Error al cargar canciones: ' + respuesta.error;
+                mostrarError(estadoCanciones, 'Error al cargar canciones: ' + respuesta.error, actualizarCatalogo);
                 return;
             }
 
@@ -75,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (consultaActual !== numeroConsulta) return;
 
             console.error('Error al obtener canciones:', error);
-            estadoCanciones.textContent = 'Ocurrió un error al cargar las canciones.';
+            mostrarError(estadoCanciones, 'Ocurrió un error al cargar las canciones.', actualizarCatalogo);
         }
     }
 

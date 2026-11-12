@@ -1,7 +1,9 @@
 
 import { obtenerCanciones } from "../TENJI2/js/api.js";
 
-document.addEventListener('DOMContentLoaded', async () => {
+ddocument.addEventListener('DOMContentLoaded', cargarLikes);
+
+async function cargarLikes() {
 
     const contenedorLikes = document.getElementById('contenedor-mis-likes');
     const estadoLikes = document.getElementById('estado-mis-likes');
@@ -23,13 +25,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    estadoLikes.textContent = 'Cargando tus canciones favoritas...';
+    mostrarCarga(estadoLikes, 'Cargando tus canciones favoritas...');
 
     try {
         const respuesta = await obtenerCanciones();
 
         if (!respuesta.ok) {
-            estadoLikes.textContent = 'No se pudieron cargar tus canciones favoritas.';
+            mostrarError(estadoLikes, 'No se pudieron cargar tus canciones favoritas.', cargarLikes);
             return;
         }
 
@@ -72,6 +74,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } catch (error) {
         console.error('Error al cargar los Likes:', error);
-        estadoLikes.textContent = 'Ocurrió un error al cargar tus favoritos.';
+        mostrarError(estadoLikes, 'Ocurrió un error al cargar tus favoritos.', cargarLikes);
     }
-});
+}
