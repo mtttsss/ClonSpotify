@@ -1,4 +1,4 @@
-import { obtenerCanciones } from "../TENJI2/js/api.js";
+import { obtenerCanciones, obtenerAlbumes } from "../TENJI2/js/api.js";
 
 // [IA] inicio - 2026-11-11_mttts_filtros.md
 
@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
             respuesta.data.forEach(cancion => {
                 const tarjeta = document.createElement('article');
                 tarjeta.className = 'portadas';
+                tarjeta.dataset.cancionId = cancion.id;
+                tarjeta.dataset.duracion = cancion.duracion;
 
                 const imagen = document.createElement('img');
                 imagen.src = cancion.imagen;
@@ -126,6 +128,79 @@ document.addEventListener('keyup', (e) => {
         });
     }
 });
+
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const contenedorPopulares = document.getElementById('contenedor-albumes-populares');
+    const contenedorRecomendados = document.getElementById('contenedor-albumes-recomendados');
+
+    if (!contenedorPopulares || !contenedorRecomendados) return;
+
+    function crearTarjetaAlbum(album) {
+
+        const tarjeta = document.createElement('article');
+        tarjeta.className = 'portadas';
+
+        const imagen = document.createElement('img');
+        imagen.src = album.imagen;
+        imagen.alt = `Portada de ${album.nombre}`;
+
+        const titulo = document.createElement('h4');
+        titulo.className = 'albumTitulo';
+        titulo.textContent = album.nombre;
+
+        const artista = document.createElement('p');
+        artista.className = 'albumArtista';
+        artista.textContent = album.artista;
+
+        tarjeta.appendChild(imagen);
+        tarjeta.appendChild(titulo);
+        tarjeta.appendChild(artista);
+
+        tarjeta.addEventListener('click', () => {
+            const imagenReproductor = document.querySelector('.info-cancion img');
+            const tituloReproductor = document.querySelector('.reproductorTitulo');
+            const artistaReproductor = document.querySelector('.reproductorArtista');
+
+            if (imagenReproductor) imagenReproductor.src = album.imagen;
+            if (tituloReproductor) tituloReproductor.textContent = album.nombre;
+            if (artistaReproductor) artistaReproductor.textContent = album.artista;
+        });
+
+        return tarjeta;
+    }
+
+    try {
+        const [respuestaPopulares, respuestaRecomendados] = await Promise.all([
+            obtenerAlbumes({ categoria: 'popular' }),
+            obtenerAlbumes({ categoria: 'recomendado' })
+        ]);
+
+        if (!respuestaPopulares.ok || !respuestaRecomendados.ok) {
+            console.error('Error al cargar los álbumes:', {
+                populares: respuestaPopulares.error,
+                recomendados: respuestaRecomendados.error
+            });
+            return;
+        }
+
+        const tarjetasPopulares = respuestaPopulares.data.map(crearTarjetaAlbum);
+        contenedorPopulares.replaceChildren(...tarjetasPopulares);
+
+        const tarjetasRecomendadas = respuestaRecomendados.data.map(crearTarjetaAlbum);
+        contenedorRecomendados.replaceChildren(...tarjetasRecomendadas);
+
+        console.log('Álbumes populares cargados:', respuestaPopulares.data);
+        console.log('Álbumes recomendados cargados:', respuestaRecomendados.data);
+
+    } catch (error) {
+        console.error('Ocurrió un error al cargar los álbumes:', error);
+    }
+});
+
+
 
 // [IA] fin
 

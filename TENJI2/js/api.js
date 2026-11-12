@@ -567,6 +567,59 @@ export async function eliminarPlaylist(id) {
     }
 }
 
+
+
+export async function obtenerAlbumes({ categoria = "" } = {}) {
+
+    await esperar(LATENCIA);
+
+    try {
+        const respuesta = await fetch(
+            new URL("../mocks/albumes.json", import.meta.url)
+        );
+
+        if (!respuesta.ok) {
+            return {
+                ok: false,
+                status: respuesta.status,
+                data: null,
+                error: "No se pudieron cargar los álbumes"
+            };
+        }
+
+        let albumes = await respuesta.json();
+
+        if (!Array.isArray(albumes)) {
+            throw new Error("Los datos de álbumes no son válidos");
+        }
+
+
+        if (categoria) {
+            albumes = albumes.filter((album) => {
+                return album.categoria.toLowerCase() === categoria.toLowerCase();
+            });
+        }
+
+        return {
+            ok: true,
+            status: 200,
+            data: albumes,
+            error: null
+        };
+
+    } catch (error) {
+        console.error("Error al obtener álbumes:", error);
+
+        return {
+            ok: false,
+            status: 500,
+            data: null,
+            error: "Ocurrió un error al cargar los álbumes"
+        };
+    }
+}
+
+
 // [IA] fin
 // Las validaciones fueron hechas en su mayoria por mi, por lo que no documente todo en el md
 

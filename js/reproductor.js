@@ -1,18 +1,79 @@
+
 const botonLike = document.querySelector('.like');
 
-if (botonLike) {
-    if (localStorage.getItem('like') === 'true') {
-        botonLike.textContent = '♥';
-        botonLike.style.color = '#5e17eb';
+let cancionSeleccionadaId = null;
+
+function obtenerLikes() {
+    const likesGuardados = JSON.parse(localStorage.getItem('tenji_likes')) || [];
+    return likesGuardados;
+}
+
+function actualizarBotonLike() {
+    if (!botonLike) return;
+
+    if (cancionSeleccionadaId === null) {
+        botonLike.textContent = '♡';
+        botonLike.style.color = '#fff';
+        botonLike.disabled = true;
+        return;
     }
 
+    botonLike.disabled = false;
+
+    const likes = obtenerLikes();
+    const tieneLike = likes.includes(cancionSeleccionadaId);
+
+    botonLike.textContent = tieneLike ? '♥' : '♡';
+    botonLike.style.color = tieneLike ? '#5e17eb' : '#fff';
+}
+
+if (botonLike) {
+
+    actualizarBotonLike();
+
     botonLike.addEventListener('click', () => {
-        const activo = botonLike.textContent === '♡';
-        botonLike.textContent = activo ? '♥' : '♡';
-        botonLike.style.color = activo ? '#5e17eb' : '#fff';
-        localStorage.setItem('like', activo);
+
+        if (cancionSeleccionadaId === null) return;
+
+        let likes = obtenerLikes();
+
+        if (likes.includes(cancionSeleccionadaId)) {
+            likes = likes.filter(id => id !== cancionSeleccionadaId);
+        } else {
+            likes.push(cancionSeleccionadaId);
+        }
+
+        localStorage.setItem('tenji_likes', JSON.stringify(likes));
+
+        actualizarBotonLike();
+
+        console.log('Canciones favoritas:', likes);
     });
 }
+
+document.addEventListener('click', (event) => {
+
+    const tarjeta = event.target.closest(
+        '#contenedor-canciones .portadas[data-cancion-id]'
+    );
+
+    if (tarjeta) {
+        cancionSeleccionadaId = Number(tarjeta.dataset.cancionId);
+        actualizarBotonLike();
+        return;
+    }
+
+    const tarjetaAlbum = event.target.closest(
+        '#contenedor-albumes-populares .portadas, #contenedor-albumes-recomendados .portadas'
+    );
+
+    if (tarjetaAlbum) {
+        cancionSeleccionadaId = null;
+        actualizarBotonLike();
+    }
+});
+
+
 
 const botonPlay = document.querySelector('.play');
 
@@ -62,6 +123,12 @@ albumes.forEach((album) => {
 
 document.addEventListener('click', (event) => {
     const tarjeta = event.target.closest('#contenedor-canciones .portadas');
+    const duracion = Number(tarjeta.dataset.duracion);
+    const tiempoTotal = document.querySelector('.tiempo-total');
+
+    if (tiempoTotal && Number.isFinite(duracion)) {
+        tiempoTotal.textContent = formatearDuracion(duracion);
+    }
 
     if (!tarjeta) return;
 
@@ -77,6 +144,14 @@ document.addEventListener('click', (event) => {
         selectorArtista.textContent = artista.textContent;
     }
 });
+
+
+function formatearDuracion(segundos) {
+    const minutos = Math.floor(segundos / 60);
+    const segundosRestantes = segundos % 60;
+
+    return `${minutos}:${String(segundosRestantes).padStart(2, '0')}`;
+}
 
 
 
