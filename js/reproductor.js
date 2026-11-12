@@ -54,7 +54,7 @@ if (botonLike) {
 document.addEventListener('click', (event) => {
 
     const tarjeta = event.target.closest(
-        '#contenedor-canciones .portadas[data-cancion-id]'
+        '#contenedor-canciones .portadas[data-cancion-id], #contenedor-mis-likes .portadas[data-cancion-id]'
     );
 
     if (tarjeta) {
@@ -94,9 +94,14 @@ if (botonPlay) {
 // que se cambie el boton de play a pause al hacer click
 
 
+
 const selectorImagen = document.querySelector('.info-cancion img');
-const selectorNombre = document.querySelector('.reproductorTitulo');
-const selectorArtista = document.querySelector('.reproductorArtista');
+
+const selectorNombre = document.querySelector('.reproductorTitulo')
+    || document.querySelector('.info-cancion .detalles-cancion h4');
+
+const selectorArtista = document.querySelector('.reproductorArtista')
+    || document.querySelector('.info-cancion .detalles-cancion p');
 
 
 const albumes = document.querySelectorAll('.portadas');
@@ -122,7 +127,7 @@ albumes.forEach((album) => {
 });
 
 document.addEventListener('click', (event) => {
-    const tarjeta = event.target.closest('#contenedor-canciones .portadas');
+    const tarjeta = event.target.closest('#contenedor-canciones .portadas, #contenedor-mis-likes .portadas');
     const duracion = Number(tarjeta.dataset.duracion);
     const tiempoTotal = document.querySelector('.tiempo-total');
 
