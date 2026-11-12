@@ -2,79 +2,79 @@
 [
   {
     "id": 1,
-    "nombre": "usuario1",
-    "correo": "usuario1@example.com",
-    "password" : "contraseña",
+    "nombre": "Martin12",
+    "correo": "martingod@gmail.com",
+    "password" : "nashe123",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 2,
-    "nombre": "usuario2",
-    "correo": "usuario2@example.com",
-    "password" : "contraseña",
+    "nombre": "Momo",
+    "correo": "geronimobenavides@gmail.com",
+    "password" : "Italia123",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   }, 
   {
     "id": 3,
-    "nombre": "usuario3",
-    "correo": "usuario3@example.com",
-    "password" : "contraseña",
+    "nombre": "Goku12",
+    "correo": "gokuuu12@gmail.com",
+    "password" : "prrrr123",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 4,
-    "nombre": "usuario4",
-    "correo": "usuario4@example.com",
-    "password" : "contraseña",
+    "nombre": "DiegoPortales",
+    "correo": "diegooopor@gmail.com",
+    "password" : "udpe9999",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 5,
-    "nombre": "usuario5",
-    "correo": "usuario5@example.com",
-    "password" : "contraseña",
+    "nombre": "Andres Bello",
+    "correo": "coscu123@gmail.com",
+    "password" : "manteca777",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 6,
-    "nombre": "usuario6",
-    "correo": "usuario6@example.com",
-    "password" : "contraseña",
+    "nombre": "Coscu999",
+    "correo": "jorgeperez1@gmail.com",
+    "password" : "anuel777",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 7,
-    "nombre": "usuario7",
-    "correo": "usuario7@example.com",
-    "password" : "contraseña",
+    "nombre": "PedrooXX",
+    "correo": "pedrovichh@gmail.com",
+    "password" : "lolaso111",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 8,
-    "nombre": "usuario8",
-    "correo": "usuario8@example.com",
-    "password" : "contraseña",
+    "nombre": "Baldu",
+    "correo": "balduu222@gmail.com",
+    "password" : "counterstrike99",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 9,
-    "nombre": "usuario9",
-    "correo": "usuario9@example.com",
-    "password" : "contraseña",
+    "nombre": "AlexisSanchezzz",
+    "correo": "alexis1234@gmail.com",
+    "password" : "goatlexis20",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 10,
-    "nombre": "usuario10",
-    "correo": "usuario10@example.com",
-    "password" : "contraseña",
+    "nombre": "Juanceto01",
+    "correo": "permabaneado@gmail.com",
+    "password" : "cafeteratres1",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   },
   {
     "id": 11,
-    "nombre": "usuario11",
-    "correo": "usuario11@example.com",
-    "password" : "contraseña",
+    "nombre": "HolaSoyGerman",
+    "correo": "germangarmendia@gmail.com",
+    "password" : "tungtungsahur1",
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUi4L0Co2bY-3Gz2sTzmoBSMDFjeV5NK5O0nbyWi1lhg&s"
   }
 ]
