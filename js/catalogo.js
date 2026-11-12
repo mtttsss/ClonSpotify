@@ -1,5 +1,6 @@
 import { obtenerCanciones } from "../TENJI2/js/api.js";
 
+// [IA] inicio - 2026-11-11_mttts_filtros.md
 
 document.addEventListener('DOMContentLoaded', () => {
     const contenedorCanciones = document.getElementById('contenedor-canciones');
@@ -7,11 +8,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!contenedorCanciones || !estadoCanciones) return;
 
-    async function cargarCanciones(busqueda = '') {
+    const buscador = document.getElementById('input-buscador');
+    const filtroGenero = document.getElementById('filtro-genero');
+    const ordenarCanciones = document.getElementById('ordenar-canciones');
+
+    const albumesPopulares = document.getElementById('albumes-populares');
+    const albumesRecomendados = document.getElementById('albumes-recomendados');
+
+    let numeroConsulta = 0;
+
+    async function cargarCanciones(busqueda = '', genero = '', ordenarPor = '') {
+        const consultaActual = ++numeroConsulta;
+
         estadoCanciones.textContent = 'Cargando canciones...';
+        contenedorCanciones.replaceChildren();
 
         try {
-            const respuesta = await obtenerCanciones({ busqueda });
+            const respuesta = await obtenerCanciones({
+                busqueda,
+                genero,
+                ordenarPor
+            });
+
+            if (consultaActual !== numeroConsulta) return;
 
             if (!respuesta.ok) {
                 estadoCanciones.textContent = 'Error al cargar canciones: ' + respuesta.error;
@@ -20,7 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log('Canciones obtenidas desde la API:', respuesta.data);
 
-            contenedorCanciones.innerHTML = '';
+
+            if (respuesta.data.length === 0) {
+                estadoCanciones.textContent = 'No se encontraron canciones.';
+                return;
+            }
 
             respuesta.data.forEach(cancion => {
                 const tarjeta = document.createElement('article');
@@ -45,35 +68,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 contenedorCanciones.appendChild(tarjeta);
             });
 
-            estadoCanciones.textContent = '';
-
-            estadoCanciones.textContent = 'Canciones cargadas correctamente';
+            estadoCanciones.textContent = `Mostrando ${respuesta.data.length} canciones`;
         } catch (error) {
+            if (consultaActual !== numeroConsulta) return;
+
             console.error('Error al obtener canciones:', error);
             estadoCanciones.textContent = 'Ocurrió un error al cargar las canciones.';
         }
     }
 
-    cargarCanciones();
-    const buscador = document.getElementById('input-buscador');
+    function actualizarCatalogo() {
+        const busqueda = buscador?.value.trim() || '';
+        const genero = filtroGenero?.value || '';
+        const ordenarPor = ordenarCanciones?.value || '';
 
-    const albumesPopulares = document.getElementById('albumes-populares');
-    const albumesRecomendados = document.getElementById('albumes-recomendados');
+        const hayFiltrosActivos = Boolean(busqueda || genero || ordenarPor);
+
+        if (albumesPopulares) {
+            albumesPopulares.style.display = hayFiltrosActivos ? 'none' : '';
+        }
+
+        if (albumesRecomendados) {
+            albumesRecomendados.style.display = hayFiltrosActivos ? 'none' : '';
+        }
+
+
+        cargarCanciones(busqueda, genero, ordenarPor);
+    }
+
+    actualizarCatalogo();
 
     if (buscador) {
-        buscador.addEventListener('input', () => {
-            const busqueda = buscador.value.trim();
+        buscador.addEventListener('input', actualizarCatalogo);
+    }
 
-            if (albumesPopulares) {
-                albumesPopulares.style.display = busqueda ? 'none' : '';
-            }
+    if (filtroGenero) {
+        filtroGenero.addEventListener('change', actualizarCatalogo);
+    }
 
-            if (albumesRecomendados) {
-                albumesRecomendados.style.display = busqueda ? 'none' : '';
-            }
-
-            cargarCanciones(busqueda);
-        });
+    if (ordenarCanciones) {
+        ordenarCanciones.addEventListener('change', actualizarCatalogo);
     }
 });
 
@@ -93,4 +127,7 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
+// [IA] fin
+
+//esto es para la busqueda
 

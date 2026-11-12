@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -126,6 +125,33 @@
 
             <section class="albumes seccion-espaciada">
                 <h2>Explorar canciones</h2>
+
+                
+                <div class="filtros-catalogo">
+
+                    <label for="filtro-genero">Filtrar por género:</label>
+                    <select id="filtro-genero">
+                        <option value="">Todos los géneros</option>
+                        <option value="Alternative Metal">Alternative Metal</option>
+                        <option value="Cumbia">Cumbia</option>
+                        <option value="Urbano">Urbano</option>
+                        <option value="Rap">Rap</option>
+                        <option value="Reggaeton">Reggaeton</option>
+                        <option value="Rock">Rock</option>
+                        <option value="Pop">Pop</option>
+                        <option value="Dancehall">Dancehall</option>
+                    </select>
+
+                    <label for="ordenar-canciones">Ordenar por:</label>
+                    <select id="ordenar-canciones">
+                        <option value="">Orden original</option>
+                        <option value="titulo">Título (A-Z)</option>
+                        <option value="artista">Artista (A-Z)</option>
+                        <option value="duracion">Duración (menor a mayor)</option>
+                    </select>
+
+                </div>
+
 
                 <div id="estado-canciones" role="status" aria-live="polite"></div>
 

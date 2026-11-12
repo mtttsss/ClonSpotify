@@ -1,0 +1,59 @@
+
+[
+    {
+        "id": 1,
+        "nombre": "Mas Roto Que Nunca",
+        "artista": "Ober",
+        "imagen": "https://i.scdn.co/image/ab67616d0000b273a6e8e8f13522b98388681662",
+        "categoria": "popular"
+    },
+    {
+        "id": 2,
+        "nombre": "IM PART",
+        "artista": "Easykid",
+        "imagen": "https://i.scdn.co/image/ab67616d0000b27343bb1b887f63c961473ff573",
+        "categoria": "popular"
+    },
+    {
+        "id": 3,
+        "nombre": "Simplemente",
+        "artista": "Leo Rey",
+        "imagen": "https://i.scdn.co/image/ab67616d0000b273571b81393b9b40ca2b153c55",
+        "categoria": "popular"
+    },
+    {
+        "id": 4,
+        "nombre": "Cumbia Chilombiana",
+        "artista": "Chico Trujillo",
+        "imagen": "https://images.portaldisc.com/l/discos/430/136.jpg",
+        "categoria": "popular"
+    },
+    {
+        "id": 5,
+        "nombre": "HILO ROJO",
+        "artista": "Nvscvr",
+        "imagen": "https://i.scdn.co/image/ab67616d0000b27336f6bf1e276bec9ea50a91e2",
+        "categoria": "recomendado"
+    },
+    {
+        "id": 6,
+        "nombre": "Los Prisioneros",
+        "artista": "Corazones",
+        "imagen": "https://i.scdn.co/image/ab67616d0000b27398daeb6fc14ffafc7abaa4c6",
+        "categoria": "recomendado"
+    },
+    {
+        "id": 7,
+        "nombre": "nadie sabe lo que va a pasar mañana",
+        "artista": "Bad Bunny",
+        "imagen": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da84e9fba66990d82ee4b2768fb4",
+        "categoria": "recomendado"
+    },
+    {
+        "id": 8,
+        "nombre": "+Xqa",
+        "artista": "Easykid",
+        "imagen": "https://i.scdn.co/image/ab67616d0000b27398000be4a4f1b36345b83dd8",
+        "categoria": "recomendado"
+    }
+]
