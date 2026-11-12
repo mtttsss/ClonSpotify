@@ -60,6 +60,25 @@ albumes.forEach((album) => {
 
 });
 
+document.addEventListener('click', (event) => {
+    const tarjeta = event.target.closest('#contenedor-canciones .portadas');
+
+    if (!tarjeta) return;
+
+    const imagen = tarjeta.querySelector('img');
+    const nombre = tarjeta.querySelector('.albumTitulo');
+    const artista = tarjeta.querySelector('.albumArtista');
+
+    if (imagen && nombre && artista &&
+        selectorImagen && selectorNombre && selectorArtista) {
+
+        selectorImagen.src = imagen.src;
+        selectorNombre.textContent = nombre.textContent;
+        selectorArtista.textContent = artista.textContent;
+    }
+});
+
+
 
 
 

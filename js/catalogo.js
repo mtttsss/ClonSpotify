@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!contenedorCanciones || !estadoCanciones) return;
 
-    async function cargarCanciones() {
+    async function cargarCanciones(busqueda = '') {
         estadoCanciones.textContent = 'Cargando canciones...';
 
         try {
-            const respuesta = await obtenerCanciones();
+            const respuesta = await obtenerCanciones({ busqueda });
 
             if (!respuesta.ok) {
                 estadoCanciones.textContent = 'Error al cargar canciones: ' + respuesta.error;
@@ -55,10 +55,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     cargarCanciones();
+    const buscador = document.getElementById('input-buscador');
+
+    const albumesPopulares = document.getElementById('albumes-populares');
+    const albumesRecomendados = document.getElementById('albumes-recomendados');
+
+    if (buscador) {
+        buscador.addEventListener('input', () => {
+            const busqueda = buscador.value.trim();
+
+            if (albumesPopulares) {
+                albumesPopulares.style.display = busqueda ? 'none' : '';
+            }
+
+            if (albumesRecomendados) {
+                albumesRecomendados.style.display = busqueda ? 'none' : '';
+            }
+
+            cargarCanciones(busqueda);
+        });
+    }
 });
 
 
 document.addEventListener('keyup', (e) => {
+
+    if (document.getElementById('contenedor-canciones')) return;
+
     if (e.target.matches('.buscador input')) {
         document.querySelectorAll('.portadas').forEach((portadas) => {
             if (portadas.textContent.toLowerCase().includes(e.target.value)) {
@@ -70,7 +93,4 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
-
-//esto es para la busqueda
-//solo se puede buscar en minisculas, si se busca en mayusculas no funciona
 
