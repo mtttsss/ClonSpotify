@@ -128,10 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (respuesta.ok) {
                 mostrarToast(playlistEnEdicion !== null ? '¡Playlist actualizada con éxito!' : '¡Playlist creada con éxito!', 'exito');
-                setTimeout(() => {
-                    cerrarModal();
-                    window.location.reload();
-                }, 1200);
+                cerrarModal();
+                await cargarMisPlaylists();
             } else {
                 if (errorPlaylist) errorPlaylist.textContent = respuesta.error;
                 btnGuardarModal.disabled = false;
@@ -196,7 +194,6 @@ const cargarMisPlaylists = async () => {
 
     let respuesta;
     try {
-        await new Promise(resolve => setTimeout(resolve, 800));
         respuesta = await obtenerPlaylists();
     } catch (error) {
         respuesta = { ok: false, error: "Fallo de conexión con el servidor." };
@@ -289,9 +286,7 @@ document.addEventListener('click', async (event) => {
 
         if (respuesta.ok) {
             mostrarToast('Playlist eliminada correctamente', 'exito');
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
+            await cargarMisPlaylists();
 
         } else {
             console.error("Error al eliminar la playlist:", respuesta.error);

@@ -126,14 +126,11 @@ albumes.forEach((album) => {
 
 });
 
-document.addEventListener('click', (event) => {
-    const tarjeta = event.target.closest('#contenedor-canciones .portadas, #contenedor-mis-likes .portadas');
-    const duracion = Number(tarjeta.dataset.duracion);
-    const tiempoTotal = document.querySelector('.tiempo-total');
 
-    if (tiempoTotal && Number.isFinite(duracion)) {
-        tiempoTotal.textContent = formatearDuracion(duracion);
-    }
+document.addEventListener('click', (event) => {
+    const tarjeta = event.target.closest(
+        '#contenedor-canciones .portadas, #contenedor-mis-likes .portadas'
+    );
 
     if (!tarjeta) return;
 
@@ -141,14 +138,36 @@ document.addEventListener('click', (event) => {
     const nombre = tarjeta.querySelector('.albumTitulo');
     const artista = tarjeta.querySelector('.albumArtista');
 
-    if (imagen && nombre && artista &&
-        selectorImagen && selectorNombre && selectorArtista) {
-
+    if (imagen && selectorImagen) {
         selectorImagen.src = imagen.src;
+    }
+
+    if (nombre && selectorNombre) {
         selectorNombre.textContent = nombre.textContent;
+    }
+
+    if (artista && selectorArtista) {
         selectorArtista.textContent = artista.textContent;
     }
+
+    const duracion = Number(tarjeta.dataset.duracion);
+    const tiempoTotal = document.querySelector('.tiempo-total');
+    const tiempoActual = document.querySelector('.tiempo-actual');
+    const barraProgreso = document.querySelector('.barra-progreso');
+
+    if (tiempoTotal && Number.isFinite(duracion) && duracion > 0) {
+        tiempoTotal.textContent = formatearDuracion(duracion);
+    }
+
+    if (tiempoActual) {
+        tiempoActual.textContent = '0:00';
+    }
+
+    if (barraProgreso) {
+        barraProgreso.value = 0;
+    }
 });
+
 
 
 function formatearDuracion(segundos) {
