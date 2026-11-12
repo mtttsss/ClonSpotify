@@ -1074,8 +1074,8 @@ body {
 
     .dash-lista-artistas,
     .dash-grid-canciones {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
         width: 100%;
         box-sizing: border-box;
@@ -1084,8 +1084,17 @@ body {
     .dash-artista-item,
     .dash-cancion-item {
         width: 100%;
+        padding: 14px 10px;
         box-sizing: border-box;
     }
+
+    .dash-artista-foto,
+    .dash-cancion-foto {
+        width: 90px;
+        height: 90px;
+    }
+
+
 
     .reproductor {
         position: fixed;
@@ -1129,7 +1138,56 @@ body {
         padding: 6px 10px;
         border-radius: 8px;
     }
+    
+    .barra-superior {
+        margin: -14px -14px 16px -14px;
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .buscador {
+        width: 100%;
+        max-width: 180px;
+        padding: 8px 12px;
+    }
+    
+    .cabeceraperfil {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .foto-perfil {
+        width: 110px;
+        height: 110px;
+    }
+
+    .nombreperfil {
+        font-size: 28px;
+    }
+
+    .orden-portadas {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .portadas {
+        padding: 12px;
+    }
+
+    .portadas h4 {
+        font-size: 14px;
+    }
+
+    .portadas p {
+        font-size: 12px;
+    }
+
+
 }
+
+
 
 /* configuracion */
 
