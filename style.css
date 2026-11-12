@@ -52,14 +52,19 @@ body {
     display: block;
 }
 
-.barra ul{
+.btn-hamburguesa {
+    display: none;
+}
+
+
+.barra ul {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.barra a{
+.barra a {
     text-decoration: none;
     color: var(--texto-principal);
     font-weight: bold;
@@ -68,11 +73,11 @@ body {
 }
 
 .barra a:hover {
-    background-color: var(--color-acento); 
-    color: var(--claro) !important;           
-    border-radius: 6px;                   
-    box-shadow: 0px 4px 12px color-mix(in srgb, var(--color-acento) 50%, transparent); 
-    transform: translateX(3px);          
+    background-color: var(--color-acento);
+    color: var(--claro) !important;
+    border-radius: 6px;
+    box-shadow: 0px 4px 12px color-mix(in srgb, var(--color-acento) 50%, transparent);
+    transform: translateX(3px);
 }
 
 .principal {
@@ -82,12 +87,12 @@ body {
     padding: 20px;
 }
 
-.principal h1{
+.principal h1 {
     margin-bottom: 10px;
     font-size: 28px;
 }
 
-.principal p{
+.principal p {
     margin-bottom: 15px;
     font-size: 16px;
 }
@@ -99,7 +104,7 @@ body {
     margin-top: 20px;
 }
 
-.portadas{
+.portadas {
     background-color: var(--bg-card);
     padding: 16px;
     border-radius: 8px;
@@ -107,7 +112,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.portadas:hover{
+.portadas:hover {
     background-color: var(--bg-principal);
 }
 
@@ -132,9 +137,9 @@ body {
     background-color: var(--bg-principal);
     border-top: 1px solid var(--bg-principal);
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 0 16px; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
 }
 
 .info-cancion {
@@ -177,9 +182,9 @@ body {
 
 .controles-centrales {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    width: 40%; 
+    width: 40%;
     gap: 9px;
 }
 
@@ -195,20 +200,22 @@ body {
     font-size: 16px;
     cursor: pointer;
     color: var(--texto-principal);
-}   
+}
 
 .botones .play {
-    font-size: 26px; 
+    font-size: 26px;
 }
 
 .reproductor button {
     transition: transform 0.2s ease, opacity 0.2s ease;
     cursor: pointer;
 }
+
 .reproductor button:hover {
     transform: scale(1.15);
     opacity: 0.85;
 }
+
 .reproductor button:active {
     transform: scale(0.95);
 }
@@ -221,7 +228,8 @@ body {
     gap: 8px;
 }
 
-.tiempo-actual, .tiempo-total {
+.tiempo-actual,
+.tiempo-total {
     color: var(--texto-secundario);
     font-size: 11px;
     min-width: 35px;
@@ -235,7 +243,8 @@ body {
     gap: 8px;
 }
 
-.barra-progreso, .barra-volumen {
+.barra-progreso,
+.barra-volumen {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
@@ -247,10 +256,10 @@ body {
 }
 
 .barra-volumen {
-    max-width: 100px; 
+    max-width: 100px;
 }
 
-.barra-progreso::-webkit-slider-thumb, 
+.barra-progreso::-webkit-slider-thumb,
 .barra-volumen::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -258,7 +267,7 @@ body {
     height: 12px;
     border-radius: 50%;
     background: var(--texto-principal);
-    opacity: 0; 
+    opacity: 0;
     transition: opacity 0.2s ease;
 }
 
@@ -267,14 +276,14 @@ body {
     opacity: 1;
 }
 
-.barra-progreso:hover, 
+.barra-progreso:hover,
 .barra-volumen:hover {
     background: var(--color-acento);
 }
 
 
 
-.botonlogin{
+.botonlogin {
     background-color: var(--texto-principal);
     padding: 12px 24px;
     border-radius: 20px;
@@ -285,7 +294,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.botonlogin:hover{
+.botonlogin:hover {
     background-color: var(--bg-card);
     outline: none;
     appearance: none;
@@ -302,7 +311,7 @@ body {
     align-items: center;
 }
 
-.buscador{
+.buscador {
     display: flex;
     align-items: center;
     background-color: var(--bg-card);
@@ -311,7 +320,7 @@ body {
     width: 300px;
 }
 
-.buscador input{
+.buscador input {
     background: transparent;
     border: none;
     color: var(--texto-principal);
@@ -533,6 +542,7 @@ body {
     color: var(--texto-principal);
     box-sizing: border-box;
 }
+
 .botonregistro:hover {
     background-color: var(--color-acento-hover);
 }
@@ -545,6 +555,7 @@ body {
 .registro a {
     color: var(--texto-principal);
 }
+
 /* todoperfil */
 
 .cabeceraperfil {
@@ -914,139 +925,177 @@ body {
 @media (max-width: 768px) {
 
     /* [IA] inicio - ia/2026-11-10_cristobal_fix-micro-desplazamiento-horizontal.md */
-    html, body {
-        width: 100% ;
-        max-width: 100% ;
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
     }
+
     /* [IA] fin */
 
     .contenedor {
-        display: flex ;
-        flex-direction: column ;
-        width: 100% ;
-        max-width: 100% ;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
         min-height: 100vh;
-        box-sizing: border-box ;
-        overflow-x: hidden ;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .barra {
-        display: flex ;
-        flex-direction: column ;
-        align-items: flex-start ;
-        width: 100% ;
-        max-width: 100% ;
-        height: auto ;
-        position: relative ;
-        padding: 10px 8px ;
-        box-sizing: border-box ;
-        border-bottom: 1px solid var(--borde) ;
-        background-color: var(--bg-principal) ;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        position: relative;
+        padding: 10px 8px;
+        box-sizing: border-box;
+        border-bottom: 1px solid var(--borde);
+        background-color: var(--bg-principal);
     }
 
     .barra a {
-        display: block ;
+        display: block;
     }
 
     .logosuperior {
-        display: block ;
-        width: 100px ;
-        height: auto ;
-        margin-bottom: 8px ;
+        display: block;
+        width: 100px;
+        height: auto;
+        margin-bottom: 8px;
     }
 
     .barra nav {
-        width: 100% ;
-        display: block ;
-        overflow-x: auto ;
-        scrollbar-width: none ;
+        width: 100%;
+        display: none;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .barra.menu-abierto nav {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg-card);
+        z-index: 200;
+        padding: 80px 24px 24px;
+    }
+
+    .barra.menu-abierto nav ul {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        height: 100%;
+    }
+
+    .barra.menu-abierto nav ul li a {
+        font-size: 1.4rem;
+    }
+
+    .btn-hamburguesa {
+        display: block;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: none;
+        border: none;
+        color: var(--texto-principal);
+        font-size: 1.6rem;
+        cursor: pointer;
     }
 
     .barra nav::-webkit-scrollbar {
-        display: none ;
+        display: none;
     }
 
     .barra nav ul {
-        display: flex ;
-        flex-direction: row ;
-        flex-wrap: nowrap ;
-        gap: 6px ;
-        justify-content: space-between ;
-        align-items: center ;
-        padding: 0 ;
-        margin: 4px 0 0 0 ;
-        box-sizing: border-box ;
-        width: 100% ;
-        list-style: none ;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 6px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+        margin: 4px 0 0 0;
+        box-sizing: border-box;
+        width: 100%;
+        list-style: none;
     }
 
     .barra nav ul li {
-        flex-shrink: 0 ;
+        flex-shrink: 0;
     }
 
     .barra nav ul li a {
-        font-size: 0.78rem ;
-        padding: 4px 6px ;
-        white-space: nowrap ;
-        display: block ;
+        font-size: 0.78rem;
+        padding: 4px 6px;
+        white-space: nowrap;
+        display: block;
     }
 
     .principal {
-        width: 100% ;
-        max-width: 100% ;
-        padding: 14px ;
-        padding-bottom: 110px ;
-        box-sizing: border-box ;
-        overflow-x: hidden ;
+        width: 100%;
+        max-width: 100%;
+        padding: 14px;
+        padding-bottom: 110px;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .dash-grid-stats {
-        display: grid ;
-        grid-template-columns: 1fr 1fr ;
-        gap: 10px ;
-        width: 100% ;
-        box-sizing: border-box ;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .dash-card-stat {
-        width: 100% ;
-        padding: 10px ;
-        box-sizing: border-box ;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
     }
 
     .dash-stat-valor {
-        font-size: 1.1rem ;
+        font-size: 1.1rem;
     }
 
     .dash-stat-label {
-        font-size: 0.72rem ;
-        white-space: normal ;
+        font-size: 0.72rem;
+        white-space: normal;
     }
 
     .dash-lista-artistas,
     .dash-grid-canciones {
-        display: flex ;
-        flex-direction: column ;
-        gap: 12px ;
-        width: 100% ;
-        box-sizing: border-box ;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .dash-artista-item,
     .dash-cancion-item {
-        width: 100% ;
-        box-sizing: border-box ;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .reproductor {
-        position: fixed ;
-        bottom: 0 ;
-        left: 0 ;
-        right: 0 ;
-        width: 100% ;
-        max-width: 100% ;
-        box-sizing: border-box ;
-        padding: 8px 12px ;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 8px 12px;
         z-index: 100;
         background-color: var(--bg-principal);
         border-top: 1px solid var(--borde);
@@ -1054,30 +1103,31 @@ body {
 
     .reproductor .volumen,
     .reproductor .duracion {
-        display: none ;
+        display: none;
     }
 
     .reproductor .info-cancion {
-        max-width: 60% ;
-    }
-    .botonlogin {
-        font-size: 0.65rem ;
-        font-weight: bold ;
-        padding: 6px 8px ;
-        white-space: normal ;
-        text-align: center ;
-        line-height: 1.1 ;
-        border-radius: 8px ;
-        width: 75px ;
-        height: auto ;
-        align-items: center ;
-        justify-content: center ;
+        max-width: 60%;
     }
 
-     .btn-perfil {
-        font-size: 0.7rem ;
-        padding: 6px 10px ;
-        border-radius: 8px ;
+    .botonlogin {
+        font-size: 0.65rem;
+        font-weight: bold;
+        padding: 6px 8px;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.1;
+        border-radius: 8px;
+        width: 75px;
+        height: auto;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-perfil {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+        border-radius: 8px;
     }
 }
 
@@ -1177,11 +1227,11 @@ body {
     border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked+.slider {
     background-color: var(--color-acento);
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
     transform: translateX(22px);
 }
 
@@ -1237,7 +1287,7 @@ body.modo-claro {
     --texto-principal: var(--texto-principal-claro);
     --texto-secundario: var(--texto-secundario-claro);
 
-    
+
     background-color: var(--bg-principal) !important;
     color: var(--texto-principal) !important;
 }
@@ -1250,9 +1300,9 @@ body.modo-claro .dash-card-stat,
 body.modo-claro .dash-artista-item,
 body.modo-claro .dash-cancion-item,
 body.modo-claro .portadas {
-    background-color: var(--bg-card) ;
-    color: var(--texto-principal) ;
-    border-color: var(--bg-principal) ;
+    background-color: var(--bg-card);
+    color: var(--texto-principal);
+    border-color: var(--bg-principal);
 }
 
 body.modo-claro .barra a,
@@ -1285,6 +1335,7 @@ body.modo-claro .tiempo-total,
 body.modo-claro .volumen span {
     color: var(--texto-principal);
 }
+
 body.modo-claro .barra-progreso::-webkit-slider-thumb,
 body.modo-claro .barra-volumen::-webkit-slider-thumb {
     background: var(--texto-principal);
@@ -1293,14 +1344,15 @@ body.modo-claro .barra-volumen::-webkit-slider-thumb {
 body.modo-claro button.like {
     color: var(--color-acento) !important;
 }
+
 body.modo-claro .botonlogin {
     background-color: var(--texto-principal);
     color: var(--claro);
 }
 
 body.modo-claro .botonlogin:hover {
-    background-color: #5e17eb;
-    color: #ffffff;
+    background-color: var(--color-acento-hover);
+    color:var(--claro);
 }
 
 /*toast notificacion
@@ -1317,24 +1369,24 @@ body.modo-claro .botonlogin:hover {
 }
 
 .toast {
-    color: white;
+    color: var(--bg-principal-claro);
     padding: 18px 28px;
     border-radius: 10px;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     font-weight: 600;
     min-width: 280px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    box-shadow:var(--bg-principal);
     opacity: 1;
     transition: opacity 0.4s ease;
 }
 
 .toast.exito {
-    background: #28a745;
+    background: var(--exito);
 }
 
 .toast.error {
-    background: #ff4d4d;
+    background:var(--error);
 }
 
 .toast.oculto {
