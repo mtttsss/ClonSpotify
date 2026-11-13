@@ -144,6 +144,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const contenedorPopulares = document.getElementById('contenedor-albumes-populares');
     const contenedorRecomendados = document.getElementById('contenedor-albumes-recomendados');
+    const estadoAlbumes = document.getElementById('estado-albumes'); 
 
     if (!contenedorPopulares || !contenedorRecomendados) return;
 
@@ -180,6 +181,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         return tarjeta;
     }
+    
+    async function cargarAlbumes() { 
+        if (estadoAlbumes) mostrarCarga(estadoAlbumes, 'Cargando álbumes...'); 
 
     try {
         const [respuestaPopulares, respuestaRecomendados] = await Promise.all([
@@ -192,8 +196,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 populares: respuestaPopulares.error,
                 recomendados: respuestaRecomendados.error
             });
-            return;
+            if (estadoAlbumes) mostrarError(estadoAlbumes, 'No se pudieron cargar los álbumes.', cargarAlbumes); 
+             return;
         }
+
+        if (estadoAlbumes) estadoAlbumes.innerHTML = '';
 
         const tarjetasPopulares = respuestaPopulares.data.map(crearTarjetaAlbum);
         contenedorPopulares.replaceChildren(...tarjetasPopulares);
@@ -205,8 +212,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('Álbumes recomendados cargados:', respuestaRecomendados.data);
 
     } catch (error) {
-        console.error('Ocurrió un error al cargar los álbumes:', error);
+            console.error('Ocurrió un error al cargar los álbumes:', error);
+            if (estadoAlbumes) mostrarError(estadoAlbumes, 'Ocurrió un error al cargar los álbumes.', cargarAlbumes); // <-- AGREGADO
+        }
     }
+
+    cargarAlbumes(); 
 });
 
 
